@@ -1,10 +1,16 @@
 package com.fekim.workweout.online.date.repository.entity;
 
 
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMmDd;
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "Date")
 @Table(name="TBL_DATE")
 public class Date {
