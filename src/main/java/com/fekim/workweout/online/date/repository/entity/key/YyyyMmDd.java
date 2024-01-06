@@ -15,13 +15,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class YyyyMmDd implements Serializable {
 
-    @Column(name="YEAR", nullable = false, columnDefinition = "VARCHAR2(4)")
-    private String year;
+    @Column(name="YYYY", nullable = false, columnDefinition = "VARCHAR2(4)")
+    private String yyyy;
 
-    @Column(name="MONTH", nullable = false, columnDefinition = "VARCHAR2(2)")
-    private String month;
+    @Column(name="MM", nullable = false, columnDefinition = "VARCHAR2(2)")
+    private String mm;
 
-    @Column(name="DAY", nullable = false, columnDefinition = "VARCHAR2(2)")
-    private String day;
+    @Column(name="DD", nullable = false, columnDefinition = "VARCHAR2(2)")
+    private String dd;
 
 }
