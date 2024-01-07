@@ -1,4 +1,4 @@
-package com.fekim.workweout.online;
+package com.fekim.workweout;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

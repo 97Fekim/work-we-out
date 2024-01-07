@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OneDayDTO {
+public class OneDayCalendarDTO {
 
     private String yyyy;        // 년도
     private String mm;          // 월

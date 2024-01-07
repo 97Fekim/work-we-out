@@ -150,7 +150,7 @@ public class EntityMappingTest {
     }
 
     @Test
-    void memberGrpInsertFailPass() {
+    void memberGrpInsertPass() {
         memberGrpRepository.save(MemberGrp.builder()
                         .member(Member.builder()
                                 .mbrId(2L).build())
