@@ -1,5 +1,6 @@
-package com.fekim.workweout.online.group.repository;
+package com.fekim.workweout.online.group;
 
+import com.fekim.workweout.online.group.repository.MemberGrpRepository;
 import com.fekim.workweout.online.group.repository.entity.Grp;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,13 +18,13 @@ public class GrpRepositoryTest {
     @Test
     void getGrpListByMbrIdPass() {
 
-         List<Grp> grpList = memberGrpRepository.getGrpListByMbrId(1L);
+         List<Grp> grpList = memberGrpRepository.findGrpListByMbrId(1L);
 
-        System.out.println("===============getGrpListByMbrIdPass===============");
+        System.out.println("===============findGrpListByMbrIdPass===============");
         for (Grp g : grpList) {
             System.out.println(g.getGrpId()+" "+g.getGrpNm()+" "+g.getSrtDt());
         }
-        System.out.println("===============getGrpListByMbrIdPass===============");
+        System.out.println("===============findGrpListByMbrIdPass===============");
 
          Assertions.assertThat(grpList.size() > 0);
     }
