@@ -41,6 +41,12 @@ public interface WkoutJnalRepository extends JpaRepository<WkoutJnal, Long> {
             , nativeQuery = true)
     List<Object[]> findOneMonthCalendarObjects(@Param("mbrId")Long mbrId, @Param("yyyyMm")YyyyMm yyyyMm);
 
-
+    @Query (value = "select J " +
+            "from WkoutJnal J " +
+            "where J.member.mbrId = :#{#mbrId} " +
+            "  and J.yyyyMmDd.yyyy = :#{#yyyyMmDd.yyyy} " +
+            "  and J.yyyyMmDd.mm = :#{#yyyyMmDd.mm} " +
+            "  and J.yyyyMmDd.dd = :#{#yyyyMmDd.dd}")
+    List<WkoutJnal> findWkoutJnalsByMbrIdAndYyyyMmDd(@Param("mbrId")Long mbrId, @Param("yyyyMmDd")YyyyMmDd yyyyMmDd);
 
 }

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class WkoutJnalMethodDTO {
 
     private String methodNm;    // 운동종목명
+    private String targetPart;  // 운동부위
     private Long weight;        // 무게
     private Long sets;          // 세트수
     private Long reps;          // 랩수

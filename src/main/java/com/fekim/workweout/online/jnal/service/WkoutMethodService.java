@@ -1,6 +1,7 @@
 package com.fekim.workweout.online.jnal.service;
 
 import com.fekim.workweout.online.jnal.repository.entity.WkoutMethod;
+import com.fekim.workweout.online.jnal.service.dto.WkoutJnalMethodDTO;
 import com.fekim.workweout.online.jnal.service.dto.WkoutMethodDTO;
 import com.fekim.workweout.online.jnal.service.dto.WkoutMethodListDTO;
 
@@ -13,8 +14,9 @@ public interface WkoutMethodService {
      * */
     WkoutMethodListDTO getAllWkoutMethod();
 
+
     /**
-     * Transform  [Single] Entity => [Single] DTO
+     * Transform WkoutMethod  [Single] Entity => [Single] DTO
      * */
     default WkoutMethodDTO methodToMethodDTO(WkoutMethod entity) {
         return WkoutMethodDTO.builder()
@@ -23,5 +25,7 @@ public interface WkoutMethodService {
                 .targetPart(entity.getTargetPart())
                 .build();
     }
+
+
 
 }

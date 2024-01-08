@@ -2,6 +2,7 @@ package com.fekim.workweout.online.jnal.service;
 
 import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
+import com.fekim.workweout.online.jnal.service.dto.WkoutJnalMethodDTO;
 
 public interface WkoutJnalService {
 
@@ -19,4 +20,19 @@ public interface WkoutJnalService {
      */
     OneDayJnalsDTO getOneDayJnals(Long mbrId, String yyyyMmDd);
 
+
+
+    /**
+     * Transform WkoutJnalMethod  [Single] Complex Entity => [Single] DTO
+     * */
+    default WkoutJnalMethodDTO jnalMethodTojnalMethodDTO(Object[] entity) {
+        return WkoutJnalMethodDTO.builder()
+                .methodNm((String) entity[0])
+                .targetPart((String) entity[1])
+                .weight((Long) entity[2])
+                .sets((Long) entity[3])
+                .reps((Long) entity[4])
+                .restTime((Long) entity[5])
+                .build();
+    }
 }
