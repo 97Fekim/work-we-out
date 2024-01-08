@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -68,9 +69,9 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
     }
 
     /**
-     * 02. 개인 운동일지 조회.
+     * 02. 개인 일일 운동일지 리스트 조회.
      *  - IN = 회원번호 , YYYY/MM/DD
-     *  - OUT = DD일의 운동일지 조회. (운동일지 내 모든 운동부위를 포함)
+     *  - OUT = DD일의 운동일지 리스트 조회. (운동일지 내 모든 운동부위를 포함)
      */
     @Override
     public OneDayJnalsDTO getOneDayJnals(Long mbrId, String yyyyMmDd) {
@@ -88,13 +89,7 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
         for (WkoutJnal jnalEntity : jnalEntities) {
 
             List<Object[]> methods = wkoutJnalMethodRepository.findWkoutJnalMethodsByJnalId(jnalEntity.getJnalId());
-            List<WkoutJnalMethodDTO> methodsDTO = new ArrayList<>();
-
-            for (Object[] method : methods) {
-                methodsDTO.add(
-                        jnalMethodTojnalMethodDTO(method)
-                );
-            }
+            List<WkoutJnalMethodDTO> methodsDTO = jnalMethodsTojnalMethodDTOs(methods);
 
             WkoutJnalDTO jnalDTO = WkoutJnalDTO
                     .builder()
@@ -110,6 +105,28 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
 
         return oneDayJnalsDTO;
 
+    }
+
+    /**
+     * 03. 개인 운동일지 조회.(PK)
+     *  - IN = 운동일지ID
+     *  - OUT = 운동일지 1건 조회. (운동일지 내 모든 운동부위를 포함)
+     */
+    @Override
+    public WkoutJnalDTO getOneJnal(Long jnalId) {
+
+        WkoutJnal jnalEntity = wkoutJnalRepository.findById(jnalId).get();
+        List<Object[]> jnalMethods = wkoutJnalMethodRepository.findWkoutJnalMethodsByJnalId(jnalId);
+
+        return WkoutJnalDTO
+                .builder()
+                .jnalId(jnalEntity.getJnalId())
+                .yyyy(jnalEntity.getYyyyMmDd().getYyyy())
+                .mm(jnalEntity.getYyyyMmDd().getMm())
+                .dd(jnalEntity.getYyyyMmDd().getDd())
+                .comments(jnalEntity.getComments())
+                .wkoutJnalMethodDTOList(jnalMethodsTojnalMethodDTOs(jnalMethods))
+                .build();
     }
 
 }

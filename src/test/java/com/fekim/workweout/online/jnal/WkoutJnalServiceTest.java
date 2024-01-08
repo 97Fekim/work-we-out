@@ -48,4 +48,17 @@ public class WkoutJnalServiceTest {
         
     }
 
+    @Test
+    void getOneJnalTest() {
+
+        WkoutJnalDTO oneJnal = wkoutJnalService.getOneJnal(1L);
+
+        System.out.println("================jnal start================");
+        System.out.println(oneJnal.toString());
+        System.out.println(oneJnal.getWkoutJnalMethodDTOList().size());
+        System.out.println("================jnal end================");
+
+
+    }
+
 }
