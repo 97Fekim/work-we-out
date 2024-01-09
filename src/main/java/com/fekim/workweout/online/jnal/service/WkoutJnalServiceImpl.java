@@ -7,7 +7,10 @@ import com.fekim.workweout.online.jnal.repository.WkoutJnalRepository;
 import com.fekim.workweout.online.jnal.repository.WkoutMethodRepository;
 import com.fekim.workweout.online.jnal.repository.entity.WkoutJnal;
 import com.fekim.workweout.online.jnal.repository.entity.WkoutJnalMethod;
+import com.fekim.workweout.online.jnal.repository.entity.WkoutMethod;
 import com.fekim.workweout.online.jnal.service.dto.*;
+import com.fekim.workweout.online.member.repository.entity.Member;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -127,6 +130,58 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
                 .comments(jnalEntity.getComments())
                 .wkoutJnalMethodDTOList(jnalMethodsTojnalMethodDTOs(jnalMethods))
                 .build();
+    }
+
+    /**
+     * 04. 개인 운동일지 저장.
+     *  - IN = 운동일지 DTO
+     *  - OUT = 저장한 운동일지ID
+     */
+    @Override
+    @Transactional
+    public Long saveJnal(WkoutJnalDTO wkoutJnalDTO, Long mbrId) {
+
+        // (1) 저널 저장
+        WkoutJnal newJnal = wkoutJnalRepository.save(WkoutJnal
+                .builder()
+                .yyyyMmDd(YyyyMmDd
+                        .builder()
+                        .yyyy(wkoutJnalDTO.getYyyy())
+                        .mm(wkoutJnalDTO.getMm())
+                        .dd(wkoutJnalDTO.getDd())
+                        .build())
+                .member(Member
+                        .builder()
+                        .mbrId(mbrId)
+                        .build())
+                .comments(wkoutJnalDTO.getComments())
+                .build());
+
+        // (2) 저널/운동종목 저장
+        List<WkoutJnalMethodDTO> wkoutJnalMethodDTOList = wkoutJnalDTO.getWkoutJnalMethodDTOList();
+        for (WkoutJnalMethodDTO wkoutJnalMethodDTO : wkoutJnalMethodDTOList) {
+
+            wkoutJnalMethodRepository.save(
+                    WkoutJnalMethod
+                            .builder()
+                            .wkoutJnal(WkoutJnal
+                                    .builder()
+                                    .jnalId(newJnal.getJnalId())
+                                    .build())
+                            .wkoutMethod(WkoutMethod
+                                    .builder()
+                                    .methodId(wkoutJnalMethodDTO.getMethodId())
+                                    .build())
+                            .weight(wkoutJnalMethodDTO.getWeight())
+                            .sets(wkoutJnalMethodDTO.getSets())
+                            .reps(wkoutJnalMethodDTO.getReps())
+                            .reps(wkoutJnalMethodDTO.getRestTime())
+                            .build()
+            );
+
+        }
+
+        return newJnal.getJnalId();
     }
 
 }

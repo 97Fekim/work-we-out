@@ -31,6 +31,13 @@ public interface WkoutJnalService {
      */
     WkoutJnalDTO getOneJnal(Long jnalId);
 
+    /**
+     * 04. 개인 운동일지 저장.
+     *  - IN = [운동일지 DTO, 회원번호]
+     *  - OUT = 저장한 운동일지ID
+     */
+    Long saveJnal(WkoutJnalDTO wkoutJnalDTO, Long mbrId);
+
 
     /**
      * Transform WkoutJnalMethod
@@ -44,12 +51,13 @@ public interface WkoutJnalService {
             wkoutJnalMethodDTOList.add(
                     WkoutJnalMethodDTO
                             .builder()
-                            .methodNm((String) jnalMethods[0])
-                            .targetPart((String) jnalMethods[1])
-                            .weight((Long) jnalMethods[2])
-                            .sets((Long) jnalMethods[3])
-                            .reps((Long) jnalMethods[4])
-                            .restTime((Long) jnalMethods[5])
+                            .methodId((Long) jnalMethods[0])
+                            .methodNm((String) jnalMethods[1])
+                            .targetPart((String) jnalMethods[2])
+                            .weight((Long) jnalMethods[3])
+                            .sets((Long) jnalMethods[4])
+                            .reps((Long) jnalMethods[5])
+                            .restTime((Long) jnalMethods[6])
                             .build()
             );
         }

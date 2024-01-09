@@ -10,11 +10,13 @@ import java.util.List;
 public interface WkoutJnalMethodRepository extends JpaRepository<WkoutJnalMethod, Long> {
 
     @Query(value ="" +
-            "select WM.methodNm AS methodNm," +
-            "WM.targetPart AS targetPart," +
+            "select " +
+            "WM.methodId AS methodId, " +
+            "WM.methodNm AS methodNm, " +
+            "WM.targetPart AS targetPart, " +
             "WJM.weight AS weight, " +
-            "WJM.sets AS sets," +
-            "WJM.reps AS reps," +
+            "WJM.sets AS sets, " +
+            "WJM.reps AS reps, " +
             "WJM.restTime AS restTime " +
             "from WkoutJnalMethod WJM " +
             "join WJM.wkoutMethod WM " +
