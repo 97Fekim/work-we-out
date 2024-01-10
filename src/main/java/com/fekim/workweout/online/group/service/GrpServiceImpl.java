@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -38,7 +39,7 @@ public class GrpServiceImpl implements GrpService {
 
         for (Grp grp : grpList) {
             outList.add(
-                    grpToGrpDTO(grp)
+                    grpToGrpDTO(grp, new ArrayList<>())  // 빈 MemberGrp 전달
             );
         }
 
@@ -78,7 +79,24 @@ public class GrpServiceImpl implements GrpService {
                 .joinedDt(yyyyMmDd)
                 .build());
 
-        return grpToGrpDTO(saved);
+        /* (3) 본인의 정보도 포함시켜 return */
+        List<Object[]> myInfo = memberGrpRepository.findMemberGrpsByGrpId(saved.getGrpId());
+
+        return grpToGrpDTO(saved, myInfo);
+    }
+
+    /**
+     * 03. 그룹 정보 조회
+     *  - IN = 그룹ID
+     *  - OUT = 회원DTO 리스트를 포함한 그룹DTO
+     * */
+    @Override
+    public GrpDTO getGrpInfo(Long grpId) {
+        Grp grp = grpRepository.findById(grpId).get();
+
+        List<Object[]> memberGrpList = memberGrpRepository.findMemberGrpsByGrpId(grp.getGrpId());
+
+        return grpToGrpDTO(grp, memberGrpList);
     }
 
 }

@@ -29,4 +29,9 @@ public class GrpRepositoryTest {
          Assertions.assertThat(grpList.size() > 0);
     }
 
+    @Test
+    void findMemberGrpsByGrpIdTest() {
+        memberGrpRepository.findMemberGrpsByGrpId(1L);
+    }
+
 }

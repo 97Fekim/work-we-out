@@ -1,6 +1,5 @@
 package com.fekim.workweout.online.group.service.dto;
 
-import com.fekim.workweout.online.member.service.dto.MemberDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +19,6 @@ public class GrpDTO {
     private String srtDt; // 그룹시작일자
 
     @Builder.Default
-    List<MemberDTO> memberDTOList = new ArrayList<>();
+    List<MemberGrpDTO> memberGrpDTOList = new ArrayList<>();
 
 }

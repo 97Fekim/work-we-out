@@ -17,4 +17,16 @@ public interface MemberGrpRepository extends JpaRepository<MemberGrp, Long> {
             "WHERE MG.member.mbrId = :mbrId")
     List<Grp> findGrpListByMbrId(@Param("mbrId")Long mbrId);
 
+    @Query (value = "" +
+            "select " +
+            "MG.mbrGrpId AS mbrGrpId," +
+            "M.mbrId AS mbrId," +
+            "M.mbrNm AS mbrNm," +
+            "M.profImgPath AS profImgPath " +
+            "from MemberGrp MG " +
+            "JOIN MG.member M " +
+            "where MG.grp.grpId = :#{#grpId}")
+    List<Object[]> findMemberGrpsByGrpId(@Param("grpId") Long grpId);
+
+
 }

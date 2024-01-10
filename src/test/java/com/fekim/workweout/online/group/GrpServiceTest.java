@@ -4,6 +4,8 @@ import com.fekim.workweout.online.group.repository.entity.Grp;
 import com.fekim.workweout.online.group.service.GrpService;
 import com.fekim.workweout.online.group.service.dto.GrpDTO;
 import com.fekim.workweout.online.group.service.dto.GrpListDTO;
+import com.fekim.workweout.online.group.service.dto.MemberGrpDTO;
+import com.fekim.workweout.online.jnal.service.dto.WkoutJnalMethodDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,30 @@ public class GrpServiceTest {
     @Test
     @Commit
     void createGrpTest() {
-        grpService.createGrp("첫번째그룹", 1L);
+        GrpDTO grpDTO = grpService.createGrp("두번째그룹", 2L);
+
+        System.out.println("================grp start================");
+        System.out.println(grpDTO.toString());
+        System.out.println("↓↓↓↓ MEMBER_GRP INFO ↓↓↓↓");
+        for (MemberGrpDTO memberGrpDTO : grpDTO.getMemberGrpDTOList()) {
+            System.out.println(memberGrpDTO.toString());
+        }
+        System.out.println("================grp end================");
+    }
+
+    @Test
+    void getGrpInfoTest() {
+        GrpDTO grpDTO = grpService.getGrpInfo(1L);
+
+        System.out.println("================grp start================");
+        System.out.println(grpDTO.toString());
+        System.out.println("↓↓↓↓ MEMBER_GRP INFO ↓↓↓↓");
+        for (MemberGrpDTO memberGrpDTO : grpDTO.getMemberGrpDTOList()) {
+            System.out.println(memberGrpDTO.toString());
+        }
+        System.out.println("================grp end================");
+
+
     }
 
 }
