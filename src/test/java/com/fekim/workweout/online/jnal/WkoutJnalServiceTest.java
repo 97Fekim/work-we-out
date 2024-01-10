@@ -57,7 +57,10 @@ public class WkoutJnalServiceTest {
 
         System.out.println("================jnal start================");
         System.out.println(oneJnal.toString());
-        System.out.println(oneJnal.getWkoutJnalMethodDTOList().size());
+        System.out.println("↓↓↓↓ JNAL_METHOD INFO ↓↓↓↓");
+        for (WkoutJnalMethodDTO wkoutJnalMethodDTO : oneJnal.getWkoutJnalMethodDTOList()) {
+            System.out.println(wkoutJnalMethodDTO.toString());
+        }
         System.out.println("================jnal end================");
 
     }
@@ -90,7 +93,7 @@ public class WkoutJnalServiceTest {
                 .wkoutJnalMethodDTOList(wkoutJnalMethodDTOList)
                 .build();
 
-        wkoutJnalService.saveJnal(wkoutJnalDTO, 1L);
+        wkoutJnalService.createJnal(wkoutJnalDTO, 1L);
     }
 
     @Test
@@ -102,6 +105,39 @@ public class WkoutJnalServiceTest {
     @Test
     @Commit
     void modifyJnalTest() {
+        List<WkoutJnalMethodDTO> wkoutJnalMethodDTOList = new ArrayList<>();
+
+        wkoutJnalMethodDTOList.add(
+                WkoutJnalMethodDTO.builder()
+                        .methodId(5L)
+                        .build()
+        );
+        wkoutJnalMethodDTOList.add(
+                WkoutJnalMethodDTO.builder()
+                        .methodId(6L)
+                        .build()
+        );
+        wkoutJnalMethodDTOList.add(
+                WkoutJnalMethodDTO.builder()
+                        .methodId(7L)
+                        .build()
+        );
+        wkoutJnalMethodDTOList.add(
+                WkoutJnalMethodDTO.builder()
+                        .methodId(8L)
+                        .build()
+        );
+
+        wkoutJnalService.modifyJnal(
+                WkoutJnalDTO.builder()
+                        .jnalId(1L)
+                        .yyyy("2024")
+                        .mm("02")
+                        .dd("05")
+                        .comments("modified")
+                        .wkoutJnalMethodDTOList(wkoutJnalMethodDTOList)
+                        .build()
+        );
 
     }
 

@@ -159,7 +159,7 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
      */
     @Override
     @Transactional
-    public Long saveJnal(WkoutJnalDTO wkoutJnalDTO, Long mbrId) {
+    public Long createJnal(WkoutJnalDTO wkoutJnalDTO, Long mbrId) {
 
         /* (1) 저널 저장 */
         WkoutJnal newJnal = wkoutJnalRepository.save(WkoutJnal

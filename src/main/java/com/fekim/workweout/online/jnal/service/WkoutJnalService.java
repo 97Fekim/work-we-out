@@ -41,7 +41,7 @@ public interface WkoutJnalService {
      *  - IN = [운동일지 DTO, 회원번호]
      *  - OUT = 저장한 운동일지ID
      */
-    Long saveJnal(WkoutJnalDTO wkoutJnalDTO, Long mbrId);
+    Long createJnal(WkoutJnalDTO wkoutJnalDTO, Long mbrId);
 
     /**
      * 05. 개인 운동일지 삭제 (운동종목 포함)
