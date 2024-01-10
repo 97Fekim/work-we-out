@@ -2,6 +2,7 @@ package com.fekim.workweout.online.jnal.repository;
 
 import com.fekim.workweout.online.jnal.repository.entity.WkoutJnalMethod;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -11,6 +12,7 @@ public interface WkoutJnalMethodRepository extends JpaRepository<WkoutJnalMethod
 
     @Query(value ="" +
             "select " +
+            "WJM.jnalMethodId AS jnalMethodId, " +
             "WM.methodId AS methodId, " +
             "WM.methodNm AS methodNm, " +
             "WM.targetPart AS targetPart, " +
@@ -21,6 +23,13 @@ public interface WkoutJnalMethodRepository extends JpaRepository<WkoutJnalMethod
             "from WkoutJnalMethod WJM " +
             "join WJM.wkoutMethod WM " +
             "where WJM.wkoutJnal.jnalId = :#{#jnalId}")
-    List<Object[]> findWkoutJnalMethodsByJnalId(@Param("jnalId") Long jnalId);
+    List<Object[]> findAllByJnalId(@Param("jnalId") Long jnalId);
+
+    @Modifying
+    @Query(value = "" +
+            "delete " +
+            "from WkoutJnalMethod WJM " +
+            "where WJM.wkoutJnal.jnalId = :#{#jnalId} ")
+    void deleteByJnalId(@Param("jnalId") Long jnalId);
 
 }

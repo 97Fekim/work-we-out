@@ -1,14 +1,19 @@
 package com.fekim.workweout.online.jnal.service;
 
-import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
-import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
-import com.fekim.workweout.online.jnal.service.dto.WkoutJnalDTO;
-import com.fekim.workweout.online.jnal.service.dto.WkoutJnalMethodDTO;
+import com.fekim.workweout.online.jnal.repository.entity.WkoutMethod;
+import com.fekim.workweout.online.jnal.service.dto.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public interface WkoutJnalService {
+
+    /**
+     * 00. 전체 운동종목 조회
+     *  - IN = []
+     *  - OUT = 전체 운동종목
+     * */
+    WkoutMethodListDTO getAllWkoutMethod();
 
     /**
      * 01. 개인 운동달력 조회.
@@ -38,6 +43,31 @@ public interface WkoutJnalService {
      */
     Long saveJnal(WkoutJnalDTO wkoutJnalDTO, Long mbrId);
 
+    /**
+     * 05. 개인 운동일지 삭제 (운동종목 포함)
+     *  - IN = 저널ID
+     *  - OUT = []
+     * */
+    void removeJnal(Long jnalId);
+
+    /**
+     * 06. 개인 운동일지 편집
+     *  - IN = 운동일지DTO
+     *  - OUT = 편집된 운동일지ID
+     * */
+    Long modifyJnal(WkoutJnalDTO wkoutJnalDTO);
+
+
+    /**
+     * Transform WkoutMethod  [Single] Entity => [Single] DTO
+     * */
+    default WkoutMethodDTO methodToMethodDTO(WkoutMethod entity) {
+        return WkoutMethodDTO.builder()
+                .methodId(entity.getMethodId())
+                .methodNm(entity.getMethodNm())
+                .targetPart(entity.getTargetPart())
+                .build();
+    }
 
     /**
      * Transform WkoutJnalMethod
@@ -51,13 +81,14 @@ public interface WkoutJnalService {
             wkoutJnalMethodDTOList.add(
                     WkoutJnalMethodDTO
                             .builder()
-                            .methodId((Long) jnalMethods[0])
-                            .methodNm((String) jnalMethods[1])
-                            .targetPart((String) jnalMethods[2])
-                            .weight((Long) jnalMethods[3])
-                            .sets((Long) jnalMethods[4])
-                            .reps((Long) jnalMethods[5])
-                            .restTime((Long) jnalMethods[6])
+                            .jnalMethodId((Long) jnalMethods[0])
+                            .methodId((Long) jnalMethods[1])
+                            .methodNm((String) jnalMethods[2])
+                            .targetPart((String) jnalMethods[3])
+                            .weight((Long) jnalMethods[4])
+                            .sets((Long) jnalMethods[5])
+                            .reps((Long) jnalMethods[6])
+                            .restTime((Long) jnalMethods[7])
                             .build()
             );
         }

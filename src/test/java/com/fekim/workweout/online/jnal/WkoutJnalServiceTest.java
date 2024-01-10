@@ -5,7 +5,9 @@ import com.fekim.workweout.online.jnal.service.dto.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -58,6 +60,48 @@ public class WkoutJnalServiceTest {
         System.out.println(oneJnal.getWkoutJnalMethodDTOList().size());
         System.out.println("================jnal end================");
 
+    }
+
+    @Test
+    void saveJnalTest() {
+
+        List<WkoutJnalMethodDTO> wkoutJnalMethodDTOList = new ArrayList<>();
+
+        wkoutJnalMethodDTOList.add(
+                WkoutJnalMethodDTO.builder()
+                        .methodNm("")
+                        .methodId(1L)
+                        .build()
+        );
+
+        wkoutJnalMethodDTOList.add(
+                WkoutJnalMethodDTO.builder()
+                        .methodNm("")
+                        .methodId(2L)
+                        .build()
+        );
+
+        WkoutJnalDTO wkoutJnalDTO = WkoutJnalDTO
+                .builder()
+                .yyyy("2024")
+                .mm("01")
+                .dd("15")
+                .comments("")
+                .wkoutJnalMethodDTOList(wkoutJnalMethodDTOList)
+                .build();
+
+        wkoutJnalService.saveJnal(wkoutJnalDTO, 1L);
+    }
+
+    @Test
+    @Commit
+    void removeJnalTest() {
+        wkoutJnalService.removeJnal(26L);
+    }
+
+    @Test
+    @Commit
+    void modifyJnalTest() {
 
     }
 

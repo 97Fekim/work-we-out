@@ -3,6 +3,8 @@ package com.fekim.workweout.online.jnal.repository.entity;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -26,6 +28,7 @@ public class WkoutJnalMethod {
 
     @ManyToOne
     @JoinColumn(name = "JNAL_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private WkoutJnal wkoutJnal;
 
     @ManyToOne

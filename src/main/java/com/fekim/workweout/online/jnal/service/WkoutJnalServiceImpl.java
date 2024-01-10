@@ -25,8 +25,28 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class WkoutJnalServiceImpl implements WkoutJnalService {
 
+
     private final WkoutJnalRepository wkoutJnalRepository;
     private final WkoutJnalMethodRepository wkoutJnalMethodRepository;
+    private final WkoutMethodRepository wkoutMethodRepository;
+
+    /**
+     * 00. 전체 운동종목 조회
+     *  - IN = []
+     *  - OUT = 전체 운동종목
+     * */
+    @Override
+    public WkoutMethodListDTO getAllWkoutMethod() {
+
+        List<WkoutMethod> wkoutMethodList = wkoutMethodRepository.findAll();
+
+        List<WkoutMethodDTO> wkoutMethodDTOList = new ArrayList<>();
+        for (WkoutMethod wkoutMethod : wkoutMethodList) {
+            wkoutMethodDTOList.add(methodToMethodDTO(wkoutMethod));
+        }
+
+        return WkoutMethodListDTO.builder().wkoutMethodDTOList(wkoutMethodDTOList).build();
+    }
 
     /**
      * 01. 개인 운동 달력 조회.
@@ -91,7 +111,7 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
 
         for (WkoutJnal jnalEntity : jnalEntities) {
 
-            List<Object[]> methods = wkoutJnalMethodRepository.findWkoutJnalMethodsByJnalId(jnalEntity.getJnalId());
+            List<Object[]> methods = wkoutJnalMethodRepository.findAllByJnalId(jnalEntity.getJnalId());
             List<WkoutJnalMethodDTO> methodsDTO = jnalMethodsTojnalMethodDTOs(methods);
 
             WkoutJnalDTO jnalDTO = WkoutJnalDTO
@@ -119,7 +139,7 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
     public WkoutJnalDTO getOneJnal(Long jnalId) {
 
         WkoutJnal jnalEntity = wkoutJnalRepository.findById(jnalId).get();
-        List<Object[]> jnalMethods = wkoutJnalMethodRepository.findWkoutJnalMethodsByJnalId(jnalId);
+        List<Object[]> jnalMethods = wkoutJnalMethodRepository.findAllByJnalId(jnalId);
 
         return WkoutJnalDTO
                 .builder()
@@ -141,9 +161,10 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
     @Transactional
     public Long saveJnal(WkoutJnalDTO wkoutJnalDTO, Long mbrId) {
 
-        // (1) 저널 저장
+        /* (1) 저널 저장 */
         WkoutJnal newJnal = wkoutJnalRepository.save(WkoutJnal
                 .builder()
+                .jnalId(wkoutJnalDTO.getJnalId()) // *jnalId=null 저장 / *jnalId!=null 편집
                 .yyyyMmDd(YyyyMmDd
                         .builder()
                         .yyyy(wkoutJnalDTO.getYyyy())
@@ -157,11 +178,12 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
                 .comments(wkoutJnalDTO.getComments())
                 .build());
 
-        // (2) 저널/운동종목 저장
+        /* (2) 저널/운동종목 저장 */
         List<WkoutJnalMethodDTO> wkoutJnalMethodDTOList = wkoutJnalDTO.getWkoutJnalMethodDTOList();
-        for (WkoutJnalMethodDTO wkoutJnalMethodDTO : wkoutJnalMethodDTOList) {
+        List<WkoutJnalMethod> wkoutJnalMethodList = new ArrayList<>();
 
-            wkoutJnalMethodRepository.save(
+        for (WkoutJnalMethodDTO wkoutJnalMethodDTO : wkoutJnalMethodDTOList) {
+            wkoutJnalMethodList.add(
                     WkoutJnalMethod
                             .builder()
                             .wkoutJnal(WkoutJnal
@@ -178,10 +200,70 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
                             .reps(wkoutJnalMethodDTO.getRestTime())
                             .build()
             );
-
         }
 
+        wkoutJnalMethodRepository.saveAll(wkoutJnalMethodList);
+
         return newJnal.getJnalId();
+    }
+
+    /**
+     * 05. 개인 운동일지 삭제
+     *  - IN = 저널ID
+     *  - OUT = []
+     * */
+    @Override
+    public void removeJnal(Long jnalId) {
+        // WkoutJnalMethod.WkoutJnal 필드의 @OnDelete(cascade) 옵션에 의해 일괄삭제처리.
+        wkoutJnalRepository.deleteById(jnalId);
+    }
+
+    /**
+     * 06. 개인 운동일지 편집
+     *  - IN = 운동일지DTO
+     *  - OUT = 편집된 운동일지ID
+     * */
+    @Override
+    @Transactional
+    public Long modifyJnal(WkoutJnalDTO wkoutJnalDTO) {
+        // (1) 저널종목 삭제
+        wkoutJnalMethodRepository.deleteByJnalId(wkoutJnalDTO.getJnalId());
+
+        // (2) 저널종목 삽입
+        List<WkoutJnalMethod> wkoutJnalMethodList = new ArrayList<>();
+        for (WkoutJnalMethodDTO wkoutJnalMethodDTO : wkoutJnalDTO.getWkoutJnalMethodDTOList()) {
+            wkoutJnalMethodList.add(
+                    WkoutJnalMethod
+                            .builder()
+                            .jnalMethodId(wkoutJnalMethodDTO.getJnalMethodId())
+                            .wkoutJnal(WkoutJnal
+                                    .builder()
+                                    .jnalId(wkoutJnalDTO.getJnalId())
+                                    .build())
+                            .wkoutMethod(WkoutMethod
+                                    .builder()
+                                    .methodId(wkoutJnalMethodDTO.getMethodId())
+                                    .build())
+                            .weight(wkoutJnalMethodDTO.getWeight())
+                            .sets(wkoutJnalMethodDTO.getSets())
+                            .reps(wkoutJnalMethodDTO.getReps())
+                            .restTime(wkoutJnalMethodDTO.getRestTime())
+                            .build()
+            );
+        }
+        wkoutJnalMethodRepository.saveAll(wkoutJnalMethodList);
+
+        // (3) 저널 수정  (dirty-checking)
+        WkoutJnal wkoutJnal = wkoutJnalRepository.findById(wkoutJnalDTO.getJnalId()).get();
+        wkoutJnal.setYyyyMmDd(YyyyMmDd
+                .builder()
+                .yyyy(wkoutJnalDTO.getYyyy())
+                .mm(wkoutJnalDTO.getMm())
+                .dd(wkoutJnalDTO.getDd())
+                .build());
+        wkoutJnal.setComments(wkoutJnalDTO.getComments());
+
+        return wkoutJnalDTO.getJnalId();
     }
 
 }
