@@ -1,5 +1,6 @@
 package com.fekim.workweout.online.jnal;
 
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import com.fekim.workweout.online.jnal.repository.WkoutJnalMethodRepository;
 import com.fekim.workweout.online.jnal.repository.entity.WkoutJnalMethod;
 import jakarta.transaction.Transactional;
