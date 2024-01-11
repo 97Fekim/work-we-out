@@ -92,12 +92,12 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
     }
 
     /**
-     * 02. 개인 일일 운동일지 리스트 조회.
-     *  - IN = 회원번호 , YYYY/MM/DD
+     * 02. 개인/그룹 일일 운동일지 리스트 조회.
+     *  - IN = 회원번호 , YYYY/MM/DD, 개인그룹구분코드(01:개인/02:그룹)
      *  - OUT = DD일의 운동일지 리스트 조회. (운동일지 내 모든 운동부위를 포함)
      */
     @Override
-    public OneDayJnalsDTO getOneDayJnals(Long mbrId, String yyyyMmDd) {
+    public OneDayJnalsDTO getOneDayJnals(Long Id, String yyyyMmDd, String mbrGrpClsfCd) {
 
         OneDayJnalsDTO oneDayJnalsDTO = OneDayJnalsDTO.builder().build();
 
@@ -105,9 +105,18 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
         String mm = yyyyMmDd.substring(4,6);
         String dd = yyyyMmDd.substring(6,8);
 
-        List<WkoutJnal> jnalEntities = wkoutJnalRepository.findWkoutJnalsByMbrIdAndYyyyMmDd(
-                mbrId, YyyyMmDd.builder().yyyy(yyyy).mm(mm).dd(dd).build()
-        );
+        List<WkoutJnal> jnalEntities = null;
+        if (("01").equals(mbrGrpClsfCd)) {  // 개인 일지 리스트
+            jnalEntities = wkoutJnalRepository.findWkoutJnalsByMbrIdAndYyyyMmDd(
+                    Id, YyyyMmDd.builder().yyyy(yyyy).mm(mm).dd(dd).build()
+            );
+        } else if ("02".equals(mbrGrpClsfCd)) {  // 그룹 일지 리스트
+            jnalEntities = wkoutJnalRepository.findWkoutJnalsByGrpIdAndYyyyMmDd(
+                    Id, YyyyMmDd.builder().yyyy(yyyy).mm(mm).dd(dd).build()
+            );
+        } else {
+            return null;
+        }
 
         for (WkoutJnal jnalEntity : jnalEntities) {
 
@@ -117,6 +126,9 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
             WkoutJnalDTO jnalDTO = WkoutJnalDTO
                     .builder()
                     .jnalId(jnalEntity.getJnalId())
+                    .mbrId(jnalEntity.getMember().getMbrId())
+                    .mbrNm(jnalEntity.getMember().getMbrNm())
+                    .profImgPath(jnalEntity.getMember().getProfImgPath())
                     .yyyy(jnalEntity.getYyyyMmDd().getYyyy())
                     .mm(jnalEntity.getYyyyMmDd().getMm())
                     .dd(jnalEntity.getYyyyMmDd().getDd())

@@ -27,7 +27,7 @@ public interface WkoutJnalService {
      *  - IN = 회원번호 , YYYY/MM/DD
      *  - OUT = DD일의 운동일지 리스트 조회. (운동일지 내 모든 운동부위를 포함)
      */
-    OneDayJnalsDTO getOneDayJnals(Long mbrId, String yyyyMmDd);
+    OneDayJnalsDTO getOneDayJnals(Long Id, String yyyyMmDd, String mbrGrpClsfCd);
 
     /**
      * 03. 개인 운동일지 조회.(PK)

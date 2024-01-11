@@ -17,6 +17,6 @@ public class OneMonthGrpCalendarDTO {
     private Long grpId;
 
     @Builder.Default
-    private List<OneDayGrpJnalsDTO> oneDayGrpJnalsDTOList = new ArrayList<>();
+    private List<OneDayGrpCalendarDTO> oneDayGrpCalendarDTOList = new ArrayList<>();
 
 }

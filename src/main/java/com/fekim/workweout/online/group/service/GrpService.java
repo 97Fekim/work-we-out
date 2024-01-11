@@ -1,9 +1,8 @@
 package com.fekim.workweout.online.group.service;
 
 import com.fekim.workweout.online.group.repository.entity.Grp;
-import com.fekim.workweout.online.group.repository.entity.MemberGrp;
 import com.fekim.workweout.online.group.service.dto.*;
-import com.fekim.workweout.online.member.service.dto.MemberDTO;
+import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +37,20 @@ public interface GrpService {
      * */
     OneMonthGrpCalendarDTO getOneMonthGrpCalendar(Long grpId, String yyyyMm);
 
+    /**
+     * 05. 그룹 일일 운동일지 리스트 조회.
+     *  - IN = 그룹ID , YYYY/MM/DD
+     *  - OUT = DD일 작성, 그룹원 모두의 운동일지 리스트 조회. (운동일지 내 모든 운동부위를 포함)
+     */
+    OneDayJnalsDTO getOneDayGrpJnals(Long grpId, String yyyyMmDd);
+
 
 
     /**
      * Transform Grp  [Single] Entity => [Single] DTO including MemberGrpList
      * */
     default GrpDTO grpToGrpDTO(Grp entity, List<Object[]> memberGrpList) {
-        List<MemberGrpDTO> memberGrpDTOList = new ArrayList<MemberGrpDTO>();
+        List<MemberGrpDTO> memberGrpDTOList = new ArrayList<>();
 
         for (Object[] memberGrp : memberGrpList) {
             memberGrpDTOList.add(
@@ -106,14 +112,14 @@ public interface GrpService {
             }
 
             // 최종 바인딩한다.
-            OneDayGrpJnalsDTO oneDayGrpJnalsDTO = new OneDayGrpJnalsDTO();
-            oneDayGrpJnalsDTO.setYyyy(yyyy);
-            oneDayGrpJnalsDTO.setMm(mm);
-            oneDayGrpJnalsDTO.setDd(dd);
-            oneDayGrpJnalsDTO.setMemberGrpDTOList(memberGrpDTOList);
+            OneDayGrpCalendarDTO oneDayGrpCalendarDTO = new OneDayGrpCalendarDTO();
+            oneDayGrpCalendarDTO.setYyyy(yyyy);
+            oneDayGrpCalendarDTO.setMm(mm);
+            oneDayGrpCalendarDTO.setDd(dd);
+            oneDayGrpCalendarDTO.setMemberGrpDTOList(memberGrpDTOList);
 
-            oneMonthGrpCalendarDTO.getOneDayGrpJnalsDTOList()
-                    .add(oneDayGrpJnalsDTO);
+            oneMonthGrpCalendarDTO.getOneDayGrpCalendarDTOList()
+                    .add(oneDayGrpCalendarDTO);
         }
 
         return oneMonthGrpCalendarDTO;

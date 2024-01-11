@@ -9,6 +9,8 @@ import com.fekim.workweout.online.group.service.dto.GrpDTO;
 import com.fekim.workweout.online.group.service.dto.GrpListDTO;
 import com.fekim.workweout.online.group.service.dto.OneMonthGrpCalendarDTO;
 import com.fekim.workweout.online.jnal.repository.WkoutJnalRepository;
+import com.fekim.workweout.online.jnal.service.WkoutJnalService;
+import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class GrpServiceImpl implements GrpService {
     private final MemberGrpRepository memberGrpRepository;
     private final GrpRepository grpRepository;
     private final WkoutJnalRepository wkoutJnalRepository;
+    private final WkoutJnalService wkoutJnalService;
 
     /**
      * 01. 내 그룹 리스트 조회.
@@ -119,6 +122,16 @@ public class GrpServiceImpl implements GrpService {
 
         return makeOneMonthCalendarDTO(oneMonthCalendarEntities, grpId);
 
+    }
+
+    /**
+     * 05. 그룹 일일 운동일지 리스트 조회.
+     *  - IN = 그룹ID , YYYY/MM/DD
+     *  - OUT = DD일 작성, 그룹원 모두의 운동일지 리스트 조회. (운동일지 내 모든 운동부위를 포함)
+     */
+    @Override
+    public OneDayJnalsDTO getOneDayGrpJnals(Long grpId, String yyyyMmDd) {
+        return wkoutJnalService.getOneDayJnals(grpId, yyyyMmDd, "02");
     }
 
 }

@@ -15,6 +15,9 @@ import java.util.List;
 public class WkoutJnalDTO {
 
     private Long jnalId;
+    private Long mbrId;
+    private String profImgPath;
+    private String mbrNm;
     private String yyyy;
     private String mm;
     private String dd;

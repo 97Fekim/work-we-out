@@ -33,7 +33,7 @@ public class WkoutJnalServiceTest {
     @Test
     void getOneDayJnalsTest() {
 
-        OneDayJnalsDTO oneDayJnals = wkoutJnalService.getOneDayJnals(1L, "20240103");
+        OneDayJnalsDTO oneDayJnals = wkoutJnalService.getOneDayJnals(1L, "20240103", "01");
 
         System.out.println("================list start================");
         System.out.println();

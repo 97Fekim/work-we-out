@@ -82,4 +82,15 @@ public interface WkoutJnalRepository extends JpaRepository<WkoutJnal, Long> {
             "ORDER BY yyyy, mm, dd; " +
             "", nativeQuery = true)
     List<Object[]> findOneMonthGrpCalendarObject(@Param("grpId")Long grpId, @Param("yyyyMm")YyyyMm yyyyMm);
+
+    @Query (value = "select J " +
+            "from WkoutJnal J " +
+            "join MemberGrp MG " +
+            "on J.member.mbrId = MG.member.mbrId " +
+            "where MG.grp.grpId = :#{#grpId} " +
+            "  and J.yyyyMmDd.yyyy = :#{#yyyyMmDd.yyyy} " +
+            "  and J.yyyyMmDd.mm = :#{#yyyyMmDd.mm} " +
+            "  and J.yyyyMmDd.dd = :#{#yyyyMmDd.dd}")
+    List<WkoutJnal> findWkoutJnalsByGrpIdAndYyyyMmDd(@Param("grpId")Long grpId, @Param("yyyyMmDd")YyyyMmDd yyyyMmDd);
+
 }
