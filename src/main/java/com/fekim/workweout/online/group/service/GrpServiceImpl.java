@@ -1,11 +1,14 @@
 package com.fekim.workweout.online.group.service;
 
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
 import com.fekim.workweout.online.group.repository.GrpRepository;
 import com.fekim.workweout.online.group.repository.MemberGrpRepository;
 import com.fekim.workweout.online.group.repository.entity.Grp;
 import com.fekim.workweout.online.group.repository.entity.MemberGrp;
 import com.fekim.workweout.online.group.service.dto.GrpDTO;
 import com.fekim.workweout.online.group.service.dto.GrpListDTO;
+import com.fekim.workweout.online.group.service.dto.OneMonthGrpCalendarDTO;
+import com.fekim.workweout.online.jnal.repository.WkoutJnalRepository;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ public class GrpServiceImpl implements GrpService {
 
     private final MemberGrpRepository memberGrpRepository;
     private final GrpRepository grpRepository;
+    private final WkoutJnalRepository wkoutJnalRepository;
 
     /**
      * 01. 내 그룹 리스트 조회.
@@ -97,6 +101,24 @@ public class GrpServiceImpl implements GrpService {
         List<Object[]> memberGrpList = memberGrpRepository.findMemberGrpsByGrpId(grp.getGrpId());
 
         return grpToGrpDTO(grp, memberGrpList);
+    }
+
+    /**
+     * 04. 그룹 운동달력 조회.
+     *  - IN = 그룹ID , YYYY/MM
+     *  - OUT = MM월의 달력(하루동안 작성된 운동일지의 모든 작성자를 포함)
+     * */
+    @Override
+    public OneMonthGrpCalendarDTO getOneMonthGrpCalendar(Long grpId, String yyyyMm) {
+
+        String yyyy = yyyyMm.substring(0, 4);
+        String mm = yyyyMm.substring(4,6);
+
+        List<Object[]> oneMonthCalendarEntities = wkoutJnalRepository.findOneMonthGrpCalendarObject
+                (grpId, YyyyMm.builder().cuofYyyy(yyyy).cuofMm(mm).build());
+
+        return makeOneMonthCalendarDTO(oneMonthCalendarEntities, grpId);
+
     }
 
 }

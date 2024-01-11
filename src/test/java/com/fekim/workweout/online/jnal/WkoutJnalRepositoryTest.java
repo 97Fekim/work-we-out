@@ -53,4 +53,20 @@ public class WkoutJnalRepositoryTest {
 
     }
 
+    @Test
+    void findOneMonthGrpCalendarObjectTest() {
+        List<Object[]> objects = wkoutJnalRepository.findOneMonthGrpCalendarObject(
+                1L, YyyyMm.builder().cuofYyyy("2024").cuofMm("01").build());
+
+        for (Object[] object : objects) {
+            System.out.println("================element start================");
+            System.out.println((String) object[0]);
+            System.out.println((String) object[1]);
+            System.out.println((String) object[2]);
+            System.out.println((String) object[3]);
+            System.out.println("================element end================");
+        }
+
+    }
+
 }

@@ -5,6 +5,7 @@ import com.fekim.workweout.online.group.service.GrpService;
 import com.fekim.workweout.online.group.service.dto.GrpDTO;
 import com.fekim.workweout.online.group.service.dto.GrpListDTO;
 import com.fekim.workweout.online.group.service.dto.MemberGrpDTO;
+import com.fekim.workweout.online.group.service.dto.OneMonthGrpCalendarDTO;
 import com.fekim.workweout.online.jnal.service.dto.WkoutJnalMethodDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -58,6 +59,15 @@ public class GrpServiceTest {
         }
         System.out.println("================grp end================");
 
+    }
+
+    @Test
+    void getOneMonthGrpCalendarTest() {
+
+        OneMonthGrpCalendarDTO oneMonthGrpCalendar = grpService.getOneMonthGrpCalendar(2L, "202401");
+        System.out.println("================Calendar Start================");
+        System.out.println(oneMonthGrpCalendar.toString());
+        System.out.println("================Calendar End================");
 
     }
 

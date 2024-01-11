@@ -49,4 +49,37 @@ public interface WkoutJnalRepository extends JpaRepository<WkoutJnal, Long> {
             "  and J.yyyyMmDd.dd = :#{#yyyyMmDd.dd}")
     List<WkoutJnal> findWkoutJnalsByMbrIdAndYyyyMmDd(@Param("mbrId")Long mbrId, @Param("yyyyMmDd")YyyyMmDd yyyyMmDd);
 
+    @Query(value = "" +
+            "SELECT " +
+            "    TD.YYYY     AS yyyy, " +
+            "    TD.MM       AS mm, " +
+            "    TD.DD       AS dd, " +
+            "    MEMBERS.memberGrps AS memberGrps " +
+            "FROM TBL_DATE TD " +
+            "LEFT OUTER JOIN " +
+            "    (SELECT WJ.YYYY AS yyyy, " +
+            "            WJ.MM   AS mm, " +
+            "            WJ.DD   AS dd, " +
+            "            LISTAGG(DISTINCT " +
+            "            MG.MBR_GRP_ID || '/' || " +
+            "            M.MBR_ID || '/' || " +
+            "            M.MBR_NM || '/' || " +
+            "            NVL(M.PROF_IMG_PATH, 'EMPTY') , ',') WITHIN GROUP(ORDER BY M.MBR_ID) AS memberGrps " +
+            "     FROM WKOUT_JNAL WJ " +
+            "     JOIN MEMBER M " +
+            "     ON WJ.MBR_ID = M.MBR_ID " +
+            "     JOIN MEMBER_GRP MG " +
+            "     ON M.MBR_ID = MG.MBR_ID " +
+            "     JOIN GRP G " +
+            "     ON G.GRP_ID = MG.GRP_ID " +
+            "     WHERE G.GRP_ID = :#{#grpId} " +
+            "     GROUP BY WJ.YYYY, WJ.MM, WJ.DD) MEMBERS " +
+            "ON  TD.YYYY = MEMBERS.YYYY " +
+            "AND TD.MM = MEMBERS.MM " +
+            "AND TD.DD = MEMBERS.DD " +
+            "WHERE TD.YYYY = :#{#yyyyMm.cuofYyyy} " +
+            "  AND TD.MM = :#{#yyyyMm.cuofMm} " +
+            "ORDER BY yyyy, mm, dd; " +
+            "", nativeQuery = true)
+    List<Object[]> findOneMonthGrpCalendarObject(@Param("grpId")Long grpId, @Param("yyyyMm")YyyyMm yyyyMm);
 }
