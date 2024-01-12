@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class TargetPartTotalSetDTO {
 
-    @Builder.Default
-    List<TargetPartTotalSetDTO> targetPartTotalSetDTOList = new ArrayList<>();
+    String targetPart;
+    Long totalSets;
 
 }

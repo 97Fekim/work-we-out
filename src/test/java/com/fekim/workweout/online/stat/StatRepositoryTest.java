@@ -21,7 +21,7 @@ public class StatRepositoryTest {
                         .builder()
                         .cuofYyyy("2024")
                         .cuofMm("01")
-                        .cuofWeek("2")
+                        .cuofWeek("1")
                         .build()
         );
 
