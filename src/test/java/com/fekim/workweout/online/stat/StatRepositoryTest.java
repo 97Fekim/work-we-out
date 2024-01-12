@@ -1,5 +1,6 @@
 package com.fekim.workweout.online.stat;
 
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import com.fekim.workweout.online.stat.repository.StatRepository;
 import org.junit.jupiter.api.Test;
@@ -34,5 +35,30 @@ public class StatRepositoryTest {
 
     }
 
+    @Test
+    void findMonthlyMethodWeiIncs() {
+        statRepository.findMonthlyMethodWeiIncs(
+                1L,
+                YyyyMm.builder().cuofYyyy("2024").cuofMm("01").build(),
+                YyyyMm.builder().cuofYyyy("2024").cuofMm("02").build()
+        );
+    }
+
+    @Test
+    void findWeelMethodWeiIncs() {
+        List<Object[]> objects = statRepository.findWeeklyMethodWeiIncs(
+                1L,
+                YyyyMmW.builder().cuofYyyy("2024").cuofMm("01").cuofWeek("1").build(),
+                YyyyMmW.builder().cuofYyyy("2024").cuofMm("01").cuofWeek("2").build()
+        );
+
+        System.out.println("================list start================");
+        for (Object[] object : objects) {
+            System.out.println(object[0]+"/"+object[1]+"/"+object[2]+"/"+object[3]+"/"+object[4]);
+            System.out.println();
+        }
+        System.out.println("================list end================");
+
+    }
 
 }

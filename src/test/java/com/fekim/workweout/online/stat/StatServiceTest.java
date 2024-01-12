@@ -1,6 +1,9 @@
 package com.fekim.workweout.online.stat;
 
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import com.fekim.workweout.online.stat.service.StatService;
+import com.fekim.workweout.online.stat.service.dto.MethodWeiIncDTO;
+import com.fekim.workweout.online.stat.service.dto.MethodWeiIncsDTO;
 import com.fekim.workweout.online.stat.service.dto.TargetPartTotalSetDTO;
 import com.fekim.workweout.online.stat.service.dto.TargetPartTotalSetsDTO;
 import org.junit.jupiter.api.Test;
@@ -33,6 +36,36 @@ public class StatServiceTest {
             System.out.println(dto.getTargetPart()+"/"+dto.getTotalSets());
         }
         System.out.println("================list end================");
+    }
+
+    @Test
+    void getWeeklyMethodWeiIncsTest() {
+        MethodWeiIncsDTO weeklyMethodWeiIncs = statService.getWeeklyMethodWeiIncs(
+                1L,
+                "2024011",
+                "2024012"
+        );
+        System.out.println("================list start================");
+        for (MethodWeiIncDTO methodWeiIncDTO : weeklyMethodWeiIncs.getMethodWeiIncDTOList()) {
+            System.out.println(methodWeiIncDTO.toString());
+        }
+        System.out.println("================list end================");
+
+    }
+
+    @Test
+    void getMonthlyMethodWeiIncsTest() {
+        MethodWeiIncsDTO monthlyMethodWeiIncs = statService.getMonthlyMethodWeiIncs(
+                1L,
+                "202401",
+                "202402"
+        );
+        System.out.println("================list start================");
+        for (MethodWeiIncDTO methodWeiIncDTO : monthlyMethodWeiIncs.getMethodWeiIncDTOList()) {
+            System.out.println(methodWeiIncDTO.toString());
+        }
+        System.out.println("================list end================");
+
     }
 
 }
