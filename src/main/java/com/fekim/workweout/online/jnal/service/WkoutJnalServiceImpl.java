@@ -225,6 +225,7 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
      *  - OUT = []
      * */
     @Override
+    @Transactional
     public void removeJnal(Long jnalId) {
         // WkoutJnalMethod.WkoutJnal 필드의 @OnDelete(cascade) 옵션에 의해 일괄삭제처리.
         wkoutJnalRepository.deleteById(jnalId);
