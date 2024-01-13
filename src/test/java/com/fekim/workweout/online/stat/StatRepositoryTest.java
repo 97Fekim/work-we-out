@@ -61,4 +61,29 @@ public class StatRepositoryTest {
 
     }
 
+    @Test
+    void findAllMethodInWeekTest() {
+        List<Long> methods = statRepository.findAllMethodInWeek(
+                1L,
+                YyyyMmW.builder()
+                        .cuofYyyy("2024")
+                        .cuofMm("01")
+                        .cuofWeek("2")
+                        .build()
+        );
+        System.out.println(methods.toString());
+    }
+
+    @Test
+    void findMethodMaxWeiInWeekTest() {
+        System.out.println(
+                statRepository.findMethodMaxWeiInWeek(
+                        1L,
+                        1L,
+                        YyyyMmW.builder().cuofYyyy("2024").cuofMm("01").cuofWeek("2").build()
+                )
+        );
+
+    }
+
 }

@@ -2,10 +2,7 @@ package com.fekim.workweout.online.stat;
 
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import com.fekim.workweout.online.stat.service.StatService;
-import com.fekim.workweout.online.stat.service.dto.MethodWeiIncDTO;
-import com.fekim.workweout.online.stat.service.dto.MethodWeiIncsDTO;
-import com.fekim.workweout.online.stat.service.dto.TargetPartTotalSetDTO;
-import com.fekim.workweout.online.stat.service.dto.TargetPartTotalSetsDTO;
+import com.fekim.workweout.online.stat.service.dto.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -65,6 +62,23 @@ public class StatServiceTest {
             System.out.println(methodWeiIncDTO.toString());
         }
         System.out.println("================list end================");
+
+    }
+
+    @Test
+    void getMethodWeekMaxWeisTest() {
+        MethodWeekMaxWeisDTO methodWeekMaxWeisDTO = statService.getMethodWeekMaxWeis(
+                1L,
+                "2024012",
+                4
+        );
+
+        System.out.println("==========================================");
+        for (MethodWeekMaxWeiDTO methodWeekMaxWeiDTO : methodWeekMaxWeisDTO.getMethodWeekMaxWeiDTOList()) {
+            System.out.println(methodWeekMaxWeiDTO.getMethodId()+":"+methodWeekMaxWeiDTO.getMethodNm());
+            System.out.println(methodWeekMaxWeiDTO.getWeekMaxWeiDTOList().toString());
+            System.out.println("==========================================");
+        }
 
     }
 

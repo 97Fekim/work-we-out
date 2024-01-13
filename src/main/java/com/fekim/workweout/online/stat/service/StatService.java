@@ -1,9 +1,6 @@
 package com.fekim.workweout.online.stat.service;
 
-import com.fekim.workweout.online.stat.service.dto.MethodWeiIncDTO;
-import com.fekim.workweout.online.stat.service.dto.MethodWeiIncsDTO;
-import com.fekim.workweout.online.stat.service.dto.TargetPartTotalSetDTO;
-import com.fekim.workweout.online.stat.service.dto.TargetPartTotalSetsDTO;
+import com.fekim.workweout.online.stat.service.dto.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,6 +34,13 @@ public interface StatService {
      *  - OUT = [ 운동종목:무게증감 의 DTO 리스트]
      * */
     MethodWeiIncsDTO getMonthlyMethodWeiIncs(Long mbrId, String bfYyyyMm, String curYyyyMm);
+
+    /**
+     * 05. 회원 N주간 운동종목별 중량추이 조회
+     *  - IN = [ 회원ID, 이번주(YYYY/MM/W), 계산범위 ]
+     *  - OUT = [ 운동종목:계산범위주별무게 의 DTO 리스트]
+     * */
+    MethodWeekMaxWeisDTO getMethodWeekMaxWeis(Long mbrId, String yyyyMmW, int range);
 
 
 
