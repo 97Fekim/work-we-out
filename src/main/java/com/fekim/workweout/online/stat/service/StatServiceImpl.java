@@ -223,5 +223,99 @@ public class StatServiceImpl implements StatService{
 
     }
 
+    /**
+     * 06. 회원 N월간 운동종목별 중량추이 조회
+     *  - IN = [ 회원ID, 이번월(YYYY/MM/W), 계산범위 ]
+     *  - OUT = [ 운동종목:계산범위주별무게 의 DTO 리스트]
+     * */
+    @Override
+    public MethodMonthMaxWeisDTO getMethodMonthMaxWeis(Long mbrId, String yyyyMm, int range) {
+        if (range < 1) {
+            log.error("[ERROR]===========================================");
+            log.error("[ERROR]Month range is less than 1.");
+            log.error("[ERROR]===========================================");
+        }
+
+        /* (1) 가장 최신의 Month 를 구한다. */
+        String curYyyy = yyyyMm.substring(0, 4);
+        String curMm = yyyyMm.substring(4,6);
+        YyyyMm curYyyyMm = YyyyMm
+                .builder()
+                .cuofYyyy(curYyyy)
+                .cuofMm(curMm)
+                .build();
+
+
+        /* (2)
+         * - (2-1) [-N번째Month ~ 가장최신Month] 의 Month 정보를 리스트로 구성한다.
+         * - (2-2) [-N번째Month ~ 가장최신Month] 까지 존재하는 모든 운동종목ID 중복제거하여 구성한다.
+         *  */
+        Set<Long> methodIdSet = new TreeSet<>();
+        List<YyyyMm> allMonths = new ArrayList<>();
+
+        for (long i=range-1; i>=0; i--) {  // 중복제거를 위해 Set으로 1차구성
+            List<Object[]> bfYyyyMmWEntity = dateRepository.findBeforeCuofYyyyMm(curYyyyMm, i);
+
+            YyyyMm bfYyyyMm = YyyyMm
+                    .builder()
+                    .cuofYyyy(String.valueOf(bfYyyyMmWEntity.get(0)[0]))
+                    .cuofMm(String.valueOf(bfYyyyMmWEntity.get(0)[1]))
+                    .build();
+
+            // (2-1) Month 정보 리스트 구성
+            allMonths.add(bfYyyyMm);
+
+            // (2-2) 운동종목ID Set 구성
+            List<Long> methodIds = statRepository.findAllMethodInMonth(
+                    mbrId,
+                    bfYyyyMm
+            );
+
+            methodIdSet.addAll(methodIds);
+        }
+
+        System.out.println("[DEBUG]===========================================");
+        System.out.println("[DEBUG]METHODS INFO = " + methodIdSet.toString());
+        for (YyyyMm ym : allMonths) {
+            System.out.println("[DEBUG]MONTHS INFO = " + ym.getCuofYyyy()+"/"+ym.getCuofMm());
+        }
+        System.out.println("[DEBUG]===========================================");
+
+
+        /* (3) 최종DTO생성 = 운동종목ID셋 X Months리스트 */
+        MethodMonthMaxWeisDTO methodMonthMaxWeisDTO =
+                MethodMonthMaxWeisDTO.builder().build();
+
+        for (Long methodId : methodIdSet) {
+
+            List<MonthMaxWeiDTO> monthMaxWeiDTOs = new ArrayList<>();
+            for (YyyyMm month : allMonths) {
+
+                Long maxWeight = statRepository.findMethodMaxWeiInMonth(
+                        mbrId, methodId, month
+                );
+
+                monthMaxWeiDTOs.add(MonthMaxWeiDTO
+                        .builder()
+                        .cuofYyyy(month.getCuofYyyy())
+                        .coufMm(month.getCuofMm())
+                        .maxWeight(maxWeight)
+                        .build()
+                );
+            }
+
+            methodMonthMaxWeisDTO.getMethodMonthMaxWeiDTOList().add(
+                    MethodMonthMaxWeiDTO
+                            .builder()
+                            .methodId(methodId)
+                            .methodNm(wkoutMethodRepository.findById(methodId).get().getMethodNm())
+                            .monthMaxWeiDTOList(monthMaxWeiDTOs)
+                            .build()
+            );
+        }
+
+        return methodMonthMaxWeisDTO;
+    }
+
 
 }

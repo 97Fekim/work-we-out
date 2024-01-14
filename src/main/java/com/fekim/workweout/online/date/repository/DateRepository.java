@@ -1,6 +1,7 @@
 package com.fekim.workweout.online.date.repository;
 
 import com.fekim.workweout.online.date.repository.entity.Date;
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmDd;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,5 +36,26 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             , nativeQuery = true)
     List<Object[]> findBeforeCuofYyyyMmW(@Param("cuofYyyyMmW") YyyyMmW cuofYyyyMmW,
                                    @Param("range") Long range);
+
+    @Query(value = "" +
+            "SELECT  " +
+            "  BF_CUOF_YYYY AS bfCuofYyyy, " +
+            "  BF_CUOF_MM AS bfCuofMm " +
+            "FROM  " +
+            "(SELECT  " +
+            "  CUOF_YYYY,  " +
+            "  CUOF_MM,  " +
+            "  LAG(CUOF_YYYY, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM) AS BF_CUOF_YYYY, " +
+            "  LAG(CUOF_MM, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM) AS BF_CUOF_MM " +
+            "FROM TBL_DATE " +
+            "GROUP BY CUOF_YYYY, CUOF_MM " +
+            "ORDER BY CUOF_YYYY, CUOF_MM ) CUOF_DATE " +
+            "WHERE 1=1  " +
+            "  AND CUOF_YYYY = :#{#cuofYyyyMm.cuofYyyy} " +
+            "  AND CUOF_MM = :#{#cuofYyyyMm.cuofMm} " +
+            "ORDER BY BF_CUOF_YYYY, BF_CUOF_MM; "
+            , nativeQuery = true)
+    List<Object[]> findBeforeCuofYyyyMm(@Param("cuofYyyyMm") YyyyMm cuofYyyyMm,
+                                         @Param("range") Long range);
 
 }

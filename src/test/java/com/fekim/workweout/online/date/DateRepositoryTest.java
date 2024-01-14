@@ -1,6 +1,7 @@
 package com.fekim.workweout.online.date;
 
 import com.fekim.workweout.online.date.repository.DateRepository;
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,21 @@ public class DateRepositoryTest {
         System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[0]));
         System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[1]));
         System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[2]));
+    }
+
+    @Test
+    void findBeforeCuofYyyyMmTest() {
+
+        List<Object[]> beforeCuofYyyyMmW = dateRepository.findBeforeCuofYyyyMm(
+                YyyyMm.builder()
+                        .cuofYyyy("2024")
+                        .cuofMm("01")
+                        .build(),
+                1L
+        );
+
+        System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[0]));
+        System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[1]));
     }
 
 }

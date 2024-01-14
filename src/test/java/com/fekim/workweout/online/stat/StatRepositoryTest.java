@@ -86,4 +86,28 @@ public class StatRepositoryTest {
 
     }
 
+    @Test
+    void findAllMethodInMonthTest() {
+        List<Long> methods = statRepository.findAllMethodInMonth(
+                1L,
+                YyyyMm.builder()
+                        .cuofYyyy("2024")
+                        .cuofMm("01")
+                        .build()
+        );
+        System.out.println(methods.toString());
+    }
+
+    @Test
+    void findMethodMaxWeiInMonthTest() {
+        System.out.println(
+                statRepository.findMethodMaxWeiInMonth(
+                        1L,
+                        1L,
+                        YyyyMm.builder().cuofYyyy("2024").cuofMm("01").build()
+                )
+        );
+
+    }
+
 }

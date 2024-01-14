@@ -82,4 +82,21 @@ public class StatServiceTest {
 
     }
 
+    @Test
+    void getMethodMonthMaxWeisTest() {
+        MethodMonthMaxWeisDTO methodMonthMaxWeisDTO = statService.getMethodMonthMaxWeis(
+                1L,
+                "202401",
+                4
+        );
+
+        System.out.println("==========================================");
+        for (MethodMonthMaxWeiDTO methodMonthMaxWeiDTO : methodMonthMaxWeisDTO.getMethodMonthMaxWeiDTOList()) {
+            System.out.println(methodMonthMaxWeiDTO.getMethodId()+":"+methodMonthMaxWeiDTO.getMethodNm());
+            System.out.println(methodMonthMaxWeiDTO.getMonthMaxWeiDTOList().toString());
+            System.out.println("==========================================");
+        }
+
+    }
+
 }

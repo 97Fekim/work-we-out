@@ -42,6 +42,12 @@ public interface StatService {
      * */
     MethodWeekMaxWeisDTO getMethodWeekMaxWeis(Long mbrId, String yyyyMmW, int range);
 
+    /**
+     * 06. 회원 N월간 운동종목별 중량추이 조회
+     *  - IN = [ 회원ID, 이번월(YYYY/MM/W), 계산범위 ]
+     *  - OUT = [ 운동종목:계산범위주별무게 의 DTO 리스트]
+     * */
+    MethodMonthMaxWeisDTO getMethodMonthMaxWeis(Long mbrId, String yyyyMm, int range);
 
 
     /**

@@ -180,4 +180,44 @@ public interface StatRepository extends Repository<WkoutJnalMethod, Long> {
                                       @Param("methodId") Long methodId,
                                       @Param("yyyyMmW") YyyyMmW yyyyMmW);
 
+    @Query(value = "" +
+            "select WM.methodId AS methodId " +
+            "from WkoutJnalMethod WJM " +
+            "join WJM.wkoutJnal WJ " +
+            "join WJM.wkoutMethod WM " +
+            "join Date D " +
+            "  on D.yyyyMmDd.yyyy = WJ.yyyyMmDd.yyyy " +
+            " and D.yyyyMmDd.mm = WJ.yyyyMmDd.mm " +
+            " and D.yyyyMmDd.dd = WJ.yyyyMmDd.dd " +
+            "where WJ.member.mbrId = :#{#mbrId} " +
+            "  and D.yyyyMmW.cuofYyyy = :#{#yyyyMm.cuofYyyy} " +
+            "  and D.yyyyMmW.cuofMm = :#{#yyyyMm.cuofMm} " +
+            "group by WM.methodId " +
+            "order by WM.methodId ")
+    List<Long> findAllMethodInMonth(@Param("mbrId") Long mbrId,
+                                   @Param("yyyyMm") YyyyMm yyyyMm);
+
+    @Query(value = "" +
+            "SELECT  " +
+            "  MAX(WJM.WEIGHT) AS MAX_WEI " +
+            "FROM " +
+            "  WKOUT_JNAL WJ, " +
+            "  WKOUT_JNAL_METHOD WJM, " +
+            "  WKOUT_METHOD WM, " +
+            "  TBL_DATE TD " +
+            "WHERE 1=1 " +
+            "  AND WJ.JNAL_ID = WJM.JNAL_ID " +
+            "  AND WJ.YYYY = TD.YYYY " +
+            "  AND WJ.MM = TD.MM " +
+            "  AND WJ.DD = TD.DD " +
+            "  AND WJ.MBR_ID = :#{#mbrId} " +
+            "  AND TD.CUOF_YYYY = :#{#yyyyMm.cuofYyyy} " +
+            "  AND TD.CUOF_MM = :#{#yyyyMm.cuofMm} " +
+            "  AND WJM.METHOD_ID = WM.METHOD_ID " +
+            "  AND WJM.METHOD_ID = :#{#methodId} ; " +
+            "", nativeQuery = true)
+    Long findMethodMaxWeiInMonth(@Param("mbrId") Long mbrId,
+                                @Param("methodId") Long methodId,
+                                @Param("yyyyMm") YyyyMm yyyyMm);
+
 }
