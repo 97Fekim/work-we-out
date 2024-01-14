@@ -49,6 +49,21 @@ public interface StatService {
      * */
     MethodMonthMaxWeisDTO getMethodMonthMaxWeis(Long mbrId, String yyyyMm, int range);
 
+    /**
+     * 07. 그룹 N주간 멤버별운동일수 조회
+     *  - IN = [ 그룹ID, 이번주(YYYY/MM/W) ]
+     *  - OUT = [ 회원:운동일수 의 DTO 리스트]
+     * */
+    MbrWkoutDaysCntsDTO getWeeklyGrpWkoutDaysCnt(Long grpId, String yyyyMmW);
+
+    /**
+     * 08. 그룹 N월간 멤버별운동일수 조회
+     *  - IN = [ 그룹ID, 이번월(YYYY/MM) ]
+     *  - OUT = [ 회원:운동일수 의 DTO 리스트]
+     * */
+    MbrWkoutDaysCntsDTO getMonthlyGrpWkoutDaysCnt(Long grpId, String yyyyMm);
+
+
 
     /**
      * Transform TargetPartTotalSets entity to DTO

@@ -110,4 +110,41 @@ public class StatRepositoryTest {
 
     }
 
+    @Test
+    void findWeekGrpMemberTotalWkoutDaysCntTest() {
+        List<Object[]> objects = statRepository.findWeekGrpMemberTotalWkoutDaysCnt(
+                1L,
+                YyyyMmW.builder()
+                        .cuofYyyy("2024")
+                        .cuofMm("01")
+                        .cuofWeek("1")
+                        .build()
+        );
+
+        System.out.println("================list start================");
+        for (Object[] object : objects) {
+            System.out.println(object[0]+"/"+object[1]+"/"+object[2]+"/"+object[3]+"/"+object[4]);
+            System.out.println();
+        }
+        System.out.println("================list end================");
+    }
+
+    @Test
+    void findMonthGrpMemberTotalWkoutDaysCntTest() {
+        List<Object[]> objects = statRepository.findMonthGrpMemberTotalWkoutDaysCnt(
+                1L,
+                YyyyMm.builder()
+                        .cuofYyyy("2024")
+                        .cuofMm("01")
+                        .build()
+        );
+
+        System.out.println("================list start================");
+        for (Object[] object : objects) {
+            System.out.println(object[0]+"/"+object[1]+"/"+object[2]+"/"+object[3]);
+            System.out.println();
+        }
+        System.out.println("================list end================");
+    }
+
 }

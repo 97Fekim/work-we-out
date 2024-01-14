@@ -220,4 +220,46 @@ public interface StatRepository extends Repository<WkoutJnalMethod, Long> {
                                 @Param("methodId") Long methodId,
                                 @Param("yyyyMm") YyyyMm yyyyMm);
 
+    @Query(value = "" +
+            "select " +
+            "  WJ.member.mbrId AS mbrId," +
+            "  D.yyyyMmW.cuofYyyy AS cuofYyyy," +
+            "  D.yyyyMmW.cuofMm AS cuofMm, " +
+            "  D.yyyyMmW.cuofWeek AS cuofWeek, " +
+            "  count(distinct D.yyyyMmDd) AS wkoutDaysCnt " +
+            "from WkoutJnal WJ " +
+            "join MemberGrp MG on WJ.member.mbrId = MG.member.mbrId " +
+            "join Date D " +
+            "  on D.yyyyMmDd.yyyy = WJ.yyyyMmDd.yyyy " +
+            " and D.yyyyMmDd.mm = WJ.yyyyMmDd.mm " +
+            " and D.yyyyMmDd.dd = WJ.yyyyMmDd.dd " +
+            "where D.yyyyMmW.cuofYyyy = :#{#yyyyMmW.cuofYyyy} " +
+            "  and D.yyyyMmW.cuofMm = :#{#yyyyMmW.cuofMm} " +
+            "  and D.yyyyMmW.cuofWeek = :#{#yyyyMmW.cuofWeek} " +
+            "  and MG.grp.grpId = :#{#grpId} " +
+            "group by WJ.member.mbrId, D.yyyyMmW.cuofYyyy, D.yyyyMmW.cuofMm, D.yyyyMmW.cuofWeek " +
+            "order by WJ.member.mbrId, D.yyyyMmW.cuofYyyy, D.yyyyMmW.cuofMm, D.yyyyMmW.cuofWeek ")
+    List<Object[]> findWeekGrpMemberTotalWkoutDaysCnt(@Param("grpId") Long grpId,
+                                                      @Param("yyyyMmW") YyyyMmW yyyyMmW);
+
+    @Query(value = "" +
+            "select " +
+            "  WJ.member.mbrId AS mbrId," +
+            "  D.yyyyMmW.cuofYyyy AS cuofYyyy," +
+            "  D.yyyyMmW.cuofMm AS cuofMm, " +
+            "  count(distinct D.yyyyMmDd) AS wkoutDaysCnt " +
+            "from WkoutJnal WJ " +
+            "join MemberGrp MG on WJ.member.mbrId = MG.member.mbrId " +
+            "join Date D " +
+            "  on D.yyyyMmDd.yyyy = WJ.yyyyMmDd.yyyy " +
+            " and D.yyyyMmDd.mm = WJ.yyyyMmDd.mm " +
+            " and D.yyyyMmDd.dd = WJ.yyyyMmDd.dd " +
+            "where D.yyyyMmW.cuofYyyy = :#{#yyyyMm.cuofYyyy} " +
+            "  and D.yyyyMmW.cuofMm = :#{#yyyyMm.cuofMm} " +
+            "  and MG.grp.grpId = :#{#grpId} " +
+            "group by WJ.member.mbrId, D.yyyyMmW.cuofYyyy, D.yyyyMmW.cuofMm " +
+            "order by WJ.member.mbrId, D.yyyyMmW.cuofYyyy, D.yyyyMmW.cuofMm ")
+    List<Object[]> findMonthGrpMemberTotalWkoutDaysCnt(@Param("grpId") Long grpId,
+                                                      @Param("yyyyMm") YyyyMm yyyyMm);
+
 }

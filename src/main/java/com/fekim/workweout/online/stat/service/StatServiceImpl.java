@@ -4,6 +4,8 @@ import com.fekim.workweout.online.date.repository.DateRepository;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import com.fekim.workweout.online.jnal.repository.WkoutMethodRepository;
+import com.fekim.workweout.online.member.repository.MemberRepository;
+import com.fekim.workweout.online.member.repository.entity.Member;
 import com.fekim.workweout.online.stat.repository.StatRepository;
 import com.fekim.workweout.online.stat.service.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.TreeSet;
 @Log4j2
 public class StatServiceImpl implements StatService{
 
+    private final MemberRepository memberRepository;
     private final StatRepository statRepository;
     private final DateRepository dateRepository;
     private final WkoutMethodRepository wkoutMethodRepository;
@@ -315,6 +318,93 @@ public class StatServiceImpl implements StatService{
         }
 
         return methodMonthMaxWeisDTO;
+    }
+
+    /**
+     * 06. 그룹 N주간 멤버별운동일수 조회
+     *  - IN = [ 그룹ID, 이번주(YYYY/MM/W) ]
+     *  - OUT = [ 회원:운동일수 의 DTO 리스트]
+     * */
+    @Override
+    public MbrWkoutDaysCntsDTO getWeeklyGrpWkoutDaysCnt(Long grpId, String yyyyMmW) {
+
+        String curYyyy = yyyyMmW.substring(0, 4);
+        String curMm = yyyyMmW.substring(4,6);
+        String curWeek = yyyyMmW.substring(6,7);
+        YyyyMmW curYyyyMmW = YyyyMmW
+                .builder()
+                .cuofYyyy(curYyyy)
+                .cuofMm(curMm)
+                .cuofWeek(curWeek)
+                .build();
+
+        List<Object[]> weekGrpMemberTotalWkoutDaysCnt = statRepository.findWeekGrpMemberTotalWkoutDaysCnt(grpId, curYyyyMmW);
+
+        MbrWkoutDaysCntsDTO mbrWkoutDaysCntsDTO = MbrWkoutDaysCntsDTO.builder().build();
+
+        for (Object[] eneity : weekGrpMemberTotalWkoutDaysCnt) {
+
+            Member mbrInfo = memberRepository.findById((Long)eneity[0]).get();
+
+            Long mbrId = mbrInfo.getMbrId();
+            String mbrNm = mbrInfo.getMbrNm();
+            String profImgPath = mbrInfo.getProfImgPath();
+            Long wkoutDaysCnt = (Long)eneity[4];
+
+            mbrWkoutDaysCntsDTO.getMbrWkoutDaysCntDTOList().add(
+                    MbrWkoutDaysCntDTO.builder()
+                            .mbrId(mbrId)
+                            .mbrNm(mbrNm)
+                            .profImgPath(profImgPath)
+                            .wkoutDaysCnt(wkoutDaysCnt)
+                            .build()
+            );
+
+        }
+
+        return mbrWkoutDaysCntsDTO;
+    }
+
+    /**
+     * 08. 그룹 N월간 멤버별운동일수 조회
+     *  - IN = [ 그룹ID, 이번월(YYYY/MM) ]
+     *  - OUT = [ 회원:운동일수 의 DTO 리스트]
+     * */
+    @Override
+    public MbrWkoutDaysCntsDTO getMonthlyGrpWkoutDaysCnt(Long grpId, String yyyyMm) {
+        String curYyyy = yyyyMm.substring(0, 4);
+        String curMm = yyyyMm.substring(4,6);
+        YyyyMm curYyyyMm = YyyyMm
+                .builder()
+                .cuofYyyy(curYyyy)
+                .cuofMm(curMm)
+                .build();
+
+        List<Object[]> monthGrpMemberTotalWkoutDaysCnt = statRepository.findMonthGrpMemberTotalWkoutDaysCnt(grpId, curYyyyMm);
+
+        MbrWkoutDaysCntsDTO mbrWkoutDaysCntsDTO = MbrWkoutDaysCntsDTO.builder().build();
+
+        for (Object[] eneity : monthGrpMemberTotalWkoutDaysCnt) {
+
+            Member mbrInfo = memberRepository.findById((Long)eneity[0]).get();
+
+            Long mbrId = mbrInfo.getMbrId();
+            String mbrNm = mbrInfo.getMbrNm();
+            String profImgPath = mbrInfo.getProfImgPath();
+            Long wkoutDaysCnt = (Long)eneity[3];
+
+            mbrWkoutDaysCntsDTO.getMbrWkoutDaysCntDTOList().add(
+                    MbrWkoutDaysCntDTO.builder()
+                            .mbrId(mbrId)
+                            .mbrNm(mbrNm)
+                            .profImgPath(profImgPath)
+                            .wkoutDaysCnt(wkoutDaysCnt)
+                            .build()
+            );
+
+        }
+
+        return mbrWkoutDaysCntsDTO;
     }
 
 

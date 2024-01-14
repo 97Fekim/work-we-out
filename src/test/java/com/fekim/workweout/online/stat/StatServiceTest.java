@@ -99,4 +99,23 @@ public class StatServiceTest {
 
     }
 
+    @Test
+    void getGrpWkoutDaysCntTest() {
+        MbrWkoutDaysCntsDTO mbrWkoutDaysCntsDTO = statService.getWeeklyGrpWkoutDaysCnt(
+                1L, "2024011"
+        );
+
+        System.out.println(mbrWkoutDaysCntsDTO.toString());
+    }
+
+    @Test
+    void getMonthlyGrpWkoutDaysCntTest() {
+        MbrWkoutDaysCntsDTO mbrWkoutDaysCntsDTO = statService.getMonthlyGrpWkoutDaysCnt(
+                1L, "202401"
+        );
+
+        System.out.println(mbrWkoutDaysCntsDTO.toString());
+
+    }
+
 }
