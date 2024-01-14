@@ -18,16 +18,16 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             "  BF_CUOF_MM AS bfCuofMm, " +
             "  BF_CUOF_WEEK AS bfCuofWeek " +
             "FROM  " +
-            "(SELECT  " +
-            "  CUOF_YYYY,  " +
-            "  CUOF_MM,  " +
-            "  CUOF_WEEK, " +
-            "  LAG(CUOF_YYYY, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM, CUOF_WEEK) AS BF_CUOF_YYYY, " +
-            "  LAG(CUOF_MM, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM, CUOF_WEEK) AS BF_CUOF_MM, " +
-            "  LAG(CUOF_WEEK, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM, CUOF_WEEK) AS BF_CUOF_WEEK " +
-            "FROM TBL_DATE " +
-            "GROUP BY CUOF_YYYY, CUOF_MM, CUOF_WEEK " +
-            "ORDER BY CUOF_YYYY, CUOF_MM, CUOF_WEEK ) CUOF_DATE " +
+            "  (SELECT  " +
+            "     CUOF_YYYY,  " +
+            "     CUOF_MM,  " +
+            "     CUOF_WEEK, " +
+            "     LAG(CUOF_YYYY, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM, CUOF_WEEK) AS BF_CUOF_YYYY, " +
+            "     LAG(CUOF_MM, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM, CUOF_WEEK) AS BF_CUOF_MM, " +
+            "     LAG(CUOF_WEEK, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM, CUOF_WEEK) AS BF_CUOF_WEEK " +
+            "   FROM TBL_DATE " +
+            "   GROUP BY CUOF_YYYY, CUOF_MM, CUOF_WEEK " +
+            "   ORDER BY CUOF_YYYY, CUOF_MM, CUOF_WEEK ) CUOF_DATE " +
             "WHERE 1=1  " +
             "  AND CUOF_YYYY = :#{#cuofYyyyMmW.cuofYyyy} " +
             "  AND CUOF_MM = :#{#cuofYyyyMmW.cuofMm} " +
@@ -42,14 +42,14 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             "  BF_CUOF_YYYY AS bfCuofYyyy, " +
             "  BF_CUOF_MM AS bfCuofMm " +
             "FROM  " +
-            "(SELECT  " +
-            "  CUOF_YYYY,  " +
-            "  CUOF_MM,  " +
-            "  LAG(CUOF_YYYY, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM) AS BF_CUOF_YYYY, " +
-            "  LAG(CUOF_MM, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM) AS BF_CUOF_MM " +
-            "FROM TBL_DATE " +
-            "GROUP BY CUOF_YYYY, CUOF_MM " +
-            "ORDER BY CUOF_YYYY, CUOF_MM ) CUOF_DATE " +
+            "  (SELECT  " +
+            "     CUOF_YYYY,  " +
+            "     CUOF_MM,  " +
+            "     LAG(CUOF_YYYY, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM) AS BF_CUOF_YYYY, " +
+            "     LAG(CUOF_MM, :#{#range} ) OVER (ORDER BY CUOF_YYYY, CUOF_MM) AS BF_CUOF_MM " +
+            "   FROM TBL_DATE " +
+            "   GROUP BY CUOF_YYYY, CUOF_MM " +
+            "   ORDER BY CUOF_YYYY, CUOF_MM ) CUOF_DATE " +
             "WHERE 1=1  " +
             "  AND CUOF_YYYY = :#{#cuofYyyyMm.cuofYyyy} " +
             "  AND CUOF_MM = :#{#cuofYyyyMm.cuofMm} " +
