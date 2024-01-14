@@ -147,4 +147,22 @@ public class StatRepositoryTest {
         System.out.println("================list end================");
     }
 
+    @Test
+    void findWeekGrpTargetPartTotalSetsTest() {
+        List<Object[]> objects = statRepository.findWeekGrpTargetPartTotalSets(
+                1L,
+                YyyyMmW.builder()
+                        .cuofYyyy("2024")
+                        .cuofMm("01")
+                        .cuofWeek("1")
+                        .build()
+        );
+        System.out.println("================list start================");
+        for (Object[] object : objects) {
+            System.out.println(object[0]+"/"+object[1]);
+            System.out.println();
+        }
+        System.out.println("================list end================");
+    }
+
 }

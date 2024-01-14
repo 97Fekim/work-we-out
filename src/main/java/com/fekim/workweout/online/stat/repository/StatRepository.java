@@ -262,4 +262,46 @@ public interface StatRepository extends Repository<WkoutJnalMethod, Long> {
     List<Object[]> findMonthGrpMemberTotalWkoutDaysCnt(@Param("grpId") Long grpId,
                                                       @Param("yyyyMm") YyyyMm yyyyMm);
 
+    @Query(value = "" +
+            "select " +
+            "  WM.targetPart as targetPart, " +
+            "  sum(WJM.sets) as totalSets " +
+            "from MemberGrp MG " +
+            "join WkoutJnal WJ on WJ.member.mbrId = MG.member.mbrId " +
+            "join WkoutJnalMethod WJM on WJM.wkoutJnal.jnalId = WJ.jnalId " +
+            "join WkoutMethod WM on WM.methodId = WJM.wkoutMethod.methodId " +
+            "join Date D " +
+            "  on D.yyyyMmDd.yyyy = WJ.yyyyMmDd.yyyy " +
+            " and D.yyyyMmDd.mm = WJ.yyyyMmDd.mm " +
+            " and D.yyyyMmDd.dd = WJ.yyyyMmDd.dd " +
+            "where MG.grp.grpId = :#{#grpId} " +
+            "  and D.yyyyMmW.cuofYyyy = :#{#yyyyMmW.cuofYyyy} " +
+            "  and D.yyyyMmW.cuofMm = :#{#yyyyMmW.cuofMm} " +
+            "  and D.yyyyMmW.cuofWeek = :#{#yyyyMmW.cuofWeek} " +
+            "group by WM.targetPart " +
+            "order by WM.targetPart ")
+    List<Object[]> findWeekGrpTargetPartTotalSets(@Param("grpId") Long grpId,
+                                                  @Param("yyyyMmW") YyyyMmW yyyyMmW);
+
+    @Query(value = "" +
+            "select " +
+            "  WM.targetPart as targetPart, " +
+            "  sum(WJM.sets) as totalSets " +
+            "from MemberGrp MG " +
+            "join WkoutJnal WJ on WJ.member.mbrId = MG.member.mbrId " +
+            "join WkoutJnalMethod WJM on WJM.wkoutJnal.jnalId = WJ.jnalId " +
+            "join WkoutMethod WM on WM.methodId = WJM.wkoutMethod.methodId " +
+            "join Date D " +
+            "  on D.yyyyMmDd.yyyy = WJ.yyyyMmDd.yyyy " +
+            " and D.yyyyMmDd.mm = WJ.yyyyMmDd.mm " +
+            " and D.yyyyMmDd.dd = WJ.yyyyMmDd.dd " +
+            "where MG.grp.grpId = :#{#grpId} " +
+            "  and D.yyyyMmW.cuofYyyy = :#{#yyyyMm.cuofYyyy} " +
+            "  and D.yyyyMmW.cuofMm = :#{#yyyyMm.cuofMm} " +
+            "group by WM.targetPart " +
+            "order by WM.targetPart ")
+    List<Object[]> findMonthGrpTargetPartTotalSets(@Param("grpId") Long grpId,
+                                                  @Param("yyyyMm") YyyyMm yyyyMm);
+
+
 }

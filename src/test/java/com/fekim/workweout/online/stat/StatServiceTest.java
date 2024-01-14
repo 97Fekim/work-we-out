@@ -118,4 +118,19 @@ public class StatServiceTest {
 
     }
 
+    @Test
+    void getWeeklyGrpTargetPartTotalSetsTest() {
+        TargetPartTotalSetsDTO weeklyGrpTargetPartTotalSets = statService.getWeeklyGrpTargetPartTotalSets(
+                1L, "2024011"
+        );
+        System.out.println(weeklyGrpTargetPartTotalSets.toString());
+    }
+
+    @Test
+    void getMonthlyGrpTargetPartTotalSetsTest() {
+        TargetPartTotalSetsDTO weeklyGrpTargetPartTotalSets = statService.getMonthlyGrpTargetPartTotalSets(
+                1L, "202401"
+        );
+        System.out.println(weeklyGrpTargetPartTotalSets.toString());
+    }
 }

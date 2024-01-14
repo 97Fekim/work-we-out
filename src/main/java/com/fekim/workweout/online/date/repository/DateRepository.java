@@ -5,6 +5,7 @@ import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmDd;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

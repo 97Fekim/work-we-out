@@ -63,6 +63,19 @@ public interface StatService {
      * */
     MbrWkoutDaysCntsDTO getMonthlyGrpWkoutDaysCnt(Long grpId, String yyyyMm);
 
+    /**
+     * 09. 그룹 N주간 운동부위별 총 세트수 조회
+     *  - IN = [ 그룹ID, 이번주(YYYY/MM/W) ]
+     *  - OUT = [ 부위:총세트수 의 DTO 리스트]
+     * */
+    TargetPartTotalSetsDTO getWeeklyGrpTargetPartTotalSets(Long grpId, String yyyyMmW);
+
+    /**
+     * 10. 그룹 N월간 운동부위별 총 세트수 조회
+     *  - IN = [ 그룹ID, 이번월(YYYY/MM) ]
+     *  - OUT = [ 부위:총세트수 의 DTO 리스트]
+     * */
+    TargetPartTotalSetsDTO getMonthlyGrpTargetPartTotalSets(Long grpId, String yyyyMm);
 
 
     /**

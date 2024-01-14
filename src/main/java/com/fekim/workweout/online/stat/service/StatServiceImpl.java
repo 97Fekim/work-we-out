@@ -407,5 +407,47 @@ public class StatServiceImpl implements StatService{
         return mbrWkoutDaysCntsDTO;
     }
 
+    /**
+     * 09. 그룹 N주간 운동부위별 총 세트수 조회
+     *  - IN = [ 그룹ID, 이번주(YYYY/MM/W) ]
+     *  - OUT = [ 부위:총세트수 의 DTO 리스트]
+     * */
+    @Override
+    public TargetPartTotalSetsDTO getWeeklyGrpTargetPartTotalSets(Long grpId, String yyyyMmW) {
+        String yyyy = yyyyMmW.substring(0, 4);
+        String mm = yyyyMmW.substring(4,6);
+        String week = yyyyMmW.substring(6,7);
+
+        List<Object[]> entities = statRepository.findWeekGrpTargetPartTotalSets(
+                grpId, YyyyMmW
+                        .builder()
+                        .cuofYyyy(yyyy)
+                        .cuofMm(mm)
+                        .cuofWeek(week)
+                        .build());
+
+        return makeTargetPartTotalSetsDTO(entities);
+    }
+
+    /**
+     * 10. 그룹 N월간 운동부위별 총 세트수 조회
+     *  - IN = [ 그룹ID, 이번월(YYYY/MM) ]
+     *  - OUT = [ 부위:총세트수 의 DTO 리스트]
+     * */
+    @Override
+    public TargetPartTotalSetsDTO getMonthlyGrpTargetPartTotalSets(Long grpId, String yyyyMm) {
+        String yyyy = yyyyMm.substring(0, 4);
+        String mm = yyyyMm.substring(4,6);
+
+        List<Object[]> entities = statRepository.findMonthGrpTargetPartTotalSets(
+                grpId, YyyyMm
+                        .builder()
+                        .cuofYyyy(yyyy)
+                        .cuofMm(mm)
+                        .build());
+
+        return makeTargetPartTotalSetsDTO(entities);
+    }
+
 
 }
