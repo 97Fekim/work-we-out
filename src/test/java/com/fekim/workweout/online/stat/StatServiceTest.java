@@ -177,4 +177,14 @@ public class StatServiceTest {
         System.out.println(out.toString());
     }
 
+    @Test
+    void getSmsSendSuccessFailCntTest() {
+        SmsSendSuccessFailCntDTO smsSendSuccessFailCnt = statService.getSmsSendSuccessFailCnt("2024011");
+
+        Assertions.assertThat(smsSendSuccessFailCnt != null);
+
+        System.out.println(smsSendSuccessFailCnt.toString());
+
+    }
+
 }

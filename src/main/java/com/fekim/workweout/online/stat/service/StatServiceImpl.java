@@ -8,15 +8,15 @@ import com.fekim.workweout.online.jnal.repository.WkoutMethodRepository;
 import com.fekim.workweout.online.member.repository.MemberRepository;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import com.fekim.workweout.online.stat.repository.StatRepository;
+import com.fekim.workweout.online.stat.repository.WeeklyWkoutStatRsltRepository;
+import com.fekim.workweout.online.stat.repository.WeeklyWkoutStatScheduleRepository;
+import com.fekim.workweout.online.stat.repository.entity.WeeklyWkoutStatSchedule;
 import com.fekim.workweout.online.stat.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +28,8 @@ public class StatServiceImpl implements StatService{
     private final StatRepository statRepository;
     private final DateRepository dateRepository;
     private final WkoutMethodRepository wkoutMethodRepository;
+    private final WeeklyWkoutStatScheduleRepository weeklyWkoutStatScheduleRepository;
+    private final WeeklyWkoutStatRsltRepository weeklyWkoutStatRsltRepository;
 
     /**
      * 01. 회원 주간 운동부위별 총세트수 조회
@@ -468,6 +470,40 @@ public class StatServiceImpl implements StatService{
         }
 
         return grpMbrTargetPartTotalSetsDTO;
+    }
+
+    /**
+     * 13. 주간 문자발송처리현황조회
+     *  - IN = [ YYYY/MM/W ]
+     *  - OUT = [ 성공건수/실패건수 DTO ]
+     * */
+    @Override
+    public SmsSendSuccessFailCntDTO getSmsSendSuccessFailCnt(String yyyyMmW) {
+        Optional<WeeklyWkoutStatSchedule> curSchedule = weeklyWkoutStatScheduleRepository.findById(makeYyyyMmW(yyyyMmW));
+
+        // (0) 아직 문자발송 스케줄이 완료되지 않았다면, 0/0 건을 리턴한다.
+        if (curSchedule.isEmpty() ||
+                curSchedule.get().getStatCplnYn().equals("N")) {
+            return SmsSendSuccessFailCntDTO.builder().build();
+        }
+
+        // (1) 성공 건수를 조회한다.
+        Long successCnt = weeklyWkoutStatRsltRepository.findWeeklyTotalCntBySmsSendRsltClsfCd(
+                makeYyyyMmW(yyyyMmW),
+                "01"
+        );
+
+        // (2) 실패 건수를 조회한다.
+        Long failCnt = weeklyWkoutStatRsltRepository.findWeeklyTotalCntBySmsSendRsltClsfCd(
+                makeYyyyMmW(yyyyMmW),
+                "02"
+        );
+
+        return SmsSendSuccessFailCntDTO.builder()
+                .successCnt(successCnt)
+                .failCnt(failCnt)
+                .build();
+
     }
 
 }

@@ -93,6 +93,13 @@ public interface StatService {
      * */
     GrpMbrTargetPartTotalSetsDTO getMonthlyGrpMbrTargetPartTotalSets(Long grpId, String yyyyMm);
 
+    /**
+     * 13. 주간 문자발송처리현황조회
+     *  - IN = [ YYYY/MM/W ]
+     *  - OUT = [ 성공건수/실패건수 DTO ]
+     * */
+    SmsSendSuccessFailCntDTO getSmsSendSuccessFailCnt(String yyyyMmW);
+
 
     /**
      * Transform TargetPartTotalSets entity to DTO
