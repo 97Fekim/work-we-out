@@ -3,6 +3,7 @@ package com.fekim.workweout.online.stat;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import com.fekim.workweout.online.stat.service.StatService;
 import com.fekim.workweout.online.stat.service.dto.*;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,8 @@ public class StatServiceTest {
     void getWeeklyTargetPartTotalSetsTest() {
         TargetPartTotalSetsDTO partTotalSets = statService.getWeeklyTargetPartTotalSets(1L, "2024011");
 
+        Assertions.assertThat(partTotalSets != null);
+
         System.out.println("================list start================");
         for (TargetPartTotalSetDTO dto : partTotalSets.getTargetPartTotalSetDTOList()) {
             System.out.println(dto.getTargetPart()+"/"+dto.getTotalSets());
@@ -28,11 +31,15 @@ public class StatServiceTest {
     @Test
     void getMonthlyTargetPartTotalSetsTest() {
         TargetPartTotalSetsDTO partTotalSets = statService.getMonthlyTargetPartTotalSets(1L, "202401");
+
+        Assertions.assertThat(partTotalSets != null);
+
         System.out.println("================list start================");
         for (TargetPartTotalSetDTO dto : partTotalSets.getTargetPartTotalSetDTOList()) {
             System.out.println(dto.getTargetPart()+"/"+dto.getTotalSets());
         }
         System.out.println("================list end================");
+
     }
 
     @Test
@@ -42,6 +49,9 @@ public class StatServiceTest {
                 "2024011",
                 "2024012"
         );
+
+        Assertions.assertThat(weeklyMethodWeiIncs != null);
+
         System.out.println("================list start================");
         for (MethodWeiIncDTO methodWeiIncDTO : weeklyMethodWeiIncs.getMethodWeiIncDTOList()) {
             System.out.println(methodWeiIncDTO.toString());
@@ -57,6 +67,9 @@ public class StatServiceTest {
                 "202401",
                 "202402"
         );
+
+        Assertions.assertThat(monthlyMethodWeiIncs != null);
+
         System.out.println("================list start================");
         for (MethodWeiIncDTO methodWeiIncDTO : monthlyMethodWeiIncs.getMethodWeiIncDTOList()) {
             System.out.println(methodWeiIncDTO.toString());
@@ -72,6 +85,8 @@ public class StatServiceTest {
                 "2024012",
                 4
         );
+
+        Assertions.assertThat(methodWeekMaxWeisDTO != null);
 
         System.out.println("==========================================");
         for (MethodWeekMaxWeiDTO methodWeekMaxWeiDTO : methodWeekMaxWeisDTO.getMethodWeekMaxWeiDTOList()) {
@@ -90,13 +105,14 @@ public class StatServiceTest {
                 4
         );
 
+        Assertions.assertThat(methodMonthMaxWeisDTO != null);
+
         System.out.println("==========================================");
         for (MethodMonthMaxWeiDTO methodMonthMaxWeiDTO : methodMonthMaxWeisDTO.getMethodMonthMaxWeiDTOList()) {
             System.out.println(methodMonthMaxWeiDTO.getMethodId()+":"+methodMonthMaxWeiDTO.getMethodNm());
             System.out.println(methodMonthMaxWeiDTO.getMonthMaxWeiDTOList().toString());
             System.out.println("==========================================");
         }
-
     }
 
     @Test
@@ -104,6 +120,8 @@ public class StatServiceTest {
         MbrWkoutDaysCntsDTO mbrWkoutDaysCntsDTO = statService.getWeeklyGrpWkoutDaysCnt(
                 1L, "2024011"
         );
+
+        Assertions.assertThat(mbrWkoutDaysCntsDTO != null);
 
         System.out.println(mbrWkoutDaysCntsDTO.toString());
     }
@@ -114,8 +132,9 @@ public class StatServiceTest {
                 1L, "202401"
         );
 
-        System.out.println(mbrWkoutDaysCntsDTO.toString());
+        Assertions.assertThat(mbrWkoutDaysCntsDTO != null);
 
+        System.out.println(mbrWkoutDaysCntsDTO.toString());
     }
 
     @Test
@@ -123,6 +142,9 @@ public class StatServiceTest {
         TargetPartTotalSetsDTO weeklyGrpTargetPartTotalSets = statService.getWeeklyGrpTargetPartTotalSets(
                 1L, "2024011"
         );
+
+        Assertions.assertThat(weeklyGrpTargetPartTotalSets != null);
+
         System.out.println(weeklyGrpTargetPartTotalSets.toString());
     }
 
@@ -131,6 +153,28 @@ public class StatServiceTest {
         TargetPartTotalSetsDTO weeklyGrpTargetPartTotalSets = statService.getMonthlyGrpTargetPartTotalSets(
                 1L, "202401"
         );
+
+        Assertions.assertThat(weeklyGrpTargetPartTotalSets != null);
+
         System.out.println(weeklyGrpTargetPartTotalSets.toString());
     }
+
+    @Test
+    void getWeeklyGrpMbrTargetPartTotalSetsTest() {
+        GrpMbrTargetPartTotalSetsDTO out = statService.getWeeklyGrpMbrTargetPartTotalSets(1L, "2024011");
+
+        Assertions.assertThat(out != null);
+
+        System.out.println(out.toString());
+    }
+
+    @Test
+    void getMonthlyGrpMbrTargetPartTotalSetsTest() {
+        GrpMbrTargetPartTotalSetsDTO out = statService.getMonthlyGrpMbrTargetPartTotalSets(1L, "202401");
+
+        Assertions.assertThat(out != null);
+
+        System.out.println(out.toString());
+    }
+
 }

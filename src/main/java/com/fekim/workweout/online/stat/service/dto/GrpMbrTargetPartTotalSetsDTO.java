@@ -1,6 +1,5 @@
 package com.fekim.workweout.online.stat.service.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,9 +13,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TargetPartTotalSetsDTO {
+public class GrpMbrTargetPartTotalSetsDTO {
 
     @Builder.Default
-    List<TargetPartTotalSetDTO> targetPartTotalSetDTOList = new ArrayList<>();
-
+    List<MbrTargetPartTotalSetsDTO> mbrTargetPartTotalSetsDTOList = new ArrayList<>();
 }

@@ -3,6 +3,7 @@ package com.fekim.workweout.online.stat.service;
 import com.fekim.workweout.online.date.repository.DateRepository;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
+import com.fekim.workweout.online.group.repository.MemberGrpRepository;
 import com.fekim.workweout.online.jnal.repository.WkoutMethodRepository;
 import com.fekim.workweout.online.member.repository.MemberRepository;
 import com.fekim.workweout.online.member.repository.entity.Member;
@@ -23,6 +24,7 @@ import java.util.TreeSet;
 public class StatServiceImpl implements StatService{
 
     private final MemberRepository memberRepository;
+    private final MemberGrpRepository memberGrpRepository;
     private final StatRepository statRepository;
     private final DateRepository dateRepository;
     private final WkoutMethodRepository wkoutMethodRepository;
@@ -35,17 +37,8 @@ public class StatServiceImpl implements StatService{
     @Override
     public TargetPartTotalSetsDTO getWeeklyTargetPartTotalSets(Long mbrId, String yyyyMmW) {
 
-        String yyyy = yyyyMmW.substring(0, 4);
-        String mm = yyyyMmW.substring(4,6);
-        String week = yyyyMmW.substring(6,7);
-
         List<Object[]> entities = statRepository.findWeeklyMethodTotalSets(
-                mbrId, YyyyMmW
-                        .builder()
-                        .cuofYyyy(yyyy)
-                        .cuofMm(mm)
-                        .cuofWeek(week)
-                        .build());
+                mbrId, makeYyyyMmW(yyyyMmW));
 
         return makeTargetPartTotalSetsDTO(entities);
     }
@@ -58,15 +51,8 @@ public class StatServiceImpl implements StatService{
     @Override
     public TargetPartTotalSetsDTO getMonthlyTargetPartTotalSets(Long mbrId, String yyyyMm) {
 
-        String yyyy = yyyyMm.substring(0, 4);
-        String mm = yyyyMm.substring(4,6);
-
         List<Object[]> entities = statRepository.findMonthlyMethodTotalSets(
-                mbrId, YyyyMm
-                        .builder()
-                        .cuofYyyy(yyyy)
-                        .cuofMm(mm)
-                        .build());
+                mbrId, makeYyyyMm(yyyyMm));
 
         return makeTargetPartTotalSetsDTO(entities);
     }
@@ -79,26 +65,10 @@ public class StatServiceImpl implements StatService{
     @Override
     public MethodWeiIncsDTO getWeeklyMethodWeiIncs(Long mbrId, String bfYyyyMmW, String curYyyyMmW) {
 
-        String bfYyyy = bfYyyyMmW.substring(0, 4);
-        String bfMm = bfYyyyMmW.substring(4,6);
-        String bfWeek = bfYyyyMmW.substring(6,7);
-
-        String curYyyy = curYyyyMmW.substring(0, 4);
-        String curMm = curYyyyMmW.substring(4,6);
-        String curWeek = curYyyyMmW.substring(6,7);
-
         List<Object[]> entities = statRepository.findWeeklyMethodWeiIncs(
                 mbrId,
-                YyyyMmW.builder()
-                        .cuofYyyy(bfYyyy)
-                        .cuofMm(bfMm)
-                        .cuofWeek(bfWeek)
-                        .build(),
-                YyyyMmW.builder()
-                        .cuofYyyy(curYyyy)
-                        .cuofMm(curMm)
-                        .cuofWeek(curWeek)
-                        .build()
+                makeYyyyMmW(bfYyyyMmW),
+                makeYyyyMmW(curYyyyMmW)
         );
 
         return makeMethodWeiIncsDTO(entities);
@@ -112,16 +82,10 @@ public class StatServiceImpl implements StatService{
     @Override
     public MethodWeiIncsDTO getMonthlyMethodWeiIncs(Long mbrId, String bfYyyyMm, String curYyyyMm) {
 
-        String bfYyyy = bfYyyyMm.substring(0, 4);
-        String bfMm = bfYyyyMm.substring(4,6);
-
-        String curYyyy = curYyyyMm.substring(0, 4);
-        String curMm = curYyyyMm.substring(4,6);
-
         List<Object[]> entities = statRepository.findMonthlyMethodWeiIncs(
                 mbrId,
-                YyyyMm.builder().cuofYyyy(bfYyyy).cuofMm(bfMm).build(),
-                YyyyMm.builder().cuofYyyy(curYyyy).cuofMm(curMm).build()
+                makeYyyyMm(bfYyyyMm),
+                makeYyyyMm(curYyyyMm)
         );
 
         return makeMethodWeiIncsDTO(entities);
@@ -142,15 +106,7 @@ public class StatServiceImpl implements StatService{
         }
 
         /* (1) 가장 최신의 Week 를 구한다. */
-        String curYyyy = yyyyMmW.substring(0, 4);
-        String curMm = yyyyMmW.substring(4,6);
-        String curWeek = yyyyMmW.substring(6,7);
-        YyyyMmW curYyyyMmW = YyyyMmW
-                .builder()
-                .cuofYyyy(curYyyy)
-                .cuofMm(curMm)
-                .cuofWeek(curWeek)
-                .build();
+        YyyyMmW curYyyyMmW = makeYyyyMmW(yyyyMmW);
 
 
         /* (2)
@@ -233,6 +189,7 @@ public class StatServiceImpl implements StatService{
      * */
     @Override
     public MethodMonthMaxWeisDTO getMethodMonthMaxWeis(Long mbrId, String yyyyMm, int range) {
+
         if (range < 1) {
             log.error("[ERROR]===========================================");
             log.error("[ERROR]Month range is less than 1.");
@@ -240,14 +197,7 @@ public class StatServiceImpl implements StatService{
         }
 
         /* (1) 가장 최신의 Month 를 구한다. */
-        String curYyyy = yyyyMm.substring(0, 4);
-        String curMm = yyyyMm.substring(4,6);
-        YyyyMm curYyyyMm = YyyyMm
-                .builder()
-                .cuofYyyy(curYyyy)
-                .cuofMm(curMm)
-                .build();
-
+        YyyyMm curYyyyMm = makeYyyyMm(yyyyMm);
 
         /* (2)
          * - (2-1) [-N번째Month ~ 가장최신Month] 의 Month 정보를 리스트로 구성한다.
@@ -328,15 +278,7 @@ public class StatServiceImpl implements StatService{
     @Override
     public MbrWkoutDaysCntsDTO getWeeklyGrpWkoutDaysCnt(Long grpId, String yyyyMmW) {
 
-        String curYyyy = yyyyMmW.substring(0, 4);
-        String curMm = yyyyMmW.substring(4,6);
-        String curWeek = yyyyMmW.substring(6,7);
-        YyyyMmW curYyyyMmW = YyyyMmW
-                .builder()
-                .cuofYyyy(curYyyy)
-                .cuofMm(curMm)
-                .cuofWeek(curWeek)
-                .build();
+        YyyyMmW curYyyyMmW = makeYyyyMmW(yyyyMmW);
 
         List<Object[]> weekGrpMemberTotalWkoutDaysCnt = statRepository.findWeekGrpMemberTotalWkoutDaysCnt(grpId, curYyyyMmW);
 
@@ -372,13 +314,8 @@ public class StatServiceImpl implements StatService{
      * */
     @Override
     public MbrWkoutDaysCntsDTO getMonthlyGrpWkoutDaysCnt(Long grpId, String yyyyMm) {
-        String curYyyy = yyyyMm.substring(0, 4);
-        String curMm = yyyyMm.substring(4,6);
-        YyyyMm curYyyyMm = YyyyMm
-                .builder()
-                .cuofYyyy(curYyyy)
-                .cuofMm(curMm)
-                .build();
+
+        YyyyMm curYyyyMm = makeYyyyMm(yyyyMm);
 
         List<Object[]> monthGrpMemberTotalWkoutDaysCnt = statRepository.findMonthGrpMemberTotalWkoutDaysCnt(grpId, curYyyyMm);
 
@@ -414,17 +351,9 @@ public class StatServiceImpl implements StatService{
      * */
     @Override
     public TargetPartTotalSetsDTO getWeeklyGrpTargetPartTotalSets(Long grpId, String yyyyMmW) {
-        String yyyy = yyyyMmW.substring(0, 4);
-        String mm = yyyyMmW.substring(4,6);
-        String week = yyyyMmW.substring(6,7);
-
         List<Object[]> entities = statRepository.findWeekGrpTargetPartTotalSets(
-                grpId, YyyyMmW
-                        .builder()
-                        .cuofYyyy(yyyy)
-                        .cuofMm(mm)
-                        .cuofWeek(week)
-                        .build());
+                grpId, makeYyyyMmW(yyyyMmW)
+        );
 
         return makeTargetPartTotalSetsDTO(entities);
     }
@@ -436,18 +365,109 @@ public class StatServiceImpl implements StatService{
      * */
     @Override
     public TargetPartTotalSetsDTO getMonthlyGrpTargetPartTotalSets(Long grpId, String yyyyMm) {
-        String yyyy = yyyyMm.substring(0, 4);
-        String mm = yyyyMm.substring(4,6);
 
         List<Object[]> entities = statRepository.findMonthGrpTargetPartTotalSets(
-                grpId, YyyyMm
-                        .builder()
-                        .cuofYyyy(yyyy)
-                        .cuofMm(mm)
-                        .build());
+                grpId, makeYyyyMm(yyyyMm)
+        );
 
         return makeTargetPartTotalSetsDTO(entities);
     }
 
+    /**
+     * 11. 그룹내 멤버별 N주간 운동부위별 총 세트수 조회
+     *  - IN = [ 그룹ID, 이번주(YYYY/MM/W) ]
+     *  - OUT = [ 회원:[운동부위:총세트수] 의 DTO 리스트]
+     * */
+    @Override
+    public GrpMbrTargetPartTotalSetsDTO getWeeklyGrpMbrTargetPartTotalSets(Long grpId, String yyyyMmW) {
+
+        // (0) 현재 Week 정보 생성
+        YyyyMmW curYyyyMmW = makeYyyyMmW(yyyyMmW);
+
+        // (1) 그룹에 가입한 모든 회원ID 조회
+        List<Object[]> members = memberGrpRepository.findMemberGrpsByGrpId(grpId);
+
+        // (2) 모든 회원에 대한 [운동종목:세트수] 정보 처리
+        GrpMbrTargetPartTotalSetsDTO grpMbrTargetPartTotalSetsDTO =
+                GrpMbrTargetPartTotalSetsDTO.builder().build();
+
+        for (Object[] member : members) {
+
+            // (2-1) 각 회원에 대한 정보 생성
+            Long mbrId = (Long) member[1];
+            String mbrNm = (String) member[2];
+            String profImgPath = (String) member[3];
+
+            List<Object[]> methodTotalSets = statRepository.findWeeklyMethodTotalSets(mbrId, curYyyyMmW);
+
+            
+            // (2-2) 각 회원에 대한 정보DTO 조립
+            MbrTargetPartTotalSetsDTO mbrTargetPartTotalSetsDTO =
+                    MbrTargetPartTotalSetsDTO.builder().build();
+
+            mbrTargetPartTotalSetsDTO.setMbrId(mbrId);
+            mbrTargetPartTotalSetsDTO.setMbrNm(mbrNm);
+            mbrTargetPartTotalSetsDTO.setProfImgPath(profImgPath);
+            mbrTargetPartTotalSetsDTO.setTargetPartTotalSetsDTO(
+                    makeTargetPartTotalSetsDTO(methodTotalSets)
+            );
+
+            // (2-3) 최종 DTO에 set
+            grpMbrTargetPartTotalSetsDTO.getMbrTargetPartTotalSetsDTOList().add(
+                    mbrTargetPartTotalSetsDTO
+            );
+        }
+
+        return grpMbrTargetPartTotalSetsDTO;
+
+    }
+
+    /**
+     * 12. 그룹내 멤버별 N월간 운동부위별 총 세트수 조회
+     *  - IN = [ 그룹ID, 이번월(YYYY/MM) ]
+     *  - OUT = [ 회원:[운동부위:총세트수] 의 DTO 리스트]
+     * */
+    @Override
+    public GrpMbrTargetPartTotalSetsDTO getMonthlyGrpMbrTargetPartTotalSets(Long grpId, String yyyyMm) {
+        
+        // (0) 현재 Month 정보 생성
+        YyyyMm curYyyyMm = makeYyyyMm(yyyyMm);
+
+        // (1) 그룹에 가입한 모든 회원ID 조회
+        List<Object[]> members = memberGrpRepository.findMemberGrpsByGrpId(grpId);
+
+        // (2) 모든 회원에 대한 [운동종목:세트수] 정보 처리
+        GrpMbrTargetPartTotalSetsDTO grpMbrTargetPartTotalSetsDTO =
+                GrpMbrTargetPartTotalSetsDTO.builder().build();
+
+        for (Object[] member : members) {
+
+            // (2-1) 각 회원에 대한 정보 생성
+            Long mbrId = (Long) member[1];
+            String mbrNm = (String) member[2];
+            String profImgPath = (String) member[3];
+
+            List<Object[]> methodTotalSets = statRepository.findMonthlyMethodTotalSets(mbrId, curYyyyMm);
+
+
+            // (2-2) 각 회원에 대한 정보DTO 조립
+            MbrTargetPartTotalSetsDTO mbrTargetPartTotalSetsDTO =
+                    MbrTargetPartTotalSetsDTO.builder().build();
+
+            mbrTargetPartTotalSetsDTO.setMbrId(mbrId);
+            mbrTargetPartTotalSetsDTO.setMbrNm(mbrNm);
+            mbrTargetPartTotalSetsDTO.setProfImgPath(profImgPath);
+            mbrTargetPartTotalSetsDTO.setTargetPartTotalSetsDTO(
+                    makeTargetPartTotalSetsDTO(methodTotalSets)
+            );
+
+            // (2-3) 최종 DTO에 set
+            grpMbrTargetPartTotalSetsDTO.getMbrTargetPartTotalSetsDTOList().add(
+                    mbrTargetPartTotalSetsDTO
+            );
+        }
+
+        return grpMbrTargetPartTotalSetsDTO;
+    }
 
 }

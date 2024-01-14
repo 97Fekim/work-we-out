@@ -1,5 +1,7 @@
 package com.fekim.workweout.online.stat.service;
 
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMmW;
 import com.fekim.workweout.online.stat.service.dto.*;
 
 import java.math.BigDecimal;
@@ -77,6 +79,20 @@ public interface StatService {
      * */
     TargetPartTotalSetsDTO getMonthlyGrpTargetPartTotalSets(Long grpId, String yyyyMm);
 
+    /**
+     * 11. 그룹내 멤버별 N주간 운동부위별 총 세트수 조회
+     *  - IN = [ 그룹ID, 이번주(YYYY/MM/W) ]
+     *  - OUT = [ 회원:[운동부위:총세트수] 의 DTO 리스트]
+     * */
+    GrpMbrTargetPartTotalSetsDTO getWeeklyGrpMbrTargetPartTotalSets(Long grpId, String yyyyMmW);
+
+    /**
+     * 12. 그룹내 멤버별 N월간 운동부위별 총 세트수 조회
+     *  - IN = [ 그룹ID, 이번월(YYYY/MM) ]
+     *  - OUT = [ 회원:[운동부위:총세트수] 의 DTO 리스트]
+     * */
+    GrpMbrTargetPartTotalSetsDTO getMonthlyGrpMbrTargetPartTotalSets(Long grpId, String yyyyMm);
+
 
     /**
      * Transform TargetPartTotalSets entity to DTO
@@ -118,6 +134,41 @@ public interface StatService {
         }
         return methodWeiIncsDTO;
     }
+
+    /**
+     * Transform [String]YYYY/MM/W to [YyyyMmW]YYYY/MM/W
+     *  - IN = [String] YYYY/MM/W
+     *  - OUT = [YyyyMmW]YYYY/MM/W
+     * */
+    default YyyyMmW makeYyyyMmW(String yyyyMmW) {
+        String curYyyy = yyyyMmW.substring(0, 4);
+        String curMm = yyyyMmW.substring(4,6);
+        String curWeek = yyyyMmW.substring(6,7);
+
+        return YyyyMmW
+                .builder()
+                .cuofYyyy(curYyyy)
+                .cuofMm(curMm)
+                .cuofWeek(curWeek)
+                .build();
+    }
+
+    /**
+     * Transform [String]YYYY/MM/W to [YyyyMmW]YYYY/MM/W
+     *  - IN = [String] YYYY/MM/W
+     *  - OUT = [YyyyMmW]YYYY/MM/W
+     * */
+    default YyyyMm makeYyyyMm(String yyyyMm) {
+        String curYyyy = yyyyMm.substring(0, 4);
+        String curMm = yyyyMm.substring(4,6);
+
+        return YyyyMm
+                .builder()
+                .cuofYyyy(curYyyy)
+                .cuofMm(curMm)
+                .build();
+    }
+
 
 }
 
