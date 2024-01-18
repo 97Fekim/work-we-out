@@ -2,6 +2,12 @@ package com.fekim.workweout.online.member.service;
 
 import com.fekim.workweout.online.member.repository.entity.Member;
 import com.fekim.workweout.online.member.service.dto.MemberDTO;
+import com.fekim.workweout.online.member.service.dto.MemberRegisterDTO;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.naming.AuthenticationException;
 
 public interface MemberService {
 
@@ -18,6 +24,27 @@ public interface MemberService {
      *  - OUT = []
      * */
     void modifyInfo(MemberDTO memberDTO);
+
+    /**
+     * 03. 회원가입
+     *  - IN = 회원DTO
+     *  - OUT = 가입된 회원DTO
+     * */
+    MemberDTO registerMember(MemberRegisterDTO memberDTO);
+
+    /**
+     * 04. 로그인
+     *  - IN : [ 이메일, 비밀번호 ]
+     *  - OUt : 세션ID
+     * */
+    String login(HttpSession session, String email, String password) throws AuthenticationException;
+
+    /**
+     * 05. 로그아웃
+     *  - IN : []
+     *  - OUT : []
+     * */
+    void logout(HttpSession session);
 
 
     /**
