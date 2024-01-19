@@ -89,7 +89,7 @@ public class MemberServiceImpl implements MemberService {
      *  - OUt : 세션ID
      * */
     @Transactional(readOnly = true) // 조회용 API임을 명시 + flush X
-    public String login(HttpSession session, String email, String password)  {
+    public void login(HttpSession session, String email, String password)  {
 
         Optional<Member> member = memberRepository.findByEmail(email);
 
@@ -103,9 +103,7 @@ public class MemberServiceImpl implements MemberService {
             throw new SecurityException();
         }
 
-        session.setAttribute("LOGIN_USER", member.get());
-
-        return session.getId();
+        session.setAttribute("LOGIN_USER", member.get().getEmail());
 
     }
 

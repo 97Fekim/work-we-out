@@ -7,8 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Getter
 @Setter
@@ -57,7 +59,12 @@ public class Member {
     /* 로그인 성공시, 인증정보를 반환 */
     public Authentication makeAuthentication() {
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-        authorityList.add(new SimpleGrantedAuthority("ADMIN"));
+
+        StringTokenizer st = new StringTokenizer(this.mbrRoleClsfCd, ",");
+        while (st.hasMoreTokens()) {
+            authorityList.add(new SimpleGrantedAuthority(st.nextToken()));
+        }
+
         return new UsernamePasswordAuthenticationToken(this.getEmail(), null, authorityList);
     }
 

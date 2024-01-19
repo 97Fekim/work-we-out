@@ -2,9 +2,11 @@ package com.fekim.workweout.online.member;
 
 import com.fekim.workweout.online.member.service.MemberService;
 import com.fekim.workweout.online.member.service.dto.MemberDTO;
+import com.fekim.workweout.online.member.service.dto.MemberRegisterDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 @SpringBootTest
 public class MemberServiceTest {
@@ -31,7 +33,21 @@ public class MemberServiceTest {
                         .email("16fekim@gmail.com15")
                         .build()
         );
+    }
 
+    @Test
+    @Commit
+    void registerTest() {
+        memberService.registerMember(
+                MemberRegisterDTO
+                        .builder()
+                        .email("16fekim@gmail.com")
+                        .password("1234")
+                        .phone("01090374099")
+                        .mbrNm("Fekim")
+                        .statSmsSendYn("Y")
+                        .build()
+        );
     }
 
 }
