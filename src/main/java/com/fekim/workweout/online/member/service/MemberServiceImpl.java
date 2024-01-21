@@ -103,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
             throw new SecurityException();
         }
 
-        session.setAttribute("LOGIN_MEMBER", member.get().getEmail());
+        session.setAttribute("LOGIN_MEMBER", member.get());
 
     }
 

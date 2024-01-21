@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.AuthenticationException;
@@ -17,7 +18,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/member/login")
+    @PostMapping("/member/login")
     public ResponseEntity<String> login(HttpSession session, String email, String password) {
 
         try {
@@ -34,11 +35,11 @@ public class MemberController {
     public ResponseEntity<String> connect(HttpSession session) {
         String result;
 
-        Object email = session.getAttribute("LOGIN_MEMBER");
-        if (email == null) {
+        Object member = session.getAttribute("LOGIN_MEMBER");
+        if (member == null) {
             result = "로그인 되지 않음";
         } else {
-            result = (String) email;
+            result = ((Member)member).getEmail();
         }
 
         return ResponseEntity.ok(result);

@@ -25,7 +25,7 @@ import java.util.StringTokenizer;
     , initialValue = 1
     , allocationSize = 1
 )
-public class Member {
+public class Member implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MEMBER_GENERATOR")

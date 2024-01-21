@@ -25,10 +25,9 @@ public class CustomUserAuthenticationFilter extends OncePerRequestFilter {
 
         System.out.println("[DEBUG]===================CustomUserAuthenticationFilter Start==============");
 
-        String email = (String) request.getSession().getAttribute("LOGIN_MEMBER");
+        Member member = (Member) request.getSession().getAttribute("LOGIN_MEMBER");
 
-        if (email != null) {
-            Member member = memberRepository.findByEmail(email).get();
+        if (member != null) {
             SecurityContextHolder.getContext().setAuthentication(member.makeAuthentication());
         }
 

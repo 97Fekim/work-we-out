@@ -32,7 +32,7 @@ public class WebSecurityConfig {
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("/wkout", "/wkout/**").hasAnyRole("USER")
+                                .requestMatchers("/jnal", "/jnal/**").hasAnyRole("USER")
                                 .requestMatchers("/", "/**").permitAll()
                 )
                 .formLogin((formLogin) ->
