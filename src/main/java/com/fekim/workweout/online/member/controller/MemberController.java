@@ -18,7 +18,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/member/login")
+    @GetMapping("/member/login")
     public ResponseEntity<String> login(HttpSession session, String email, String password) {
 
         try {
