@@ -1,0 +1,122 @@
+/* 노말라이즈 */
+body,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-family: "Stylish", sans-serif;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+/* 노말라이즈 끝 */
+
+/* 커스텀 */
+/* 좌측 사이드 바 */
+/* 좌측 사이드바 배경 */
+.left-side-bar-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  visibility: hidden;
+  transition: visibility 0.5s, background-color 0.5s;
+}
+.left-side-bar-box.active {
+  background-color: rgba(0, 0, 0, 0.5);
+  visibility: visible;
+}
+
+/* 좌측 사이드바 */
+.left-side-bar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #dfdfdf;
+  padding-top: 40px;
+  transition: left 0.5s;
+}
+.left-side-bar-box.active > .left-side-bar {
+  left: 0;
+}
+
+.left-side-bar-box.active > .left-side-bar > .menu-1 {
+  padding-left: 10px;
+}
+
+.left-side-bar > .menu-1 ul > li > a {
+  display: block;
+  padding: 7px;
+}
+.left-side-bar > .menu-1 > ul ul {
+  display: none;
+  background-color: #dfdfdf;
+}
+.left-side-bar > .menu-1 > ul ul ul {
+  background-color: #dfdfdf;
+}
+.left-side-bar > .menu-1 ul > li.active > ul {
+  display: block;
+}
+
+.bottom-border {
+  border-width: 0 0 3px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.workout-part-box {
+  font-size: 11px;
+  display: inline;
+
+  border: skyblue;
+  border-radius: 7px;
+}
+
+#day,
+.extra-btn,
+.part {
+  box-shadow: 1px 1px 1px #495057;
+  transition-duration: 0.3s;
+}
+
+#day:active,
+.extra-btn:active {
+  margin-left: 5px;
+  margin-top: 5px;
+  box-shadow: none;
+}
+
+/* 모달 배경 */
+.main-list-modal-background,
+.new-workout-group-background {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 회색 투명 배경 */
+  z-index: 999; /* 모달 창 보다 한 층 낮은 z-index */
+  justify-content: center;
+  align-items: center;
+}
+
+#main-list-modal,
+#new-workout-group-modal {
+  display: none;
+  position: fixed;
+  top: 50%; /* 화면 세로 중앙으로 이동 */
+  left: 50%; /* 화면 가로 중앙으로 이동 */
+  transform: translate(-50%, -50%); /* 세로, 가로 중앙 정렬 */
+  width: 100%;
+  z-index: 1000;
+}
