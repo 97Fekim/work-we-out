@@ -38,7 +38,7 @@ public class MemberServiceTest {
     @Test
     @Commit
     void registerTest() {
-        for (int i=2; i<=10; ++i) {
+        for (int i=1; i<=10; ++i) {
             memberService.registerMember(
                     MemberRegisterDTO
                             .builder()
