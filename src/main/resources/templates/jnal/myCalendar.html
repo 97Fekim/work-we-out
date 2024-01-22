@@ -22,10 +22,10 @@
 			<div class="menu-1">
 				<ul>
 					<li>
-						<a href="/jnal/calendar/my" style="padding-left:21px">내 운동 캘린더</a>
+						<a href="/jnal/myCalendar" style="padding-left:21px">내 운동 캘린더</a>
 					</li>
 					<li>
-						<a href="/stat/my" style="padding-left:21px">내 운동 통계</a>
+						<a href="/stat/myStat" style="padding-left:21px">내 운동 통계</a>
 					</li>
 					<li>
 						<a>> 내 운동 그룹</a>
@@ -45,6 +45,7 @@
 
         <!-- 헤더 -->
         <nav class="border-b border-gray-600 p-4 flex justify-between items-center">
+            <!-- 사이드바 토글버튼 -->
             <div class="flex items-center">
                 <button class="extra-btn p-2 bg-gray-600 rounded toggle-side-bar-btn" style="background-color:bisque">
                     <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,8 +53,10 @@
                     </svg>
                 </button>
             </div>
+            <!-- 제목 -->
 			<h1 class="ml-4 text-2xl font-semibold">내 운동 캘린더</h1>
-            <button class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
+            <!-- 마이페이지 버튼 -->
+            <button onclick="location.href='/member/myInfo' " class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
         </nav>
 
         <!-- N 월 -->
@@ -310,6 +313,7 @@
                         <div class="flex justify-between items-center p-4">
                             <input
                             type="text"
+                            id="newGrpNm"
                             class="bottom-border"
                             style="width: 50%; background-color:lemonchiffon; border-color:gray"
                             value="주니어올림피아"
@@ -317,10 +321,8 @@
                         </div>
 
                         <div class="flex justify-end items-center p-1">
-                            <button
-                            class="extra-btn p-2 bg-gray-600 text-white rounded"
-                            style="background-color: #1196c1; margin-right: 10px"
-                            >
+                            <button id="newGrpBtn"
+                                    class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: #1196c1; margin-right: 10px">
                             저장
                             </button>
                         </div>
@@ -353,19 +355,19 @@
               var d4_li1 = document.createElement("li");
 
               var d5_a1 = document.createElement("a");
-              d5_a1.setAttribute("href", "/grp/info?"+grpDTO.grpId);
+              d5_a1.setAttribute("href", "/grp/info?grpId="+grpDTO.grpId);
               d5_a1.setAttribute("style", "padding-left:50px");
               d5_a1.innerText = "그룹 페이지";
 
               var d4_li2 = document.createElement("li");
               var d5_a2 = document.createElement("a");
-              d5_a2.setAttribute("href", "/jnal/calendar/grp"+grpDTO.grpId);
+              d5_a2.setAttribute("href", "/grp/grpCalendar?grpId="+grpDTO.grpId);
               d5_a2.setAttribute("style", "padding-left:50px");
               d5_a2.innerText = "운동 캘린더";
 
               var d4_li3 = document.createElement("li");
               var d5_a3 = document.createElement("a");
-              d5_a3.setAttribute("href", "/stat/grp"+grpDTO.grpId);
+              d5_a3.setAttribute("href", "/stat/grp?grpId="+grpDTO.grpId);
               d5_a3.setAttribute("style", "padding-left:50px");
               d5_a3.innerText = "운동 통계";
 
@@ -385,10 +387,9 @@
 
       }
 
-      // 화면 초기 로딩시 호출
+      // (1) 내 그룹 모두 조회하여 사이드바에 렌더링
+      //  - 화면로드시 처리
       $(document).ready(function(){
-          // (1) 내 그룹 모두 조회하여 사이드바에 렌더링
-          var grpListDTO;
           $.ajax({
               type: "GET",
               url: "http://localhost:8080/grp/myAll",
@@ -404,10 +405,36 @@
                       +"error:"+error)
               }
           })
-
       });
+
+      // (2) 신규 그룹 생성
+      //  - param = [그룹명]
+      //  - response = [신규그룹ID]
+      //  - redirect = [그룹정보페이지]
+      $(document).on("click", "#newGrpBtn", function() {
+          var newGrpNm = document.getElementById("newGrpNm").value;
+          $.ajax({
+              type: "POST",
+              url: "http://localhost:8080/grp/register",
+              dataType:'json',
+              data: {
+                  grpNm : newGrpNm
+              },
+              success: function (response) {
+                  alert("새 그룹이 생성되었습니다.");
+                  location.href="/grp/info?grpId="+response;
+              },
+              error: function (request, error) {
+                  console.log("그룹 생성 도중 오류가 발생하였습니다.");
+                  alert("code:"+request.status+"\n"
+                      +"message:"+request.responseText+"\n"
+                      +"error:"+error)
+              }
+          })
+      });
+
   </script>
 
-  <script type="text/javascript" src="/js/common.js?ver=5"></script>
+  <script type="text/javascript" src="/js/common.js"></script>
 
 </html>

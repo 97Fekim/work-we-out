@@ -1,5 +1,6 @@
 package com.fekim.workweout.online.jnal.controller;
 
+import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/jnal")
 public class JnalController {
 
-    @GetMapping("/calendar")
-    public void showCalendar(HttpSession session, @RequestParam Long mbrId) {
-        System.out.println("========mbrId = " + mbrId);
-        System.out.println("========session Info = " + session.getId());
+    @GetMapping("/myCalendar")
+    public void showCalendar(HttpSession session) {
+
+        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
+        Long mbrId = member.getMbrId();
+
     }
 
 
