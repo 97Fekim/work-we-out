@@ -29,26 +29,11 @@
 					</li>
 					<li>
 						<a href="#">> 내 운동 그룹</a>
-						<ul>
+						<ul id="myGrps">
 							<li>
 								<a href="#" style="padding-left:37px" onclick='newWorkoutGroupModalOpen();'>새 운동그룹 생성</a>
 							</li>
-							<li>
-								<a href="#" style="padding-left:20px">> 그룹명A</a>
-								<ul>
-									<li><a href="#" style="padding-left:50px">그룹 페이지</a></li>
-									<li><a href="#" style="padding-left:50px">운동 캘린더</a></li>
-									<li><a href="#" style="padding-left:50px">운동 통계</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="#" style="padding-left:20px">> 그룹명B</a>
-								<ul>
-									<li><a href="#" style="padding-left:50px">그룹 페이지</a></li>
-									<li><a href="#" style="padding-left:50px">운동 캘린더</a></li>
-									<li><a href="#" style="padding-left:50px">운동 통계</a></li>
-								</ul>
-							</li>
+
 						</ul>
 					</li>
 				</ul>
@@ -57,7 +42,8 @@
 	</div>
 
     <div class="flex flex-col h-screen">
-        <!-- Top Navigation -->
+
+        <!-- 헤더 -->
         <nav class="border-b border-gray-600 p-4 flex justify-between items-center">
             <div class="flex items-center">
                 <button class="extra-btn p-2 bg-gray-600 rounded toggle-side-bar-btn" style="background-color:bisque">
@@ -70,7 +56,7 @@
             <button class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
         </nav>
 
-        <!-- Calendar Navigation -->
+        <!-- N 월 -->
         <div class="flex justify-between items-center p-4">
             <button class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -262,12 +248,7 @@
 
     </div>
 
-  </div>
-
-
-    <!-- 모달이 나타날 때 배경 -->
-    <div class="main-list-modal-background" id="main-list-modal-background"></div>
-
+    <!-- 운동일지 클릭 모달 -->
     <div id="main-list-modal" class="modal-container">
         <div class="modal-wrap">
             <div class="bg-gray-800 p-3 rounded-lg max-w-xl w-full" style="background-color:white">
@@ -308,10 +289,9 @@
             </div>
         </div>
     </div>
+    <div class="main-list-modal-background" id="main-list-modal-background"></div>
 
-    <!-- 모달이 나타날 때 배경 -->
-    <div class="new-workout-group-background" id="new-workout-group-background"></div>
-
+    <!-- 새 그룹생성 모달 -->
     <div id="new-workout-group-modal" class="modal-container">
         <div class="modal-wrap">
             <div class="bg-gray-800 p-3 rounded-lg max-w-xl w-full" style="background-color:white">
@@ -349,10 +329,71 @@
             </div>
         </div>
     </div>
+    <div class="new-workout-group-background" id="new-workout-group-background"></div>
 
   </body>
 
   <!-- common.js -->
-  <script src="/js/common.js"></script>
+  <script>
+      // 화면 초기 로딩시 호출
+      $(document).ready(function(){
+          // (1) 내 그룹 모두 조회
+          var grpListDTO;
+          $.ajax({
+              type: "GET",
+              url: "http://localhost:8080/grp/myGrps",
+              data: {},
+              success: function (response) {
+                  grpListDTO = response;
+              }
+          })
+
+          var d1_ul = document.getElementById("myGrps");
+
+          var d2_li = document.createElement("li");
+
+          var d3_a = document.createElement("a");
+          d3_a.setAttribute("href", "#");
+          d3_a.setAttribute("style", "padding-left:20px");
+          d3_a.innerText = "> 첫번째그룹";
+
+          var d3_ul = document.createElement("ul");
+
+          var d4_li1 = document.createElement("li");
+
+          var d5_a1 = document.createElement("a");
+          d5_a1.setAttribute("href", "#");
+          d5_a1.setAttribute("style", "padding-left:50px");
+          d5_a1.innerText = "그룹 페이지";
+
+          var d4_li2 = document.createElement("li");
+          var d5_a2 = document.createElement("a");
+          d5_a2.setAttribute("href", "#");
+          d5_a2.setAttribute("style", "padding-left:50px");
+          d5_a2.innerText = "운동 캘린더";
+
+          var d4_li3 = document.createElement("li");
+          var d5_a3 = document.createElement("a");
+          d5_a3.setAttribute("href", "#");
+          d5_a3.setAttribute("style", "padding-left:50px");
+          d5_a3.innerText = "운동 통계";
+
+          d4_li1.appendChild(d5_a1);
+          d4_li2.appendChild(d5_a2);
+          d4_li3.appendChild(d5_a3);
+
+          d3_ul.appendChild(d4_li1);
+          d3_ul.appendChild(d4_li2);
+          d3_ul.appendChild(d4_li3);
+
+          d2_li.appendChild(d3_a);
+          d2_li.appendChild(d3_ul);
+
+          d1_ul.appendChild(d2_li);
+
+      });
+  </script>
+
+  <script type="text/javascript" src="/js/common.js?ver=5"></script>
 
 </html>
