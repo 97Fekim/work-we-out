@@ -38,16 +38,19 @@ public class MemberServiceTest {
     @Test
     @Commit
     void registerTest() {
-        memberService.registerMember(
-                MemberRegisterDTO
-                        .builder()
-                        .email("16fekim@gmail.com")
-                        .password("1234")
-                        .phone("01090374099")
-                        .mbrNm("Fekim")
-                        .statSmsSendYn("Y")
-                        .build()
-        );
+        for (int i=2; i<=10; ++i) {
+            memberService.registerMember(
+                    MemberRegisterDTO
+                            .builder()
+                            .email("16fekim@gmail.com" + i)
+                            .password("1234")
+                            .phone("0109037408" + i)
+                            .mbrNm("Fekim" + i)
+                            .statSmsSendYn("Y")
+                            .build()
+            );
+        }
+
     }
 
 }
