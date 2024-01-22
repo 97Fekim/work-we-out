@@ -18,6 +18,7 @@ public class OneDayCalendarDTO {
     private String yyyy;        // 년도
     private String mm;          // 월
     private String dd;          // 일
+    private String dayOfWeekClsfCd; // 요일
 
     @Builder.Default
     private List<String> parts = new ArrayList<>(); // 운동부위리스트

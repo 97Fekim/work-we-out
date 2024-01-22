@@ -73,9 +73,10 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
             oneDayDTO.setYyyy((String) objects[0]);
             oneDayDTO.setMm((String) objects[1]);
             oneDayDTO.setDd((String) objects[2]);
+            oneDayDTO.setDayOfWeekClsfCd((String) objects[3]);
 
             // 운동부위 정보를 DTO에 싣는다.
-            String parts = (String) objects[3];
+            String parts = (String) objects[4];
 
             if (parts != null && !parts.isEmpty()) {
                 List<String> partsDTO = new ArrayList<>(Arrays.asList(parts.split(",")));
