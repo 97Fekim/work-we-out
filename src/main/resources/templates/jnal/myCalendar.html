@@ -56,18 +56,18 @@
             <!-- 제목 -->
 			<h1 class="ml-4 text-2xl font-semibold">내 운동 캘린더</h1>
             <!-- 마이페이지 버튼 -->
-            <button onclick="location.href='/member/myInfo' " class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
+            <button onclick="location.href='/member/myInfo'" class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
         </nav>
 
         <!-- N 월 -->
         <div class="flex justify-between items-center p-4">
-            <button class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
+            <button onclick="renderBeforeMMCalendar()" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
-            <span class="text-2xl font-semibold">2월</span>
-            <button class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
+            <span id="MM" class="text-2xl font-semibold"></span>
+            <button onclick="renderNextMMCalendar()" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
@@ -86,7 +86,7 @@
         </div>
 
         <!-- 달력 메인 -->
-        <div class="flex-grow grid grid-cols-7 gap-1 p-4 overflow-y-auto">
+<!--        <div class="flex-grow grid grid-cols-7 gap-1 p-4 overflow-y-auto">
 
             <div id="day" class="border border-white-600 rounded text-left text-top">
                 <span class="text-sm" style="padding-left:5px">0</span>
@@ -233,16 +233,16 @@
             <div id="day" class="border border-white-600 rounded text-left">
                 <span class="text-sm" style="padding-left:5px">0</span>
             </div>
-        </div>
+        </div>-->
 
 		<!-- 새 운동일지 버튼 -->
         <div class="flex justify-between items-center p-4" style="position:fixed; bottom:0; left:0; width:100%">
             <!-- dummy -->
 			<button class="bg-white-600 p-2 rounded">
-                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="curre	ntColor">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 </svg>
             </button>
-			<button class="extra-btn p-2 bg-blue-600 rounded-full" style="background-color:#1196C1">
+			<button onclick="location.href='/jnal/register' " class="extra-btn p-2 bg-blue-600 rounded-full" style="background-color:#1196C1">
                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
@@ -338,8 +338,8 @@
   <!-- common.js -->
   <script>
 
+      // 사이드바 그룹 렌더링
       function renderSideGrps(grpListDTO) {
-
           grpListDTO.grpDTOList.forEach(function(grpDTO, idx) {
               var d1_ul = document.getElementById("myGrps");
 
@@ -384,12 +384,29 @@
 
               d1_ul.appendChild(d2_li);
           });
-
       }
 
-      // (1) 내 그룹 모두 조회하여 사이드바에 렌더링
-      //  - 화면로드시 처리
+      // MM월 메인캘린더 렌더링
+      function renderCalendar(MM) {
+          var calendarMM = document.getElementById("MM");
+          calendarMM.setAttribute("value", MM);
+          calendarMM.innerText = MM + " 월";
+      }
+
+      // MM-1월 메인캘린더 렌더링
+      function renderBeforeMMCalendar() {
+          console.log("renderBeforeMMCalendar called..");
+      }
+
+      // MM+1월 메인캘린더 렌더링
+      function renderNextMMCalendar() {
+          console.log("renderNextMMCalendar called..");
+      }
+
+      // (1) 화면로드시 처리
       $(document).ready(function(){
+
+          // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
           $.ajax({
               type: "GET",
               url: "http://localhost:8080/grp/myAll",
@@ -404,7 +421,13 @@
                       +"message:"+request.responseText+"\n"
                       +"error:"+error)
               }
-          })
+          });
+
+          // (1-2) 현재MM 메인캘린더 렌더링
+          var today = new Date();
+          var curMM = today.getMonth() + 1;
+          renderCalendar(curMM);
+
       });
 
       // (2) 신규 그룹 생성
