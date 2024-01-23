@@ -61,13 +61,15 @@
 
         <!-- N 월 -->
         <div class="flex justify-between items-center p-4">
-            <button onclick="renderBeforeMMCalendar()" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
+            <button onclick="renderNewMMCalendar(-1)" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
-            <span id="MM" class="text-2xl font-semibold"></span>
-            <button onclick="renderNextMMCalendar()" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
+
+            <span id="YYYYMM" class="text-2xl font-semibold"></span>
+
+            <button onclick="renderNewMMCalendar(1)" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
                 <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
@@ -338,7 +340,37 @@
   <!-- common.js -->
   <script>
 
-      // 사이드바 그룹 렌더링
+      /**
+       * # 초기화면로드
+       * */
+      $(document).ready(function(){
+
+          // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
+          $.ajax({
+              type: "GET",
+              url: "http://localhost:8080/grp/myAll",
+              dataType:'json',
+              data: {},
+              success: function (response) {
+                  renderSideGrps(response);
+              },
+              error: function (request, error) {
+                  console.log("Grps Loading Fail..");
+                  alert("code:"+request.status+"\n"
+                      +"message:"+request.responseText+"\n"
+                      +"error:"+error)
+              }
+          });
+
+          // (1-2) 현재MM 메인캘린더 렌더링
+          var today = new Date();
+          renderCalendar(today);
+
+      });
+
+      /**
+       * Event1) 사이드바 내 그룹 렌더링
+       * */
       function renderSideGrps(grpListDTO) {
           grpListDTO.grpDTOList.forEach(function(grpDTO, idx) {
               var d1_ul = document.getElementById("myGrps");
@@ -386,54 +418,49 @@
           });
       }
 
-      // MM월 메인캘린더 렌더링
-      function renderCalendar(MM) {
-          var calendarMM = document.getElementById("MM");
-          calendarMM.setAttribute("value", MM);
-          calendarMM.innerText = MM + " 월";
+      /**
+       * Event2) MM 월 메인캘린더 렌더링
+       *  - param = [Date]
+       * */
+      function renderCalendar(date) {
+          // 헤더렌더링
+          var calendarYYYYMM = document.getElementById("YYYYMM");
+          calendarYYYYMM.setAttribute("date", date);
+          calendarYYYYMM.innerText = date.getFullYear() + "년 " + (date.getMonth()+1) + "월";
+
+          // 컨텐츠렌더링
       }
 
-      // MM-1월 메인캘린더 렌더링
-      function renderBeforeMMCalendar() {
+      /**
+       * EVENT2-1) MM +-1 월 이동처리
+       *  - param = [현재 MM 으로부터 이동하려는 range]
+       * */
+      function renderNewMMCalendar(range) {
           console.log("renderBeforeMMCalendar called..");
+
+          // (1) 당월 날짜
+          var calendarYYYYMM = document.getElementById("YYYYMM");
+          var curDate = new Date(calendarYYYYMM.getAttribute("date"));
+          console.log("currentDate = " + curDate);
+
+          // (2) 당월+-1 월 날짜
+          var newDate = new Date(
+              curDate.getFullYear(),
+              curDate.getMonth() + range,
+              curDate.getDate()
+          );
+          console.log("newDate = " + newDate);
+
+          // (3) MM월 메인캘린더 렌더링 호출
+          renderCalendar(newDate);
       }
 
-      // MM+1월 메인캘린더 렌더링
-      function renderNextMMCalendar() {
-          console.log("renderNextMMCalendar called..");
-      }
-
-      // (1) 화면로드시 처리
-      $(document).ready(function(){
-
-          // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
-          $.ajax({
-              type: "GET",
-              url: "http://localhost:8080/grp/myAll",
-              dataType:'json',
-              data: {},
-              success: function (response) {
-                  renderSideGrps(response);
-              },
-              error: function (request, error) {
-                  console.log("Grps Loading Fail..");
-                  alert("code:"+request.status+"\n"
-                      +"message:"+request.responseText+"\n"
-                      +"error:"+error)
-              }
-          });
-
-          // (1-2) 현재MM 메인캘린더 렌더링
-          var today = new Date();
-          var curMM = today.getMonth() + 1;
-          renderCalendar(curMM);
-
-      });
-
-      // (2) 신규 그룹 생성
-      //  - param = [그룹명]
-      //  - response = [신규그룹ID]
-      //  - redirect = [그룹정보페이지]
+      /**
+       * Event) 신규 그룹 생성
+       * - param = [그룹명]
+       * - response = [신규그룹ID]
+       * - redirect = [그룹정보페이지]
+       */
       $(document).on("click", "#newGrpBtn", function() {
           var newGrpNm = document.getElementById("newGrpNm").value;
           $.ajax({
