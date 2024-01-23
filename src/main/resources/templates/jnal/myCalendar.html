@@ -369,7 +369,7 @@
       });
 
       /**
-       * Event1) 사이드바 내 그룹 렌더링
+       * SIDEBAR EVENT) 사이드바 내 그룹 렌더링
        * */
       function renderSideGrps(grpListDTO) {
           grpListDTO.grpDTOList.forEach(function(grpDTO, idx) {
@@ -419,44 +419,7 @@
       }
 
       /**
-       * Event2) MM 월 메인캘린더 렌더링
-       *  - param = [Date]
-       * */
-      function renderCalendar(date) {
-          // 헤더렌더링
-          var calendarYYYYMM = document.getElementById("YYYYMM");
-          calendarYYYYMM.setAttribute("date", date);
-          calendarYYYYMM.innerText = date.getFullYear() + "년 " + (date.getMonth()+1) + "월";
-
-          // 컨텐츠렌더링
-      }
-
-      /**
-       * EVENT2-1) MM +-1 월 이동처리
-       *  - param = [현재 MM 으로부터 이동하려는 range]
-       * */
-      function renderNewMMCalendar(range) {
-          console.log("renderBeforeMMCalendar called..");
-
-          // (1) 당월 날짜
-          var calendarYYYYMM = document.getElementById("YYYYMM");
-          var curDate = new Date(calendarYYYYMM.getAttribute("date"));
-          console.log("currentDate = " + curDate);
-
-          // (2) 당월+-1 월 날짜
-          var newDate = new Date(
-              curDate.getFullYear(),
-              curDate.getMonth() + range,
-              curDate.getDate()
-          );
-          console.log("newDate = " + newDate);
-
-          // (3) MM월 메인캘린더 렌더링 호출
-          renderCalendar(newDate);
-      }
-
-      /**
-       * Event) 신규 그룹 생성
+       * SIDEBAR EVENT) 신규 그룹 생성
        * - param = [그룹명]
        * - response = [신규그룹ID]
        * - redirect = [그룹정보페이지]
@@ -482,6 +445,74 @@
               }
           })
       });
+
+      /**
+       * CALENDAR EVENT1) MM +-1 월 이동처리
+       *  - param = [현재 MM 으로부터 이동하려는 range]
+       * */
+      function renderNewMMCalendar(range) {
+          console.log("renderBeforeMMCalendar called..");
+
+          // (1) 당월 날짜
+          var calendarYYYYMM = document.getElementById("YYYYMM");
+          var curDate = new Date(calendarYYYYMM.getAttribute("date"));
+          console.log("currentDate = " + curDate);
+
+          // (2) 당월+-1 월 날짜
+          var newDate = new Date(
+              curDate.getFullYear(),
+              curDate.getMonth() + range,
+              curDate.getDate()
+          );
+          console.log("newDate = " + newDate);
+
+          // (3) MM월 메인캘린더 렌더링 호출
+          renderCalendar(newDate);
+      }
+
+      /**
+       * CALENDAR Event2) MM 월 메인캘린더 렌더링
+       *  - param = [Date]
+       * */
+      function renderCalendar(date) {
+          // 헤더렌더링
+          var calendarYYYYMM = document.getElementById("YYYYMM");
+          calendarYYYYMM.setAttribute("date", date);
+          calendarYYYYMM.innerText = date.getFullYear() + "년 " + (date.getMonth()+1) + "월";
+
+          // 컨텐츠렌더링
+          var year = date.getFullYear();
+          var month = (date.getMonth()+1).toString().length === 1
+              ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
+          var curYyyyMm = year + month;
+
+          $.ajax({
+              type: "GET",
+              url: "http://localhost:8080/jnal/calendar",
+              dataType:'json',
+              data: {
+                  yyyyMm : curYyyyMm
+              },
+              success: function (oneMonthCalendarDTO) {
+                  console.log("Calendar Load Success");
+                  renderCalendarContents(oneMonthCalendarDTO);
+              },
+              error: function (request, error) {
+                  console.log("캘린더 로딩 중 오류가 발생하였습니다..\n");
+                  alert("code:"+request.status+"\n"
+                      +"message:"+request.responseText+"\n"
+                      +"error:"+error)
+              }
+          })
+      }
+
+      /**
+       * CALENDAR Event3) MM 월 메인캘린더 컨텐츠 렌더링
+       *  - param = [OneMonthCalendarDTO]
+       * */
+      function renderCalendarContents(oneMonthCalendarDTO) {
+
+      }
 
   </script>
 
