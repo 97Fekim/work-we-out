@@ -106,11 +106,9 @@
                 <span class="text-sm" style="padding-left:5px">1</span>
 				<div style="padding-left:5px">
 				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-					<span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-				<div style="padding-left:5px">
-				    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두<span>
+                    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
+					<span class="workout-part-box" style="background-color:hotpink">삼두</span>
+                    <span class="workout-part-box" style="background-color:moccasin">등</span>
 				</div>
             </div>
             <div id="day" class="border border-gray-600 rounded text-left">
@@ -126,11 +124,9 @@
                 <span class="text-sm" style="padding-left:5px">5</span>
 				<div style="padding-left:5px">
 				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-					<span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-				<div style="padding-left:5px">
 				    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두<span>
+					<span class="workout-part-box" style="background-color:hotpink">삼두</span>
+                    <span class="workout-part-box" style="background-color:moccasin">등</span>
 				</div>
             </div>
             <div id="day" class="border border-gray-600 rounded text-left">
@@ -158,11 +154,9 @@
                 <span class="text-sm" style="padding-left:5px">13</span>
 				<div style="padding-left:5px">
 				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-					<span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-				<div style="padding-left:5px">
-				    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두<span>
+                    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
+                    <span class="workout-part-box" style="background-color:hotpink">삼두</span>
+                    <span class="workout-part-box" style="background-color:moccasin">등</span>
 				</div>
             </div>
             <div id="day" class="border border-gray-600 rounded text-left">
@@ -181,11 +175,9 @@
                 <span class="text-sm" style="padding-left:5px; color:red">18</span>
 				<div style="padding-left:5px">
 				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-					<span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-				<div style="padding-left:5px">
 				    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두<span>
+					<span class="workout-part-box" style="background-color:hotpink">삼두</span>
+                    <span class="workout-part-box" style="background-color:moccasin">등</span>
 				</div>
             </div>
             <div id="day" class="border border-gray-600 rounded text-left">
@@ -219,11 +211,9 @@
                 <span class="text-sm" style="padding-left:5px">28</span>
 				<div style="padding-left:5px">
 				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-					<span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-				<div style="padding-left:5px">
 				    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두<span>
+					<span class="workout-part-box" style="background-color:hotpink">삼두</span>
+                    <span class="workout-part-box" style="background-color:moccasin">등</span>
 				</div>
             </div>
             <div id="day" class="border border-white-600 rounded text-left">
@@ -526,12 +516,17 @@
 
           var curMM = new Date(document.getElementById("YYYYMM").getAttribute("date")).getMonth()+1;
 
+          // Depth-1
           var d1_calendarContent = document.getElementById("calendar-content");
 
           oneMonthCalendarDTO.oneDayCalendarDTOList.forEach(function(oneDayCalendarDTO, idx) {
+
+              // Depth-2
               var d2_dayComponent = document.createElement("div");
 
               d2_dayComponent.setAttribute("id", "day");
+              d2_dayComponent.setAttribute("yyyyMmDd", oneDayCalendarDTO.yyyy+oneDayCalendarDTO.mm+oneDayCalendarDTO.dd);
+              d2_dayComponent.setAttribute("onclick", "mainListModalOpen(this);")
 
               if (parseInt(oneDayCalendarDTO.mm) !== curMM) {
                   d2_dayComponent.setAttribute("class", "border border-white-600 rounded text-left text-top");
@@ -543,7 +538,9 @@
                   d2_dayComponent.setAttribute("class", "border border-gray-600 rounded text-left");
               }
 
+              // Depth-3
               var d3_ddComponent = document.createElement("span");
+              d3_ddComponent.innerText = parseInt(oneDayCalendarDTO.dd).toString();
               d3_ddComponent.setAttribute("class", "text-sm");
               if (oneDayCalendarDTO.dayOfWeekClsfCd === "SUN") {
                   d3_ddComponent.setAttribute("style", "padding-left:5px; color:red");
@@ -552,10 +549,24 @@
               } else {
                   d3_ddComponent.setAttribute("style", "padding-left:5px");
               }
-              d3_ddComponent.innerText = parseInt(oneDayCalendarDTO.dd).toString();
 
+              var d3_partsComponent = document.createElement("div");
+
+              // Depth-4
+              d3_partsComponent.setAttribute("style", "padding-left:5px");
+              oneDayCalendarDTO.parts.forEach(function(part, idx) {
+                  // Depth-5
+                  var d4_part = document.createElement("span");
+                  d4_part.innerText = part;
+                  d4_part.setAttribute("class", "workout-part-box");
+                  d4_part.setAttribute("style", "background-color:#c0ed70"); // TODO:색조절
+
+                  d3_partsComponent.appendChild(d4_part);
+              });
+
+              // MERGE
               d2_dayComponent.appendChild(d3_ddComponent);
-
+              d2_dayComponent.appendChild(d3_partsComponent);
               d1_calendarContent.appendChild(d2_dayComponent);
           });
 

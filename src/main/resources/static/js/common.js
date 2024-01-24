@@ -52,12 +52,15 @@ function showSelectBox() {
 
 
 // 메인 리스트 모달 열기 함수
-function mainListModalOpen() {
+function mainListModalOpen(dayComponent) {
     var modal = document.getElementById("main-list-modal");
     var modalBackground = document.getElementById("main-list-modal-background");
 
     modal.style.display = "block";
     modalBackground.style.display = "flex";
+
+    console.log(dayComponent.getAttribute("yyyyMmDd"));
+
 }
 
 // 메인 리스트 모달 닫기 함수
