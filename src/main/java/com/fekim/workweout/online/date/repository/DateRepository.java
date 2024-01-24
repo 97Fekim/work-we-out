@@ -59,4 +59,30 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
     List<Object[]> findBeforeCuofYyyyMm(@Param("cuofYyyyMm") YyyyMm cuofYyyyMm,
                                          @Param("range") Long range);
 
+    @Query(value = "" +
+            "SELECT  " +
+            "  BF_YYYY AS bfYyyy, " +
+            "  BF_MM AS bfMm ," +
+            "  BF_DD AS bfDd , " +
+            "  BF_DAY_OF_WEEK_CLSF_CD AS bfDayOfWeekClsfCd " +
+            "FROM  " +
+            "  (SELECT  " +
+            "     YYYY,  " +
+            "     MM,  " +
+            "     DD,  " +
+            "     LAG(YYYY, :#{#range} ) OVER (ORDER BY YYYY, MM, DD) AS BF_YYYY, " +
+            "     LAG(MM, :#{#range} ) OVER (ORDER BY YYYY, MM, DD) AS BF_MM, " +
+            "     LAG(DD, :#{#range} ) OVER (ORDER BY YYYY, MM, DD) AS BF_DD, " +
+            "     LAG(DAY_OF_WEEK_CLSF_CD, :#{#range} ) OVER (ORDER BY YYYY, MM, DD) AS BF_DAY_OF_WEEK_CLSF_CD " +
+            "   FROM TBL_DATE " +
+            "   ORDER BY YYYY, MM, DD ) DATE " +
+            "WHERE 1=1  " +
+            "  AND YYYY = :#{#yyyyMmDd.yyyy} " +
+            "  AND MM = :#{#yyyyMmDd.mm} " +
+            "  AND DD = :#{#yyyyMmDd.dd} " +
+            "ORDER BY BF_YYYY, BF_MM, BF_DD; "
+            , nativeQuery = true)
+    List<Object[]> findBeforeYyyyMmDd(@Param("yyyyMmDd") YyyyMmDd yyyyMmDd,
+                                          @Param("range") Long range);
+
 }

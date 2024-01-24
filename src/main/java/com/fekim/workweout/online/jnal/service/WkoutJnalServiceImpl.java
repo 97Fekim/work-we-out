@@ -1,5 +1,6 @@
 package com.fekim.workweout.online.jnal.service;
 
+import com.fekim.workweout.online.date.repository.DateRepository;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMm;
 import com.fekim.workweout.online.date.repository.entity.key.YyyyMmDd;
 import com.fekim.workweout.online.jnal.repository.WkoutJnalMethodRepository;
@@ -15,10 +16,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Log4j2
 @Service
@@ -26,6 +25,7 @@ import java.util.Optional;
 public class WkoutJnalServiceImpl implements WkoutJnalService {
 
 
+    private final DateRepository dateRepository;
     private final WkoutJnalRepository wkoutJnalRepository;
     private final WkoutJnalMethodRepository wkoutJnalMethodRepository;
     private final WkoutMethodRepository wkoutMethodRepository;
@@ -85,6 +85,20 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
 
             oneDayCalendarDTOList.add(oneDayDTO);
         }
+
+        // 전월 DUMMY DAY PADDING
+        //  - 1일이 일요일이 아닌경우
+        if (!oneDayCalendarDTOList.get(0).getDayOfWeekClsfCd().equals("SUN")) {
+
+
+        }
+
+        // 다음월 DUMMY DAY PADDING
+        //  - 말일이 토요일이 아닌경우
+
+
+
+
 
         return OneMonthCalendarDTO
                 .builder()
