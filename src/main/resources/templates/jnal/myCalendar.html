@@ -88,9 +88,9 @@
         </div>
 
         <!-- 달력 메인 -->
-<!--        <div class="flex-grow grid grid-cols-7 gap-1 p-4 overflow-y-auto">
+        <div id="calendar-content" class="flex-grow grid grid-cols-7 gap-1 p-4 overflow-y-auto">
 
-            <div id="day" class="border border-white-600 rounded text-left text-top">
+<!--            <div id="day" class="border border-white-600 rounded text-left text-top">
                 <span class="text-sm" style="padding-left:5px">0</span>
             </div>
             <div id="day" class="border border-white-600 rounded text-left">
@@ -234,8 +234,8 @@
             </div>
             <div id="day" class="border border-white-600 rounded text-left">
                 <span class="text-sm" style="padding-left:5px">0</span>
-            </div>
-        </div>-->
+            </div>-->
+        </div>
 
 		<!-- 새 운동일지 버튼 -->
         <div class="flex justify-between items-center p-4" style="position:fixed; bottom:0; left:0; width:100%">
@@ -459,7 +459,6 @@
           // (1) 당월 날짜
           var calendarYYYYMM = document.getElementById("YYYYMM");
           var curDate = new Date(calendarYYYYMM.getAttribute("date"));
-          console.log("currentDate = " + curDate);
 
           // (2) 당월+-1 월 날짜
           var newDate = new Date(
@@ -467,9 +466,14 @@
               curDate.getMonth() + range,
               curDate.getDate()
           );
-          console.log("newDate = " + newDate);
 
-          // (3) MM월 메인캘린더 렌더링 호출
+          // (3) 이전 캘린더 삭제
+          var prevCalendarContent = document.getElementById("calendar-content");
+          while (prevCalendarContent.hasChildNodes()) {
+              prevCalendarContent.removeChild(prevCalendarContent.firstChild);
+          }
+
+          // (4) MM월 메인캘린더 렌더링 호출
           renderCalendar(newDate);
       }
 
@@ -519,6 +523,42 @@
       function renderCalendarContents(oneMonthCalendarDTO) {
 
           console.log(oneMonthCalendarDTO);
+
+          var curMM = new Date(document.getElementById("YYYYMM").getAttribute("date")).getMonth()+1;
+
+          var d1_calendarContent = document.getElementById("calendar-content");
+
+          oneMonthCalendarDTO.oneDayCalendarDTOList.forEach(function(oneDayCalendarDTO, idx) {
+              var d2_dayComponent = document.createElement("div");
+
+              d2_dayComponent.setAttribute("id", "day");
+
+              if (parseInt(oneDayCalendarDTO.mm) !== curMM) {
+                  d2_dayComponent.setAttribute("class", "border border-white-600 rounded text-left text-top");
+              } else if (oneDayCalendarDTO.dayOfWeekClsfCd === "SUN") {
+                  d2_dayComponent.setAttribute("class", "border border-red-600 rounded text-left");
+              } else if (oneDayCalendarDTO.dayOfWeekClsfCd === "SAT") {
+                  d2_dayComponent.setAttribute("class", "border border-blue-600 rounded text-left");
+              } else {
+                  d2_dayComponent.setAttribute("class", "border border-gray-600 rounded text-left");
+              }
+
+              var d3_ddComponent = document.createElement("span");
+              d3_ddComponent.setAttribute("class", "text-sm");
+              if (oneDayCalendarDTO.dayOfWeekClsfCd === "SUN") {
+                  d3_ddComponent.setAttribute("style", "padding-left:5px; color:red");
+              } else if (oneDayCalendarDTO.dayOfWeekClsfCd === "SAT") {
+                  d3_ddComponent.setAttribute("style", "padding-left:5px; color:blue");
+              } else {
+                  d3_ddComponent.setAttribute("style", "padding-left:5px");
+              }
+              d3_ddComponent.innerText = parseInt(oneDayCalendarDTO.dd).toString();
+
+              d2_dayComponent.appendChild(d3_ddComponent);
+
+              d1_calendarContent.appendChild(d2_dayComponent);
+          });
+
       }
 
   </script>
