@@ -351,6 +351,9 @@
               url: "http://localhost:8080/grp/myAll",
               dataType:'json',
               data: {},
+              xhrFields: {
+                  withCredentials: true
+              },
               success: function (response) {
                   renderSideGrps(response);
               },
@@ -490,6 +493,9 @@
               type: "GET",
               url: "http://localhost:8080/jnal/calendar",
               dataType:'json',
+              xhrFields: {
+                  withCredentials: true
+              },
               data: {
                   yyyyMm : curYyyyMm
               },

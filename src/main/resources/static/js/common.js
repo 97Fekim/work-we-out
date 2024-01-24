@@ -86,4 +86,3 @@ function newWorkoutGroupModalClose() {
     modal.style.display = "none";
     modalBackground.style.display = "none";
 }
-
