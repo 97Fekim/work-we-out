@@ -90,14 +90,96 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
         //  - 1일이 일요일이 아닌경우
         if (!oneDayCalendarDTOList.get(0).getDayOfWeekClsfCd().equals("SUN")) {
 
+            List<Object[]> beforeYyyyMmDd = dateRepository.findBeforeYyyyMmDd(
+                    YyyyMmDd
+                            .builder()
+                            .yyyy(oneDayCalendarDTOList.get(0).getYyyy())
+                            .mm(oneDayCalendarDTOList.get(0).getMm())
+                            .dd(oneDayCalendarDTOList.get(0).getDd())
+                            .build(),
+                    1L
+            );
 
+            // 직전일부터 시작
+            OneDayCalendarDTO oneDayCalendarDTO = OneDayCalendarDTO
+                    .builder()
+                    .yyyy(String.valueOf(beforeYyyyMmDd.get(0)[0]))
+                    .mm(String.valueOf(beforeYyyyMmDd.get(0)[1]))
+                    .dd(String.valueOf(beforeYyyyMmDd.get(0)[2]))
+                    .dayOfWeekClsfCd(String.valueOf(beforeYyyyMmDd.get(0)[3]))
+                    .build();
+
+            // 토요일을 만나면 멈춘다. (일요일까지만 PADDING 한다.)
+            while (!oneDayCalendarDTO.getDayOfWeekClsfCd().equals("SAT")) {
+
+                // 제일 왼쪽에 PADDING한다.
+                oneDayCalendarDTOList.add(0, oneDayCalendarDTO);
+
+                // -1일 한다.
+                List<Object[]> prevYyyyMmDd = dateRepository.findBeforeYyyyMmDd(
+                        YyyyMmDd
+                                .builder()
+                                .yyyy(oneDayCalendarDTO.getYyyy())
+                                .mm(oneDayCalendarDTO.getMm())
+                                .dd(oneDayCalendarDTO.getDd())
+                                .build(),
+                        1L
+                );
+                oneDayCalendarDTO = new OneDayCalendarDTO();
+                oneDayCalendarDTO.setYyyy(String.valueOf(prevYyyyMmDd.get(0)[0]));
+                oneDayCalendarDTO.setMm(String.valueOf(prevYyyyMmDd.get(0)[1]));
+                oneDayCalendarDTO.setDd(String.valueOf(prevYyyyMmDd.get(0)[2]));
+                oneDayCalendarDTO.setDayOfWeekClsfCd(String.valueOf(prevYyyyMmDd.get(0)[3]));
+            }
         }
 
-        // 다음월 DUMMY DAY PADDING
+        // 익월 DUMMY DAY PADDING
         //  - 말일이 토요일이 아닌경우
+        if (!oneDayCalendarDTOList.get(oneDayCalendarDTOList.size()-1)
+                .getDayOfWeekClsfCd().equals("SAT")) {
 
+            List<Object[]> afterYyyyMmDd = dateRepository.findAfterYyyyMmDd(
+                    YyyyMmDd
+                            .builder()
+                            .yyyy(oneDayCalendarDTOList.get(oneDayCalendarDTOList.size()-1).getYyyy())
+                            .mm(oneDayCalendarDTOList.get(oneDayCalendarDTOList.size()-1).getMm())
+                            .dd(oneDayCalendarDTOList.get(oneDayCalendarDTOList.size()-1).getDd())
+                            .build(),
+                    1L
+            );
 
+            // 익일부터 시작
+            OneDayCalendarDTO oneDayCalendarDTO = OneDayCalendarDTO
+                    .builder()
+                    .yyyy(String.valueOf(afterYyyyMmDd.get(0)[0]))
+                    .mm(String.valueOf(afterYyyyMmDd.get(0)[1]))
+                    .dd(String.valueOf(afterYyyyMmDd.get(0)[2]))
+                    .dayOfWeekClsfCd(String.valueOf(afterYyyyMmDd.get(0)[3]))
+                    .build();
 
+            // 일요일을 만나면 멈춘다. (토요일까지만 PADDING 한다.)
+            while (!oneDayCalendarDTO.getDayOfWeekClsfCd().equals("SUN")) {
+
+                // 제일 오른쪽에 PADDING한다.
+                oneDayCalendarDTOList.add(oneDayCalendarDTO);
+
+                // -1일 한다.
+                List<Object[]> nextYyyyMmDd = dateRepository.findAfterYyyyMmDd(
+                        YyyyMmDd
+                                .builder()
+                                .yyyy(oneDayCalendarDTO.getYyyy())
+                                .mm(oneDayCalendarDTO.getMm())
+                                .dd(oneDayCalendarDTO.getDd())
+                                .build(),
+                        1L
+                );
+                oneDayCalendarDTO = new OneDayCalendarDTO();
+                oneDayCalendarDTO.setYyyy(String.valueOf(nextYyyyMmDd.get(0)[0]));
+                oneDayCalendarDTO.setMm(String.valueOf(nextYyyyMmDd.get(0)[1]));
+                oneDayCalendarDTO.setDd(String.valueOf(nextYyyyMmDd.get(0)[2]));
+                oneDayCalendarDTO.setDayOfWeekClsfCd(String.valueOf(nextYyyyMmDd.get(0)[3]));
+            }
+        }
 
 
         return OneMonthCalendarDTO

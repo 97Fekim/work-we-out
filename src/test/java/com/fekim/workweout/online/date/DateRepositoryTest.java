@@ -74,4 +74,31 @@ public class DateRepositoryTest {
                 );
     }
 
+    @Test
+    void findAfterCuofYyyyMmDdTest() {
+
+        List<Object[]> afterYyyyMmDd = dateRepository.findAfterYyyyMmDd(
+                YyyyMmDd.builder()
+                        .yyyy("2024")
+                        .mm("01")
+                        .dd("31")
+                        .build(),
+                1L
+        );
+
+        System.out.println(afterYyyyMmDd.get(0)[0]);
+        System.out.println(afterYyyyMmDd.get(0)[1]);
+        System.out.println(afterYyyyMmDd.get(0)[2]);
+        System.out.println(afterYyyyMmDd.get(0)[3]);
+
+        Assertions.assertThat(
+                afterYyyyMmDd.get(0)[0].equals("2023") &&
+                        afterYyyyMmDd.get(0)[1].equals("02") &&
+                        afterYyyyMmDd.get(0)[2].equals("01") &&
+                        afterYyyyMmDd.get(0)[3].equals("THU")
+        );
+
+
+    }
+
 }
