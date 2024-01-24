@@ -32,11 +32,6 @@ public class WebSecurityConfig {
                 .csrf((csrf) ->
                         csrf.disable()
                 )
-                .authorizeHttpRequests((authorizeRequests) ->
-                        authorizeRequests
-                                .requestMatchers("/jnal", "/jnal/**").hasAnyRole("USER")
-                                .requestMatchers("/", "/**").permitAll()
-                )
                 .formLogin((formLogin) ->
                         formLogin.disable()
                 )
@@ -52,8 +47,16 @@ public class WebSecurityConfig {
                 .rememberMe((rememberMe) ->
                         rememberMe.disable()
                 )
+                .authorizeHttpRequests((authorizeRequests) ->
+                        authorizeRequests
+                                .requestMatchers("/jnal", "/jnal/**").hasAnyRole("USER")
+                                .requestMatchers("/", "/**").permitAll()
+                )
+                .cors(httpSecurityCorsConfigurer ->
+                        httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource)
+                )
                 .sessionManagement((sessionManagementConfig) ->
-                        sessionManagementConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        sessionManagementConfig.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .exceptionHandling((exceptionHandlingConfig) ->
                         exceptionHandlingConfig
@@ -61,14 +64,12 @@ public class WebSecurityConfig {
                                 .accessDeniedHandler(accessDeniedHandler)
                 )
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors(httpSecurityCorsConfigurer ->
-                        httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource)
-                )
         ;
 
         return http.build();
     }
 
+    /* 정적 자원에 대한 접근권한 해제 */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
