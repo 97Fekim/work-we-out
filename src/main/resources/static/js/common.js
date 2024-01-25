@@ -89,3 +89,13 @@ function newWorkoutGroupModalClose() {
     modal.style.display = "none";
     modalBackground.style.display = "none";
 }
+
+function createPartColorMap() {
+    partColorMap = new Map([
+        ['가슴', '#c0ed70'],
+        ['등', 'moccasin'],
+        ['하체', 'lightskyblue'],
+        ['삼두', 'hotpink']
+    ])
+    return partColorMap;
+}

@@ -330,10 +330,14 @@
   <!-- common.js -->
   <script>
 
+      var partColorMap;
+
       /**
        * # 초기화면로드
        * */
       $(document).ready(function(){
+
+          partColorMap = createPartColorMap();
 
           // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
           $.ajax({
@@ -408,6 +412,7 @@
               d2_li.appendChild(d3_ul);
 
               d1_ul.appendChild(d2_li);
+
           });
       }
 
@@ -552,14 +557,14 @@
 
               var d3_partsComponent = document.createElement("div");
 
-              // Depth-4
-              d3_partsComponent.setAttribute("style", "padding-left:5px");
+              // Depth-3
+              d3_partsComponent.setAttribute("style", "padding-left:3px;");
               oneDayCalendarDTO.parts.forEach(function(part, idx) {
-                  // Depth-5
+                  // Depth-4
                   var d4_part = document.createElement("span");
                   d4_part.innerText = part;
                   d4_part.setAttribute("class", "workout-part-box");
-                  d4_part.setAttribute("style", "background-color:#c0ed70"); // TODO:색조절
+                  d4_part.setAttribute("style", "margin-right:1px; background-color:"+partColorMap.get(part)); // TODO:색조절
 
                   d3_partsComponent.appendChild(d4_part);
               });
@@ -568,6 +573,8 @@
               d2_dayComponent.appendChild(d3_ddComponent);
               d2_dayComponent.appendChild(d3_partsComponent);
               d1_calendarContent.appendChild(d2_dayComponent);
+
+              console.log(partColorMap.get("가슴"));
           });
 
       }

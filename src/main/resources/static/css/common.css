@@ -75,7 +75,7 @@ input:focus {
 
 .workout-part-box {
   font-size: 11px;
-  display: inline;
+  display: block;
 
   border: skyblue;
   border-radius: 7px;
