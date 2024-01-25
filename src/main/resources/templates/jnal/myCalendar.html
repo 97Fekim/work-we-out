@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01.메인화면</title>
+    <title>Work We Out</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="/css/common.css" />
@@ -90,141 +90,6 @@
         <!-- 달력 메인 -->
         <div id="calendar-content" class="flex-grow grid grid-cols-7 gap-1 p-4 overflow-y-auto">
 
-<!--            <div id="day" class="border border-white-600 rounded text-left text-top">
-                <span class="text-sm" style="padding-left:5px">0</span>
-            </div>
-            <div id="day" class="border border-white-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">0</span>
-            </div>
-            <div id="day" class="border border-white-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">0</span>
-            </div>
-            <div id="day" class="border border-white-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">0</span>
-            </div>
-			<div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">1</span>
-				<div style="padding-left:5px">
-				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-                    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두</span>
-                    <span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">2</span>
-            </div>
-            <div id="day" class="border border-blue-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px; color:blue">3</span>
-            </div>
-            <div id="day" class="border border-red-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px; color:red">4</span>
-            </div>
-            <div id="day" onclick="mainListModalOpen();" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">5</span>
-				<div style="padding-left:5px">
-				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-				    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두</span>
-                    <span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">6</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">7</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">8</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">9</span>
-            </div>
-            <div id="day" class="border border-blue-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px; color:blue">10</span>
-            </div>
-            <div id="day" class="border border-red-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px; color:red">11</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">12</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">13</span>
-				<div style="padding-left:5px">
-				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-                    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-                    <span class="workout-part-box" style="background-color:hotpink">삼두</span>
-                    <span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">14</span>
-            </div>
-			<div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">15</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">16</span>
-            </div>
-            <div id="day" class="border border-blue-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px; color:blue">17</span>
-            </div>
-            <div id="day" class="border border-red-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px; color:red">18</span>
-				<div style="padding-left:5px">
-				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-				    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두</span>
-                    <span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">19</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">20</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">21</span>
-            </div>
-			<div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">22</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">23</span>
-            </div>
-            <div id="day" class="border border-blue-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px; color:blue">24</span>
-            </div>
-            <div id="day" class="border border-red-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px; color:red">25</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">26</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">27</span>
-            </div>
-            <div id="day" class="border border-gray-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">28</span>
-				<div style="padding-left:5px">
-				    <span class="workout-part-box" style="background-color:#c0ed70">가슴</span>
-				    <span class="workout-part-box" style="background-color:lightskyblue">어깨</span>
-					<span class="workout-part-box" style="background-color:hotpink">삼두</span>
-                    <span class="workout-part-box" style="background-color:moccasin">등</span>
-				</div>
-            </div>
-            <div id="day" class="border border-white-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">0</span>
-            </div>
-            <div id="day" class="border border-white-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">0</span>
-            </div>
-            <div id="day" class="border border-white-600 rounded text-left">
-                <span class="text-sm" style="padding-left:5px">0</span>
-            </div>-->
         </div>
 
 		<!-- 새 운동일지 버튼 -->
@@ -248,9 +113,9 @@
         <div class="modal-wrap">
             <div class="bg-gray-800 p-3 rounded-lg max-w-xl w-full" style="background-color:white">
                 <div class="bg-gray-800 p-6 rounded-lg max-w-xl w-full flex justify-between items-center" style="background-color: white;">
-                    <div class="text-xl font-bold text-center flex-1">23년 12월 17일</div>
+                    <div id="main-list-modal-YYYYMMDD" class="text-xl font-bold text-center flex-1">23년 12월 17일</div>
                     <div onclick='mainListModalClose();' class="extra-btn p-2 cursor-pointer modal-close rounded" style="background-color:#C2C2C2">
-                    <span>&times;</span>
+                        <span>&times;</span>
                     </div>
                 </div>
 
@@ -268,6 +133,8 @@
                     </div>
                     </div>
                 </div>
+
+                <!-- 모달 Footer -->
                 <div class="flex justify-between items-center p-4">
                     <!-- dummy -->
                     <button class="bg-white-600 p-2 rounded">
@@ -573,9 +440,29 @@
               d2_dayComponent.appendChild(d3_ddComponent);
               d2_dayComponent.appendChild(d3_partsComponent);
               d1_calendarContent.appendChild(d2_dayComponent);
-
-              console.log(partColorMap.get("가슴"));
           });
+
+      }
+
+      /**
+       * CALENDAR Event4) DD 일 운동일지 리스트 모달 OPEN
+       *  - param = [YYYYMMDD]
+       * */
+      function mainListModalOpen(dayComponent) {
+          // (1) 모달 레이아웃 OPEN
+          var modal = document.getElementById("main-list-modal");
+          var modalBackground = document.getElementById("main-list-modal-background");
+          modal.style.display = "block";
+          modalBackground.style.display = "flex";
+
+          // (2) 운동일지 렌더링
+          var yyyyMmDd = dayComponent.getAttribute("yyyyMmDd");
+          var yyyy = yyyyMmDd.substring(0, 4);
+          var mm = yyyyMmDd.substring(4, 6);
+          var dd = yyyyMmDd.substring(6, 8);
+
+          var mainListModalYYYYMMDD = document.getElementById("main-list-modal-YYYYMMDD");
+
 
       }
 

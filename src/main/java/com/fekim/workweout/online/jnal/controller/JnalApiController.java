@@ -1,8 +1,7 @@
 package com.fekim.workweout.online.jnal.controller;
 
-import com.fekim.workweout.online.group.service.dto.GrpListDTO;
-import com.fekim.workweout.online.jnal.repository.entity.WkoutJnal;
 import com.fekim.workweout.online.jnal.service.WkoutJnalService;
+import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +28,17 @@ public class JnalApiController {
         OneMonthCalendarDTO oneMonthCalendarDTO = jnalService.getOneMonthCalendar(mbrId, yyyyMm);
 
         return new ResponseEntity<>(oneMonthCalendarDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/oneDayJnal")
+    ResponseEntity<OneDayJnalsDTO> getOneDayJnals(HttpSession session, @RequestParam("yyyyMmDd") String yyyyMmDd) {
+
+        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
+        Long mbrId = member.getMbrId();
+
+        OneDayJnalsDTO oneDayJnalsDTO = jnalService.getOneDayJnals(mbrId, yyyyMmDd, "01");
+
+        return new ResponseEntity<>(oneDayJnalsDTO, HttpStatus.OK);
     }
 
 
