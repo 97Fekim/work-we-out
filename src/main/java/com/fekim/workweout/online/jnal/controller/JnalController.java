@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/jnal")
 public class JnalController {
 
-    @GetMapping("/myCalendar")
+    @GetMapping("/my-calendar")
     public void showCalendar(HttpSession session) {
 
         Member member = (Member) session.getAttribute("LOGIN_MEMBER");

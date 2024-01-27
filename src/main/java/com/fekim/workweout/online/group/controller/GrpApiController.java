@@ -19,7 +19,7 @@ public class GrpApiController {
 
     private final GrpService grpService;
 
-    @GetMapping("/myAll")
+    @GetMapping("/my-all")
     ResponseEntity<GrpListDTO> getMyGrps(HttpSession session) {
 
         Member member = (Member) session.getAttribute("LOGIN_MEMBER");
