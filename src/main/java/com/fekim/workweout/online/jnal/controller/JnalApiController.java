@@ -30,7 +30,7 @@ public class JnalApiController {
         return new ResponseEntity<>(oneMonthCalendarDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/oneDayJnal")
+    @GetMapping("/one-day-jnals")
     ResponseEntity<OneDayJnalsDTO> getOneDayJnals(HttpSession session, @RequestParam("yyyyMmDd") String yyyyMmDd) {
 
         Member member = (Member) session.getAttribute("LOGIN_MEMBER");

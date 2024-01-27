@@ -56,7 +56,7 @@
             <!-- 제목 -->
 			<h1 class="ml-4 text-2xl font-semibold">내 운동 캘린더</h1>
             <!-- 마이페이지 버튼 -->
-            <button onclick="location.href='/member/myInfo'" class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
+            <button onclick="location.href='/member/my-info'" class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
         </nav>
 
         <!-- N 월 -->
@@ -113,25 +113,21 @@
         <div class="modal-wrap">
             <div class="bg-gray-800 p-3 rounded-lg max-w-xl w-full" style="background-color:white">
                 <div class="bg-gray-800 p-6 rounded-lg max-w-xl w-full flex justify-between items-center" style="background-color: white;">
-                    <div id="main-list-modal-YYYYMMDD" class="text-xl font-bold text-center flex-1">23년 12월 17일</div>
-                    <div onclick='mainListModalClose();' class="extra-btn p-2 cursor-pointer modal-close rounded" style="background-color:#C2C2C2">
+
+                    <!-- YYYYMMDD -->
+                    <div id="main-list-modal-YYYYMMDD" class="text-xl font-bold text-center flex-1"></div>
+
+                    <!-- 닫기버튼 -->
+                    <div onclick='mainListModalClose();'
+                         class="extra-btn p-2 cursor-pointer modal-close rounded"
+                         style="background-color:#C2C2C2">
                         <span>&times;</span>
                     </div>
+
                 </div>
 
-                <div class="mb-4">
-                    <div class="extra-btn bg-sky-700 p-4 rounded-lg flex items-center justify-between" style="margin:3px; display:block; background-color:lemonchiffon">
-                    <div class="flex items-center" style="margin:3px">
-                        <img src="https://placehold.co/30" alt="profile placeholder" class="rounded-full mr-3">
-                        <span>user1</span>
-                    </div>
-                    <div class="flex items-center" style="margin:3px">
-                        <div class="part bg-green-500 text-white px-3 py-1 rounded-lg mr-2" style="margin:7px; background-color:#c0ed70">가슴</div>
-                        <div class="part bg-yellow-500 text-white px-3 py-1 rounded-lg" style="margin:7px; background-color:moccasin">등</div>
-                        <div class="part bg-sky-500 text-white px-3 py-1 rounded-lg" style="margin:7px; background-color:lightskyblue">어깨</div>
-                        <div class="part bg-purple-500 text-white px-3 py-1 rounded-lg" style="margin:7px; background-color:hotpink">삼두</div>
-                    </div>
-                    </div>
+                <div id="main-list-modal-content" class="mb-4">
+
                 </div>
 
                 <!-- 모달 Footer -->
@@ -142,7 +138,7 @@
                         </svg>
                     </button>
 
-                    <button class="extra-btn p-2 bg-blue-600 rounded-full" style="background-color:#1196C1">
+                    <button onclick="location.href='/jnal/register' " class="extra-btn p-2 bg-blue-600 rounded-full" style="background-color:#1196C1">
                         <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
@@ -456,14 +452,105 @@
           modalBackground.style.display = "flex";
 
           // (2) 운동일지 렌더링
-          var yyyyMmDd = dayComponent.getAttribute("yyyyMmDd");
-          var yyyy = yyyyMmDd.substring(0, 4);
-          var mm = yyyyMmDd.substring(4, 6);
-          var dd = yyyyMmDd.substring(6, 8);
+          var curYyyyMmDd = dayComponent.getAttribute("yyyyMmDd");
+          var yyyy = curYyyyMmDd.substring(0, 4);
+          var mm = curYyyyMmDd.substring(4, 6);
+          var dd = curYyyyMmDd.substring(6, 8);
 
+          //  (2-1) 모달 헤더 렌더링
           var mainListModalYYYYMMDD = document.getElementById("main-list-modal-YYYYMMDD");
+          mainListModalYYYYMMDD.innerText = yyyy + "년 " + mm + "월 " + dd + "일";
 
+          // (2-2) 모달 컨텐츠 렌더링
+          $.ajax({
+              type: "GET",
+              url: "http://localhost:8080/jnal/one-day-jnals",
+              dataType:'json',
+              xhrFields: {
+                  withCredentials: true
+              },
+              data: {
+                  yyyyMmDd : curYyyyMmDd
+              },
+              success: function (oneDayJnalsDTO) {
+                  console.log("oneDayJnals Load Success");
 
+                  renderMainListModalContent(oneDayJnalsDTO);
+              },
+              error: function (request, error) {
+                  console.log("운동일지 로딩 중 오류가 발생하였습니다..\n");
+                  alert("code:"+request.status+"\n"
+                      +"message:"+request.responseText+"\n"
+                      +"error:"+error)
+              }
+          })
+
+      }
+
+      /**
+       * CALENDAR Event5) DD 일 운동일지 리스트 모달 컨텐츠 렌더링
+       *  - param = [OneDayJnals]
+       * */
+      function renderMainListModalContent(oneDayJnalsDTO) {
+          var mainListModalContent = document.getElementById("main-list-modal-content");
+
+          oneDayJnalsDTO.wkoutJnalDTO
+              .forEach(function(wkoutJnal, idx) {
+
+                  var d1_frame = document.createElement("div");
+                  d1_frame.setAttribute("class", "extra-btn bg-sky-700 p-4 rounded-lg flex items-center justify-between");
+                  d1_frame.setAttribute("style", "margin:3px; display:block; background-color:lemonchiffon");
+                  d1_frame.setAttribute("onclick", "location.href='/jnal/read-one?jnalId="+wkoutJnal.jnalId+"'");
+
+                  var d2_userInfo = document.createElement("div");
+                  d2_userInfo.setAttribute("class", "flex items-center");
+                  d2_userInfo.setAttribute("style", "margin:3px");
+
+                  var d3_userImg = document.createElement("img");
+                  d3_userImg.setAttribute("src", "https://placehold.co/30");
+                  d3_userImg.setAttribute("alt", "profile placeholder");
+                  d3_userImg.setAttribute("class", "rounded-full mr-3");
+                  var d3_userNm = document.createElement("span");
+                  d3_userNm.innerText = wkoutJnal.mbrNm;
+
+                  var d2_partsFrame = document.createElement("div");
+                  d2_partsFrame.setAttribute("class", "flex items-center");
+                  d2_partsFrame.setAttribute("style", "margin:3px");
+                  wkoutJnal.wkoutJnalMethodDTOList
+                      .forEach(function(method){
+                          var d3_part = document.createElement("div");
+                          d3_part.setAttribute("class", "part bg-green-500 text-white px-3 py-1 rounded-lg mr-2");
+                          d3_part.setAttribute("style", "margin:7px; "+
+                              "background-color:"+partColorMap.get(method.targetPart)+";");
+                          d3_part.innerText = method.targetPart;
+                          d2_partsFrame.appendChild(d3_part);
+                  })
+
+                  // MERGE
+                  d2_userInfo.appendChild(d3_userImg);
+                  d2_userInfo.appendChild(d3_userNm);
+                  d1_frame.appendChild(d2_userInfo);
+                  d1_frame.appendChild(d2_partsFrame);
+                  mainListModalContent.appendChild(d1_frame);
+          });
+      }
+
+      /**
+       * CALENDAR Event6) DD 일 운동일지 리스트 모달 CLOSE
+       *  - param = []
+       * */
+      function mainListModalClose() {
+          // (2) 이전 컨텐츠 삭제
+          var prevMainListModalContent = document.getElementById("main-list-modal-content");
+          while (prevMainListModalContent.hasChildNodes()) {
+              prevMainListModalContent.removeChild(prevMainListModalContent.firstChild);
+          }
+
+          // (2) 모달 닫기
+          var modal = document.getElementById("main-list-modal");
+          var modalBackground = document.getElementById("main-list-modal-background");
+          modal.style.display = "none";
+          modalBackground.style.display = "none";
       }
 
   </script>

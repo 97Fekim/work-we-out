@@ -50,15 +50,6 @@ function showSelectBox() {
     $(".select-box").css("visibility", "visible");
 }
 
-// 메인 리스트 모달 닫기 함수
-function mainListModalClose() {
-    var modal = document.getElementById("main-list-modal");
-    var modalBackground = document.getElementById("main-list-modal-background");
-
-    modal.style.display = "none";
-    modalBackground.style.display = "none";
-}
-
 // 새그룹 모달 열기 함수
 function newWorkoutGroupModalOpen() {
     var modal = document.getElementById("new-workout-group-modal");
