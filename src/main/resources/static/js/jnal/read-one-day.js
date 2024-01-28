@@ -82,7 +82,7 @@ function renderJnalsContent(oneDayJnalsDTO) {
 
         var d2_jnalComponent = document.createElement("div");
         d2_jnalComponent.setAttribute("class", "block justify-between items-center p-1");
-        d2_jnalComponent.setAttribute("style", "border-color: gray; border-width: 2px; border-radius: 7px");
+        d2_jnalComponent.setAttribute("style", "border-color: lightgrey; border-width: 7px; border-radius: 7px");
 
         var d3_commentLabel = document.createElement("div");
         d3_commentLabel.setAttribute("class", "flex justify-between items-center p-2");
