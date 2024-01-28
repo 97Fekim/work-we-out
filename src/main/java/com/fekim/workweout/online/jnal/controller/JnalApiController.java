@@ -41,5 +41,12 @@ public class JnalApiController {
         return new ResponseEntity<>(oneDayJnalsDTO, HttpStatus.OK);
     }
 
+    @PostMapping("/remove")
+    ResponseEntity<String> removeJnal(@RequestParam("jnalId") Long jnalId) {
+
+        jnalService.removeJnal(jnalId);
+        
+        return new ResponseEntity<>("Removed Completely", HttpStatus.OK);
+    }
 
 }
