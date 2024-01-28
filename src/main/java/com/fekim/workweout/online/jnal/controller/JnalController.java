@@ -27,9 +27,13 @@ public class JnalController {
     @GetMapping("/read-one-day")
     public void readOneDayJnals(@RequestParam("yyyyMmDd") String yyyyMmDd,
                                 Model model) {
-
         model.addAttribute("curYyyyMmDd", yyyyMmDd);
+    }
 
+    @GetMapping("/modify")
+    public void modifyJnal(@RequestParam("jnalId") Long jnalId,
+                           Model model) {
+        model.addAttribute("jnalId", jnalId);
     }
 
 

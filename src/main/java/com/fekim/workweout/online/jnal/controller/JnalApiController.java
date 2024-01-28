@@ -3,6 +3,7 @@ package com.fekim.workweout.online.jnal.controller;
 import com.fekim.workweout.online.jnal.service.WkoutJnalService;
 import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
+import com.fekim.workweout.online.jnal.service.dto.WkoutJnalDTO;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,13 @@ public class JnalApiController {
         OneDayJnalsDTO oneDayJnalsDTO = jnalService.getOneDayJnals(mbrId, yyyyMmDd, "01");
 
         return new ResponseEntity<>(oneDayJnalsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/read-one")
+    ResponseEntity<WkoutJnalDTO> readOneJnal(@RequestParam("jnalId") Long jnalId) {
+        WkoutJnalDTO jnalDTO = jnalService.getOneJnal(jnalId);
+
+        return new ResponseEntity<>(jnalDTO, HttpStatus.OK);
     }
 
     @PostMapping("/remove")
