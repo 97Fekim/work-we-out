@@ -4,6 +4,7 @@ import com.fekim.workweout.online.jnal.service.WkoutJnalService;
 import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
 import com.fekim.workweout.online.jnal.service.dto.WkoutJnalDTO;
+import com.fekim.workweout.online.jnal.service.dto.WkoutMethodListDTO;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,13 @@ import org.springframework.web.bind.annotation.*;
 public class JnalApiController {
 
     private final WkoutJnalService jnalService;
+
+    @GetMapping("/all-method")
+    ResponseEntity<WkoutMethodListDTO> getAllMethods() {
+        WkoutMethodListDTO wkoutMethodListDTO = jnalService.getAllWkoutMethod();
+
+        return new ResponseEntity<>(wkoutMethodListDTO, HttpStatus.OK);
+    }
 
     @GetMapping("/calendar")
     ResponseEntity<OneMonthCalendarDTO> getOneMonthCalendar(HttpSession session, @RequestParam("yyyyMm") String yyyyMm) {

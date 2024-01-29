@@ -82,6 +82,11 @@ function createPartColorMap() {
     return partColorMap;
 }
 
+// 뒤로가기
+function goBack() {
+    window.history.back();
+}
+
 /**
  * SIDEBAR EVENT) 사이드바 내 그룹 렌더링
  * */

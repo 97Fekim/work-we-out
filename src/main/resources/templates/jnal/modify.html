@@ -89,178 +89,63 @@
         </div>
       </div>
 
-      <!-- 운동일지 작성 메인 -->
+      <!-- 운동일지 메인 -->
       <div id="jnals-content" class="block justify-between items-center p-4">
 
       </div>
 
 
-      <!-- 운동 한줄평 -->
-      <div class="flex justify-between items-center p-2">
-        <span class="text-1xl font-semibold">▷ 운동 한줄평</span>
-      </div>
-      <div
-        class="flex justify-between p-2"
-        style="padding-left: 35px; padding-right: 35px"
-      >
-        <input type="text" class="bottom-border" style="width: 100%" />
-      </div>
-
-      <!-- 오늘의 운동 -->
-      <div class="flex justify-between items-center p-2">
-        <span class="text-1xl font-semibold">▷ 오늘의 운동</span>
-      </div>
-
-      <!-- "오늘의 운동" 아래에 select 콤보박스 -->
-      <div
-        class="select-box flex justify-between items-center p-2"
-        style="padding-left: 25px"
-      >
-        <div class="inline-flex relative">
-          <select
-            class="appearance-none bg-white border border-gray-300 rounded-md px-3 py-1 pr-6 focus:outline-none focus:border-blue-500"
-          >
-            <option>운동 종목</option>
-            <option>벤치 프레스</option>
-            <option>데드 리프트</option>
-            <option>오버헤드 프레스</option>
-            <option>바벨컬</option>
-            <option>직접 입력</option>
-          </select>
-          <!-- 화살표를 콤보박스 내부로 이동 -->
-          <div
-            class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
-          >
-            <svg
-              class="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 0 1 1.414 0L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- 무게/세트수/랩수/휴식시간 -->
-      <div class="flex justify-between p-2" style="padding-left: 35px">
-        <div>
-          <input
-            type="number"
-            class="bottom-border"
-            style="width: 8%; text-align: center"
-          />
-          <span>kg</span>
-          <input
-            type="number"
-            class="bottom-border"
-            style="width: 8%; text-align: center"
-          />
-          <span>set</span>
-          <input
-            type="number"
-            class="bottom-border"
-            style="width: 8%; text-align: center"
-          />
-          <span>reps</span>
-
-          <span style="padding-left: 30px; padding-right: 15px">
-            <span>[휴식]</span>
-            <input
-              type="number"
-              class="bottom-border"
-              style="width: 6%; text-align: center"
-            />
-            <span>분</span>
-            <input
-              type="number"
-              class="bottom-border"
-              style="width: 6%; text-align: center"
-            />
-            <span>초</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- 운동종목 추가 + -->
-      <div
-        class="flex justify-between items-center p-2"
-        style="padding-left: 25px"
-      >
-        <button
-          class="extra-btn p-1 bg-gray-600 text-white rounded"
-          style="background-color: #1196c1; font-size: 12px"
-        >
-          운동종목 추가 +
-        </button>
-      </div>
-
-      <!-- 저장/취소 버튼 -->
-      <div class="flex justify-end items-center p-2">
-        <button
-          class="extra-btn p-2 bg-gray-600 text-white rounded"
-          style="background-color: #1196c1; margin-right: 10px"
-        >
-          저장
-        </button>
-        <button
-          class="extra-btn p-2 bg-gray-600 text-white rounded"
-          style="background-color: #b2b2b2; margin-right: 10px"
-        >
-          취소
-        </button>
-      </div>
-    </div>
-
-    <!-- 새 그룹생성 모달 -->
-    <div id="new-workout-group-modal" class="modal-container">
-      <div class="modal-wrap">
-        <div class="bg-gray-800 p-3 rounded-lg max-w-xl w-full" style="background-color:white">
-          <div class="bg-gray-800 p-6 rounded-lg max-w-xl w-full flex justify-between items-center" style="background-color: white;">
-            <div class="text-xl font-bold text-center flex-1">새 운동 그룹</div>
-            <div onclick='newWorkoutGroupModalClose();' class="extra-btn p-2 cursor-pointer modal-close rounded" style="background-color:#C2C2C2">
-              <span>&times;</span>
+      <!-- 새 그룹생성 모달 -->
+      <div id="new-workout-group-modal" class="modal-container">
+        <div class="modal-wrap">
+          <div class="bg-gray-800 p-3 rounded-lg max-w-xl w-full" style="background-color:white">
+            <div class="bg-gray-800 p-6 rounded-lg max-w-xl w-full flex justify-between items-center" style="background-color: white;">
+              <div class="text-xl font-bold text-center flex-1">새 운동 그룹</div>
+              <div onclick='newWorkoutGroupModalClose();' class="extra-btn p-2 cursor-pointer modal-close rounded" style="background-color:#C2C2C2">
+                <span>&times;</span>
+              </div>
             </div>
-          </div>
 
-          <div class="mb-4">
-            <div class="extra-btn bg-sky-700 p-4 rounded-lg flex items-center justify-between" style="margin:3px; display:block; background-color:lemonchiffon">
-              <div class="flex items-center" style="margin:3px">
-                <span class="text-1xl font-semibold">▷ 그룹명</span>
-              </div>
-              <div class="flex justify-between items-center p-4">
-                <input
-                        type="text"
-                        id="newGrpNm"
-                        class="bottom-border"
-                        style="width: 50%; background-color:lemonchiffon; border-color:gray"
-                        value="주니어올림피아"
-                />
-              </div>
+            <div class="mb-4">
+              <div class="extra-btn bg-sky-700 p-4 rounded-lg flex items-center justify-between" style="margin:3px; display:block; background-color:lemonchiffon">
+                <div class="flex items-center" style="margin:3px">
+                  <span class="text-1xl font-semibold">▷ 그룹명</span>
+                </div>
+                <div class="flex justify-between items-center p-4">
+                  <input
+                          type="text"
+                          id="newGrpNm"
+                          class="bottom-border"
+                          style="width: 50%; background-color:lemonchiffon; border-color:gray"
+                          value="주니어올림피아"
+                  />
+                </div>
 
-              <div class="flex justify-end items-center p-1">
-                <button id="newGrpBtn"
-                        class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: #1196c1; margin-right: 10px">
-                  저장
-                </button>
+                <div class="flex justify-end items-center p-1">
+                  <button id="newGrpBtn"
+                          class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: #1196c1; margin-right: 10px">
+                    저장
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="new-workout-group-background" id="new-workout-group-background"></div>
+      <div class="new-workout-group-background" id="new-workout-group-background"></div>
 
-    <!-- Model Hidden Value -->
-    <input type="hidden" name="jnalId" th:value="${jnalId}">
+      <!-- Model Hidden Value -->
+      <input type="hidden" name="jnalId" th:value="${jnalId}"/>
+
+    </div>
 
   </body>
 
   <script>
+
+    var allMethods;
+
+    // datepicker 초기화
     $(function(){
       $("#date-picker-input").datepicker({
         dateFormat: 'yy년 mm월 dd일'
@@ -271,7 +156,28 @@
      * # 초기화면로드
      * */
     $(document).ready(function(){
-      // (1-0) datepicker 초기화
+
+      // (1-0) 전체 운동종목 로딩
+      $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/jnal/all-method",
+        async:false,
+        dataType:'json',
+        data: {},
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (wkoutMethodListDTO) {
+          allMethods = wkoutMethodListDTO;
+          console.log(allMethods);
+        },
+        error: function (request, error) {
+          console.log("Grps Loading Fail..");
+          alert("code:"+request.status+"\n"
+                  +"message:"+request.responseText+"\n"
+                  +"error:"+error)
+        }
+      });
 
       // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
       $.ajax({
@@ -381,7 +287,155 @@
       d2_jnalComponent.appendChild(d3_commentContent);
       d2_jnalComponent.appendChild(d3_wkoutsLabel);
 
+      var d3_methodsFrame = document.createElement("div");
+      d3_methodsFrame.setAttribute("id", "methods-frame");
+      d3_methodsFrame.setAttribute("class", "block justify-between items-center p-1");
 
+
+      wkoutJnalDTO.wkoutJnalMethodDTOList.forEach(function(method, idx){
+        var d4_method = document.createElement("div");
+        d4_method.setAttribute("class", "wkout-method block justify-between items-center p-1");
+        d4_method.setAttribute("seq", idx);
+
+        var d5_methodCombo = document.createElement("div");
+        d5_methodCombo.setAttribute("class", "select-box flex justify-between items-center p-1");
+        d5_methodCombo.setAttribute("style", "padding-left: 25px");
+        var d6_methodCombo = document.createElement("div");
+        d6_methodCombo.setAttribute("class", "inline-flex relative");
+        var d7_methodCombo = document.createElement("select");
+        d7_methodCombo.setAttribute("class", "appearance-none bg-white border border-gray-300 rounded-md px-3 py-1 pr-6 focus:outline-none focus:border-blue-500");
+
+        // SELECT OPTION 에 운동종목 로딩
+        allMethods.wkoutMethodDTOList.forEach(function(m){
+          var d8_methodCombo = document.createElement("option");
+          d8_methodCombo.innerText = m.methodNm;
+          d8_methodCombo.setAttribute("methodId", m.methodId);
+
+          d7_methodCombo.appendChild(d8_methodCombo);
+        });
+
+        // SELECT OPTION 화살표 이미지
+        var d7_methodComboArrow = document.createElement("div");
+        d7_methodComboArrow.setAttribute("class", "absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none");
+        var d8_methodComboArrowSvg = document.createElement("span");
+        d8_methodComboArrowSvg.setAttribute("class", "heroicons-solid--chevron-down");
+        d7_methodComboArrow.appendChild(d8_methodComboArrowSvg);
+
+        // 운동종목 제거 버튼
+        var d6_removeMethodBtn = document.createElement("div");
+        d6_removeMethodBtn.setAttribute("class", "p-1 cursor-pointer rounded");
+        d6_removeMethodBtn.setAttribute("style", "padding-right: 130px; color:gray");
+        d6_removeMethodBtn.setAttribute("onclick", "removeMethod("+idx+")");
+        d6_removeMethodBtn.innerText = "x";
+
+        // 무게 / 세트 / 랩스 / 휴식시간
+        var d5_wkoutsDetail = document.createElement("div");
+        d5_wkoutsDetail.setAttribute("class", "flex justify-between p-1");
+        d5_wkoutsDetail.setAttribute("style", "padding-left: 35px");
+        var d6_wkoutsDetail = document.createElement("div");
+        var d7_wkoutsDetailWei = document.createElement("input");
+        d7_wkoutsDetailWei.setAttribute("type", "number");
+        d7_wkoutsDetailWei.setAttribute("class", "bottom-border");
+        d7_wkoutsDetailWei.setAttribute("style", "width: 8%; text-align: center");
+        d7_wkoutsDetailWei.setAttribute("value", method.weight);
+        var d7_wkoutsDetailWeiTail = document.createElement("span");
+        d7_wkoutsDetailWeiTail.innerText = "kg";
+
+        var d7_wkoutsDetailSet = document.createElement("input");
+        d7_wkoutsDetailSet.setAttribute("type", "number");
+        d7_wkoutsDetailSet.setAttribute("class", "bottom-border");
+        d7_wkoutsDetailSet.setAttribute("style", "width: 8%; text-align: center");
+        d7_wkoutsDetailSet.setAttribute("value", method.sets);
+        var d7_wkoutsDetailSetTail = document.createElement("span");
+        d7_wkoutsDetailSetTail.innerText = "set";
+
+        var d7_wkoutsDetailRep = document.createElement("input");
+        d7_wkoutsDetailRep.setAttribute("type", "number");
+        d7_wkoutsDetailRep.setAttribute("class", "bottom-border");
+        d7_wkoutsDetailRep.setAttribute("style", "width: 8%; text-align: center");
+        d7_wkoutsDetailRep.setAttribute("value", method.reps);
+        var d7_wkoutsDetailRepTail = document.createElement("span");
+        d7_wkoutsDetailRepTail.innerText = "reps";
+
+        var d7_wkoutsDetailRest = document.createElement("span");
+        d7_wkoutsDetailRest.setAttribute("style", "padding-left: 30px; padding-right: 15px");
+        var d8_wkoutsDetailRestLabel = document.createElement("span");
+        d8_wkoutsDetailRestLabel.innerText = "[휴식]";
+        var d8_wkoutsDetailRestMin = document.createElement("input");
+        d8_wkoutsDetailRestMin.setAttribute("type", "number");
+        d8_wkoutsDetailRestMin.setAttribute("class", "bottom-border");
+        d8_wkoutsDetailRestMin.setAttribute("style", "width: 6%; text-align: center");
+        d8_wkoutsDetailRestMin.setAttribute("value", method.restTime / 60);
+        var d8_wkoutsDetailRestMinTail = document.createElement("span");
+        d8_wkoutsDetailRestMinTail.innerText = "분";
+        var d8_wkoutsDetailRestSec = document.createElement("input");
+        d8_wkoutsDetailRestSec.setAttribute("type", "number");
+        d8_wkoutsDetailRestSec.setAttribute("class", "bottom-border");
+        d8_wkoutsDetailRestSec.setAttribute("style", "width: 6%; text-align: center");
+        d8_wkoutsDetailRestSec.setAttribute("value", method.restTime % 60);
+        var d8_wkoutsDetailRestSecTail = document.createElement("span");
+        d8_wkoutsDetailRestSecTail.innerText = "초";
+
+        d7_wkoutsDetailRest.appendChild(d8_wkoutsDetailRestLabel);
+        d7_wkoutsDetailRest.appendChild(d8_wkoutsDetailRestMin);
+        d7_wkoutsDetailRest.appendChild(d8_wkoutsDetailRestMinTail);
+        d7_wkoutsDetailRest.appendChild(d8_wkoutsDetailRestSec);
+        d7_wkoutsDetailRest.appendChild(d8_wkoutsDetailRestSecTail);
+
+        d6_wkoutsDetail.appendChild(d7_wkoutsDetailWei);
+        d6_wkoutsDetail.appendChild(d7_wkoutsDetailWeiTail);
+        d6_wkoutsDetail.appendChild(d7_wkoutsDetailSet);
+        d6_wkoutsDetail.appendChild(d7_wkoutsDetailSetTail);
+        d6_wkoutsDetail.appendChild(d7_wkoutsDetailRep);
+        d6_wkoutsDetail.appendChild(d7_wkoutsDetailRepTail);
+        d6_wkoutsDetail.appendChild(d7_wkoutsDetailRest);
+        d5_wkoutsDetail.appendChild(d6_wkoutsDetail);  // 오늘의 운동 Content 완료
+
+
+        d6_methodCombo.appendChild(d7_methodCombo);
+        d6_methodCombo.appendChild(d7_methodComboArrow);
+
+        d5_methodCombo.appendChild(d6_methodCombo);
+        d5_methodCombo.appendChild(d6_removeMethodBtn);
+
+        d4_method.appendChild(d5_methodCombo);
+        d4_method.appendChild(d5_wkoutsDetail);
+
+        d3_methodsFrame.appendChild(d4_method);
+      });
+
+      d2_jnalComponent.appendChild(d3_methodsFrame);
+
+      // 운동종목 추가 + 버튼
+      var d3_addMethodBtnDiv = document.createElement("div");
+      d3_addMethodBtnDiv.setAttribute("class", "flex justify-between items-center p-2");
+      d3_addMethodBtnDiv.setAttribute("style", "padding-left: 35px");
+      var d4_addMethodBtn = document.createElement("button");
+      d4_addMethodBtn.setAttribute("class", "extra-btn p-1 bg-gray-600 text-white rounded");
+      d4_addMethodBtn.setAttribute("style", "background-color: #1196c1; font-size: 12px");
+      d4_addMethodBtn.innerText = "운동종목 추가 +";
+      d3_addMethodBtnDiv.appendChild(d4_addMethodBtn);
+
+      d2_jnalComponent.appendChild(d3_addMethodBtnDiv);
+
+      // 저장 / 취소 버튼
+      var d3_footerBtnGroup = document.createElement("div");
+      d3_footerBtnGroup.setAttribute("class", "flex justify-end items-center p-2");
+      var d4_saveBtn = document.createElement("button");
+      d4_saveBtn.setAttribute("class", "extra-btn p-2 bg-gray-600 text-white rounded");
+      d4_saveBtn.setAttribute("style", "background-color: #1196c1; margin-right: 10px");
+      d4_saveBtn.setAttribute("onclick", "registerJnal()");
+      d4_saveBtn.innerText = "저장";
+      var d4_cancleBtn = document.createElement("button");
+      d4_cancleBtn.setAttribute("class", "extra-btn p-2 bg-gray-600 text-white rounded");
+      d4_cancleBtn.setAttribute("style", "background-color: #b2b2b2; margin-right: 10px");
+      d4_cancleBtn.setAttribute("onclick", "goBack()");
+      d4_cancleBtn.innerText = "취소";
+
+      d3_footerBtnGroup.appendChild(d4_saveBtn);
+      d3_footerBtnGroup.appendChild(d4_cancleBtn);
+
+      d2_jnalComponent.appendChild(d3_footerBtnGroup);
 
       d1_jnalsContent.appendChild(d2_jnalComponent);
 
