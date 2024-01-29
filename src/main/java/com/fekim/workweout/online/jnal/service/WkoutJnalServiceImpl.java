@@ -345,7 +345,6 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
             wkoutJnalMethodList.add(
                     WkoutJnalMethod
                             .builder()
-                            .jnalMethodId(wkoutJnalMethodDTO.getJnalMethodId())
                             .wkoutJnal(WkoutJnal
                                     .builder()
                                     .jnalId(wkoutJnalDTO.getJnalId())

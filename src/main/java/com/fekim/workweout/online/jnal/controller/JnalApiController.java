@@ -65,4 +65,19 @@ public class JnalApiController {
         return new ResponseEntity<>("Removed Completely", HttpStatus.OK);
     }
 
+    @PostMapping("/modify")
+    ResponseEntity<String> modifyJnal(HttpSession session,
+                                    @RequestBody WkoutJnalDTO jnalDTO) {
+        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
+        Long mbrId = member.getMbrId();
+
+        jnalDTO.setMbrId(mbrId);
+
+        Long jnalId = jnalService.modifyJnal(jnalDTO);
+
+        String newYyyyMmDd = jnalDTO.getYyyy() + jnalDTO.getMm() + jnalDTO.getDd();
+
+        return new ResponseEntity<>(newYyyyMmDd, HttpStatus.OK);
+    }
+
 }
