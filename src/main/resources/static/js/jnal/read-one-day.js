@@ -174,7 +174,7 @@ function renderJnalsContent(oneDayJnalsDTO) {
             d7_wkoutsDetailRestMin.setAttribute("readonly", "true");
             d7_wkoutsDetailRestMin.setAttribute("class", "bottom-border");
             d7_wkoutsDetailRestMin.setAttribute("style", "width: 6%; text-align: center");
-            d7_wkoutsDetailRestMin.setAttribute("value", method.restTime / 60);
+            d7_wkoutsDetailRestMin.setAttribute("value", parseInt(method.restTime / 60));
             var d7_wkoutsDetailRestMinTail = document.createElement("span");
             d7_wkoutsDetailRestMinTail.innerText = "분";
             var d7_wkoutsDetailRestSec = document.createElement("input");
@@ -182,7 +182,7 @@ function renderJnalsContent(oneDayJnalsDTO) {
             d7_wkoutsDetailRestSec.setAttribute("readonly", "true");
             d7_wkoutsDetailRestSec.setAttribute("class", "bottom-border");
             d7_wkoutsDetailRestSec.setAttribute("style", "width: 6%; text-align: center");
-            d7_wkoutsDetailRestSec.setAttribute("value", method.restTime % 60);
+            d7_wkoutsDetailRestSec.setAttribute("value", parseInt(method.restTime % 60));
             var d7_wkoutsDetailRestSecTail = document.createElement("span");
             d7_wkoutsDetailRestSecTail.innerText = "초";
 

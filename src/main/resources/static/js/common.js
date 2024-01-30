@@ -146,6 +146,12 @@ function renderSideGrps(grpListDTO) {
  */
 $(document).on("click", "#newGrpBtn", function() {
     var newGrpNm = document.getElementById("newGrpNm").value;
+
+    if (newGrpNm == null) {
+        alert("그룹명을 입력해주세요");
+        return ;
+    }
+
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/grp/register",
