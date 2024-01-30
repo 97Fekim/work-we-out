@@ -19,9 +19,6 @@ public class JnalController {
     @GetMapping("/my-calendar")
     public void showCalendar(HttpSession session) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
-
     }
 
     @GetMapping("/read-one-day")
@@ -34,6 +31,11 @@ public class JnalController {
     public void modifyJnal(@RequestParam("jnalId") Long jnalId,
                            Model model) {
         model.addAttribute("jnalId", jnalId);
+    }
+
+    @GetMapping("/register")
+    public void registerJnal() {
+
     }
 
 

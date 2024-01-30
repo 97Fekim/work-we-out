@@ -80,4 +80,19 @@ public class JnalApiController {
         return new ResponseEntity<>(newYyyyMmDd, HttpStatus.OK);
     }
 
+    @PostMapping("/register")
+    ResponseEntity<String> registerJnal(HttpSession session,
+                                        @RequestBody WkoutJnalDTO jnalDTO) {
+        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
+        Long mbrId = member.getMbrId();
+
+        jnalDTO.setMbrId(mbrId);
+
+        Long jnalId = jnalService.createJnal(jnalDTO, mbrId);
+
+        String yyyyMmDd = jnalDTO.getYyyy() + jnalDTO.getMm() + jnalDTO.getDd();
+
+        return new ResponseEntity<>(yyyyMmDd, HttpStatus.OK);
+    }
+
 }
