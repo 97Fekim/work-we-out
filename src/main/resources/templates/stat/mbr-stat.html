@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work We Out</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-white text-black">
+
+    <!-- 좌측 사이드 바 메뉴 -->
+    <div class="left-side-bar-box">
+        <div class="left-side-bar">
+            <div class="menu-1">
+                <ul>
+                    <li>
+                        <a href="/jnal/my-calendar" style="padding-left:21px">내 운동 캘린더</a>
+                    </li>
+                    <li>
+                        <a href="/stat/my-stat" style="padding-left:21px">내 운동 통계</a>
+                    </li>
+                    <li>
+                        <a>> 내 운동 그룹</a>
+                        <ul id="my-grps">
+                            <li>
+                                <a href="#" style="padding-left:37px" onclick='newWorkoutGroupModalOpen();'>새 운동그룹 생성</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col h-screen">
+        <!-- 헤더 -->
+        <nav class="border-b border-gray-600 p-4 flex justify-between items-center">
+            <!-- 사이드바 토글버튼 -->
+            <div class="flex items-center">
+                <button class="extra-btn p-2 bg-gray-600 rounded toggle-side-bar-btn" style="background-color:bisque">
+                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- 제목 -->
+            <h1 class="ml-4 text-2xl font-semibold">내 운동 캘린더</h1>
+            <!-- 마이페이지 버튼 -->
+            <button onclick="location.href='/member/my-info'" class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
+        </nav>
+
+        <!-- N월차 / N주차 -->
+        <div class="flex justify-between items-center p-4">
+            <button onclick="renderNewStats(-1)" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <span id="curTime" class="text-2xl font-semibold"></span>
+
+            <button onclick="renderNewStats(1)" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
+        <div style="margin: 0 auto">
+            <button class="extra-btn text-black rounded" style="">
+                주간
+            </button>
+            <span style="margin-left: 15px; margin-right: 15px">/</span>
+            <button class="extra-btn text-black rounded" style="">
+                월간
+            </button>
+        </div>
+
+        <!-- 운동 부위별 총 세트 수 -->
+        <div class="flex justify-between items-center p-0.5">
+            <span class="text-1xl font-semibold">▷ 운동 부위별 총 세트 수</span>
+        </div>
+        <!-- 그래프 -->
+        <div class="flex justify-between items-center p-0.5">
+            <canvas id="total-set-chart"></canvas>
+        </div>
+
+        <!-- 운동 종목별 중량 증감 -->
+        <div class="flex justify-between items-center p-0.5" style="padding-top: 15px">
+            <span class="text-1xl font-semibold">▷ 운동 종목별 중량 증감</span>
+        </div>
+        <!-- 그래프 -->
+        <div class="flex justify-between items-center p-0.5">
+            <canvas id="workout-part-wei-inc-chart"></canvas>
+        </div>
+
+        <!-- 운동 종목별 중량 상승 추이 -->
+        <div class="flex justify-between items-center p-2" style="padding-top: 15px">
+            <span class="text-1xl font-semibold">▷ 운동 종목별 중량 상승 추이</span>
+        </div>
+        <!-- 종목 선택 select 콤보박스 -->
+        <div class="select-box flex justify-between items-center p-2" style="padding-left: 15px">
+            <div class="inline-flex relative">
+                <select class="appearance-none bg-white border border-gray-300 rounded-md px-3 py-1 pr-6 focus:outline-none focus:border-blue-500">
+                    <option>운동 종목</option>
+                    <option>벤치 프레스</option>
+                    <option>데드 리프트</option>
+                    <option>오버헤드 프레스</option>
+                    <option>바벨컬</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <svg
+                        class="fill-current h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 0 1 1.414 0L10 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- 그래프 -->
+        <div class="flex justify-between items-center p-0.5">
+            <canvas id="workout-part-wei-inc-trend-chart"></canvas>
+        </div>
+
+        <!-- 공유 버튼 -->
+        <div class="flex justify-end items-center p-1" style="padding-top: 40px">
+            <button class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: palegoldenrod; margin-right: 10px">
+                공유
+            </button>
+        </div>
+    </div>
+
+    <!-- 새 그룹생성 모달 -->
+    <div id="new-workout-group-modal" class="modal-container">
+        <div class="modal-wrap">
+            <div class="bg-gray-800 p-3 rounded-lg max-w-xl w-full" style="background-color:white">
+                <div class="bg-gray-800 p-6 rounded-lg max-w-xl w-full flex justify-between items-center" style="background-color: white;">
+                    <div class="text-xl font-bold text-center flex-1">새 운동 그룹</div>
+                    <div onclick='newWorkoutGroupModalClose();' class="extra-btn p-2 cursor-pointer modal-close rounded" style="background-color:#C2C2C2">
+                        <span>&times;</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="extra-btn bg-sky-700 p-4 rounded-lg flex items-center justify-between" style="margin:3px; display:block; background-color:lemonchiffon">
+                        <div class="flex items-center" style="margin:3px">
+                            <span class="text-1xl font-semibold">▷ 그룹명</span>
+                        </div>
+                        <div class="flex justify-between items-center p-4">
+                            <input
+                                    type="text"
+                                    id="newGrpNm"
+                                    class="bottom-border"
+                                    style="width: 50%; background-color:lemonchiffon; border-color:gray"
+                                    value="주니어올림피아"
+                            />
+                        </div>
+
+                        <div class="flex justify-end items-center p-1">
+                            <button id="newGrpBtn"
+                                    class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: #1196c1; margin-right: 10px">
+                                저장
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="new-workout-group-background" id="new-workout-group-background"></div>
+
+</body>
+
+<!-- graph.js -->
+<script>
+
+    /*
+    * '01' : 주간 (default)
+    * '02' : 월간
+    * */
+    var WeekMonthClfCd;
+
+    /**
+     * Event1) 초기 렌더링.
+     *  - 주/월간을 주간으로 초기화.
+     *  - 오늘날짜를 서버로 던져서 YYYYMMWW 가져온다.
+     *  - 가져온 YYYYMMWW를 Event3)에 던져서 화면을 렌더링한다.
+     * */
+
+    /**
+     * Event2) 좌우 통계화면 렌더링
+     * - ◀ / ▶ 버튼이 눌리면, 현재 주/월간 체크
+     * - 주/월간에 따라 YYYYMM or YYYYMMWW 를 구한다
+     * - YYYYMM or YYYYMMWW를 Event3 OR Event4 에 던진다
+     * */
+
+    /**
+     * Event3) 월간 통계 렌더링
+     *  - YYYYMM -> ajax -> 1.2.3 통계렌더링 함수 호출
+     * */
+
+    /**
+     * Event4) 주간 통계 렌더링
+     *  - YYYYMMWW -> ajax -> 1.2.3 통계렌더링 함수 호출
+     * */
+
+    /**
+     * Event5) DTO -> 1.통계 렌더링
+     * */
+
+    /**
+     * Event6) DTO -> 2.통계 렌더링
+     * */
+
+    /**
+     * Event7) DTO -> 3.통계 中 select-option 만 렌더링
+     * */
+
+    /**
+     * Event7-1)
+     *  - option선택됨
+     *  - 선택된 option의 methodId로 4번의 반복하며 3.통계 렌더링
+     * */
+
+
+
+    // ===================0. Configuration===================
+    Chart.defaults.font.family = "'Stylish', sans-serif";
+    Chart.defaults.font.weight = "bold";
+
+    // ===================1. 개인 운동 통계===================
+    const totalSetChart = $("#total-set-chart");
+    const createTotalSetChart = new Chart(totalSetChart, {
+        type: "bar",
+        data: {
+            labels: ["등", "가슴", "어깨", "하체"],
+            datasets: [
+                {
+                    label: "세트수",
+                    data: [10, 8, 6, 5],
+                    backgroundColor: ["lightskyblue", "#c0ed70", "moccasin", "#c0ed70"], //배경색상
+                    hoverBackgroundColor: ["#CBCE91"], //hover할때 색상변경
+                },
+            ],
+        },
+        options: {
+            maintainAspectRatio: false, //그래프의 비율 유지
+            plugins: {
+                legend: {
+                    display: true,
+                },
+                label: {
+                    font: {},
+                },
+            },
+            indexAxis: "y", //수평차트 만들기
+        },
+    });
+
+    const workoutPartWeiIncChart = $("#workout-part-wei-inc-chart");
+    const createWorkoutPartWeiIncChart = new Chart(workoutPartWeiIncChart, {
+        type: "bar",
+        data: {
+            labels: ["벤치프레스", "데드리프트", "바벨컬", "랫풀다운"],
+            datasets: [
+                {
+                    label: "kg",
+                    data: [30, -25, 10, -15],
+                    backgroundColor: ["red", "blue", "red", "blue"], //배경색상
+                    hoverBackgroundColor: ["#CBCE91"], //hover할때 색상변경
+                },
+            ],
+        },
+        options: {
+            maintainAspectRatio: false, //그래프의 비율 유지
+            plugins: {
+                legend: {
+                    display: true,
+                },
+                label: {
+                    font: {},
+                },
+            },
+            indexAxis: "y", //수평차트 만들기
+        },
+    });
+
+    const workoutPartWeiIncTrendChart = $("#workout-part-wei-inc-trend-chart");
+    const createWorkoutPartWeiIncTrendChart = new Chart(
+        workoutPartWeiIncTrendChart,
+        {
+            type: "bar",
+            data: {
+                labels: ["11월 2주차", "11월 3주차", "11월 4주차", "12월 1주차"],
+                datasets: [
+                    {
+                        label: "kg",
+                        data: [45, 50, 65, 60],
+                        backgroundColor: [
+                            "lightskyblue",
+                            "lightskyblue",
+                            "lightskyblue",
+                            "lightskyblue",
+                        ], //배경색상
+                        hoverBackgroundColor: ["#CBCE91"], //hover할때 색상변경
+                    },
+                ],
+            },
+            options: {
+                maintainAspectRatio: false, //그래프의 비율 유지
+                plugins: {
+                    legend: {
+                        display: true,
+                    },
+                    label: {
+                        font: {},
+                    },
+                },
+                indexAxis: "x", //수평차트 만들기
+            },
+        }
+    );
+
+</script>
+
+<!-- common.js -->
+<script src="/js/common.js"></script>
+
+</html>
