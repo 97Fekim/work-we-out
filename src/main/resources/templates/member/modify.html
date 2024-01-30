@@ -53,7 +53,7 @@
         </button>
       </div>
       <!-- 제목 -->
-      <h1 class="ml-4 text-2xl font-semibold">내 정보</h1>
+      <h1 class="ml-4 text-2xl font-semibold">내 정보 편집</h1>
       <!-- 마이페이지 버튼 -->
       <button onclick="location.href='/member/my-info'" class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
     </nav>
@@ -64,7 +64,7 @@
     </div>
     <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
       <input
-        readonly
+        id="input-mbrNm"
         type="text"
         class="bottom-border"
         style="width: 50%"
@@ -78,7 +78,7 @@
     </div>
     <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
       <input
-        readonly
+        id="input-phone"
         type="tel"
         class="bottom-border"
         style="width: 50%"
@@ -91,18 +91,24 @@
       <span class="text-1xl font-semibold">▷ 운동통계 문자 발신 동의 여부</span>
     </div>
     <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
-      <button th:if="${memberDTO.statSmsSendYn == 'Y'}" class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: blue; margin-right: 10px">
-        동의
-      </button>
-      <button th:if="${memberDTO.statSmsSendYn == 'N'}" class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: red; margin-right: 10px">
-        미동의
+      <button id="btn-stat-sms-send-yn"
+              onclick="toggleYn()"
+              class="extra-btn p-2 bg-gray-600 text-white rounded"
+              style="background-color: blue; margin-right: 10px">
       </button>
     </div>
 
-    <!-- 편집 버튼 -->
+    <!-- 저장/취소 버튼 -->
     <div class="flex justify-end items-center p-1" style="padding-top: 40px">
-      <button onclick="location.href='/member/modify'" class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: #1196c1; margin-right: 20px">
-        편집
+      <button onclick="modify()"
+              class="extra-btn p-2 bg-gray-600 text-white rounded"
+              style="background-color: #1196c1; margin-right: 10px">
+        저장
+      </button>
+      <button onclick="goBack()"
+              class="extra-btn p-2 bg-gray-600 text-white rounded"
+              style="background-color: #b2b2b2; margin-right: 10px">
+        취소
       </button>
     </div>
 
@@ -146,9 +152,89 @@
   </div>
   <div class="new-workout-group-background" id="new-workout-group-background"></div>
 
+  <!-- Model Hidden Value -->
+  <input type="hidden" name="initStatSmsSendYn" th:value="${memberDTO.statSmsSendYn}">
+
 </body>
+
+  <script>
+
+    /* 동의/미동의 버튼의 초기 상태를 렌더링한다. */
+    $(document).ready(function(){
+
+      var initStatSmsSendYn = $('input[name=initStatSmsSendYn]').val();
+
+      var btnStatSmsSendYn = document.getElementById("btn-stat-sms-send-yn");
+
+      if (initStatSmsSendYn === "Y") {
+        btnStatSmsSendYn.setAttribute("style", "background-color: blue; margin-right: 10px");
+        btnStatSmsSendYn.setAttribute("value", "Y");
+        btnStatSmsSendYn.innerText = "동의";
+      } else {
+        btnStatSmsSendYn.setAttribute("style", "background-color: red; margin-right: 10px");
+        btnStatSmsSendYn.setAttribute("value", "N");
+        btnStatSmsSendYn.innerText = "미동의";
+      }
+
+    });
+
+    /* 동의/미동의 버튼이 눌릴때 상태를 반전시킨다. */
+    function toggleYn() {
+      var btnStatSmsSendYn = document.getElementById("btn-stat-sms-send-yn");
+
+      if (btnStatSmsSendYn.getAttribute("value") === "Y") {
+        btnStatSmsSendYn.setAttribute("style", "background-color: red; margin-right: 10px");
+        btnStatSmsSendYn.setAttribute("value", "N");
+        btnStatSmsSendYn.innerText = "미동의";
+      } else {
+        btnStatSmsSendYn.setAttribute("style", "background-color: blue; margin-right: 10px");
+        btnStatSmsSendYn.setAttribute("value", "Y");
+        btnStatSmsSendYn.innerText = "동의";
+      }
+
+    }
+
+    /* 수정 POST */
+    function modify() {
+      var mbrNm = document.getElementById("input-mbrNm").value;
+      var phone = document.getElementById("input-phone").value;
+      var statSmsSendYn = document.getElementById("btn-stat-sms-send-yn").getAttribute("value");
+
+      var memberDTO = new Object();
+      memberDTO.mbrNm = mbrNm;
+      memberDTO.phone = phone;
+      memberDTO.statSmsSendYn = statSmsSendYn;
+
+      console.log(memberDTO);
+
+      // ajax post
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/member/modify",
+        contentType:'application/json',
+        xhrFields: {
+          withCredentials: true
+        },
+        data: JSON.stringify(memberDTO)
+        ,
+        success: function (mbrId) {
+          console.log("Information modify success! mbrId = " + mbrId);
+          location.href = "http://localhost:8080/member/my-info";
+        }
+        ,
+        error: function (request, error) {
+          console.log("내 정보 편집 중 오류가 발생하였습니다..\n");
+          alert("code:"+request.status+"\n"
+                  +"message:"+request.responseText+"\n"
+                  +"error:"+error)
+        }
+      });
+
+    }
+
+  </script>
 
   <!-- common.js -->
   <script src="/js/common.js"></script>
-  
+
 </html>
