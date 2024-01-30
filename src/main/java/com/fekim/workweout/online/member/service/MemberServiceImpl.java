@@ -44,10 +44,18 @@ public class MemberServiceImpl implements MemberService {
         Member originEntity =
                 memberRepository.findMemberByIdAndMbrStatClsfCd(memberDTO.getMbrId(), "01");
 
-        originEntity.setEmail(memberDTO.getEmail());
-        originEntity.setMbrNm(memberDTO.getMbrNm());
-        originEntity.setPhone(memberDTO.getPhone());
-        originEntity.setStatSmsSendYn(memberDTO.getStatSmsSendYn());
+        if (memberDTO.getEmail() != null && memberDTO.getEmail().isEmpty()) {
+            originEntity.setEmail(memberDTO.getEmail());
+        }
+        if (memberDTO.getMbrNm()!= null && !memberDTO.getMbrNm().isEmpty()) {
+            originEntity.setMbrNm(memberDTO.getMbrNm());
+        }
+        if (memberDTO.getPhone() != null && !memberDTO.getPhone().isEmpty()) {
+            originEntity.setPhone(memberDTO.getPhone());
+        }
+        if (memberDTO.getStatSmsSendYn() != null && !memberDTO.getStatSmsSendYn().isEmpty()) {
+            originEntity.setStatSmsSendYn(memberDTO.getStatSmsSendYn());
+        }
     }
 
     /**
