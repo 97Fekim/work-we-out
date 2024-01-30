@@ -129,7 +129,7 @@ function renderJnalContent(wkoutJnalDTO) {
     d4_commentContentText.setAttribute("type", "text");
     d4_commentContentText.setAttribute("class", "bottom-border");
     d4_commentContentText.setAttribute("style", "width: 100%");
-    d4_commentContentText.setAttribute("value", wkoutJnalDTO.comments);
+    d4_commentContentText.setAttribute("value", wkoutJnalDTO.comments === "" ? "" : wkoutJnalDTO.comments);
     d3_commentContent.appendChild(d4_commentContentText);  // d3 운동한줄평 Content 완료
 
     var d3_wkoutsLabel = document.createElement("div");
@@ -448,7 +448,7 @@ function addMethod() {
 }
 
 /**
- * JNAL Event5) 새 운동일지 등록
+ * JNAL Event5) 운동일지 수정
  * */
 function modifyJnal() {
 

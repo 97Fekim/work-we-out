@@ -99,7 +99,8 @@ function renderJnalsContent(oneDayJnalsDTO) {
         d4_commentContentText.setAttribute("readonly", "true");
         d4_commentContentText.setAttribute("class", "bottom-border");
         d4_commentContentText.setAttribute("style", "width: 100%");
-        d4_commentContentText.setAttribute("value", wkoutJnal.comments);
+        console.log(wkoutJnal.comments);
+        d4_commentContentText.setAttribute("value", wkoutJnal.comments === null ? "" : wkoutJnal.comments);
         d3_commentContent.appendChild(d4_commentContentText);  // d3 운동한줄평 Content 완료
 
         var d3_wkoutsLabel = document.createElement("div");
