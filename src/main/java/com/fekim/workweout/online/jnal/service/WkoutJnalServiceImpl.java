@@ -229,6 +229,7 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
                     .yyyy(jnalEntity.getYyyyMmDd().getYyyy())
                     .mm(jnalEntity.getYyyyMmDd().getMm())
                     .dd(jnalEntity.getYyyyMmDd().getDd())
+                    .comments(jnalEntity.getComments())
                     .wkoutJnalMethodDTOList(methodsDTO)
                     .build();
 
