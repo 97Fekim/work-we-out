@@ -38,7 +38,7 @@ $(document).ready(function(){
  *  - param = [현재 MM 으로부터 이동하려는 range]
  * */
 function renderNewMMCalendar(range) {
-    console.log("renderBeforeMMCalendar called..");
+    console.log("renderNewMMCalendar called..");
 
     // (1) 당월 날짜
     var calendarYYYYMM = document.getElementById("YYYYMM");
@@ -48,8 +48,11 @@ function renderNewMMCalendar(range) {
     var newDate = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + range,
-        curDate.getDate()
+        15
     );
+
+    console.log("range = " + range);
+    console.log("newDate = " + newDate);
 
     // (3) 이전 캘린더 삭제
     var prevCalendarContent = document.getElementById("calendar-content");
