@@ -2,47 +2,41 @@ package com.fekim.workweout.online.member.controller;
 
 import com.fekim.workweout.online.member.repository.entity.Member;
 import com.fekim.workweout.online.member.service.MemberService;
+import com.fekim.workweout.online.member.service.dto.MemberDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.naming.AuthenticationException;
-
-@RestController
+@Log4j2
+@Controller
 @RequiredArgsConstructor
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/member/login")
-    public ResponseEntity<String> login(HttpSession session, String email, String password) {
+    @GetMapping("/my-info")
+    public void myInfo(HttpSession session, Model model) {
+        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
+        Long mbrId = member.getMbrId();
 
-        try {
-            memberService.login(session, email, password);
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        MemberDTO memberDTO = memberService.getNormalMember(mbrId);
 
-        return ResponseEntity.ok("LOGIN OK");
-
+        model.addAttribute("memberDTO", memberDTO);
     }
 
-    @GetMapping("/member/connect")
-    public ResponseEntity<String> connect(HttpSession session) {
-        String result;
+    @GetMapping("/modify")
+    public void modifyInfo(HttpSession session, Model model) {
+        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
+        Long mbrId = member.getMbrId();
 
-        Object member = session.getAttribute("LOGIN_MEMBER");
-        if (member == null) {
-            result = "로그인 되지 않음";
-        } else {
-            result = ((Member)member).getEmail();
-        }
+        MemberDTO memberDTO = memberService.getNormalMember(mbrId);
 
-        return ResponseEntity.ok(result);
+        model.addAttribute("memberDTO", memberDTO);
     }
 
 }
