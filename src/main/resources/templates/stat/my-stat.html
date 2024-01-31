@@ -78,16 +78,18 @@
         </div>
 
         <div style="margin: 0 auto">
-            <button class="extra-btn text-black rounded" style="">
+            <button class="extra-btn text-black rounded"
+                    onclick="changeToWeekly()">
                 주간
             </button>
             <span style="margin-left: 15px; margin-right: 15px">/</span>
-            <button class="extra-btn text-black rounded" style="">
+            <button class="extra-btn text-black rounded"
+                    onclick="changeToMonthly()">
                 월간
             </button>
         </div>
 
-        <!-- 운동 부위별 총 세트 수 -->
+        <!-- [1.운동 부위별 총 세트 수] -->
         <div class="flex justify-between items-center p-0.5">
             <span class="text-1xl font-semibold">▷ 운동 부위별 총 세트 수</span>
         </div>
@@ -96,7 +98,7 @@
             <canvas id="total-set-chart"></canvas>
         </div>
 
-        <!-- 운동 종목별 중량 증감 -->
+        <!-- [2.운동 종목별 중량 증감] -->
         <div class="flex justify-between items-center p-0.5" style="padding-top: 15px">
             <span class="text-1xl font-semibold">▷ 운동 종목별 중량 증감</span>
         </div>
@@ -105,20 +107,21 @@
             <canvas id="workout-part-wei-inc-chart"></canvas>
         </div>
 
-        <!-- 운동 종목별 중량 상승 추이 -->
+        <!-- [3.운동 종목별 중량 상승 추이] -->
         <div class="flex justify-between items-center p-2" style="padding-top: 15px">
             <span class="text-1xl font-semibold">▷ 운동 종목별 중량 상승 추이</span>
         </div>
         <!-- 종목 선택 select 콤보박스 -->
         <div class="select-box flex justify-between items-center p-2" style="padding-left: 15px">
             <div class="inline-flex relative">
-                <select class="appearance-none bg-white border border-gray-300 rounded-md px-3 py-1 pr-6 focus:outline-none focus:border-blue-500">
-                    <option>운동 종목</option>
-                    <option>벤치 프레스</option>
-                    <option>데드 리프트</option>
-                    <option>오버헤드 프레스</option>
-                    <option>바벨컬</option>
+
+                <!-- main select -->
+                <select id="select-method"
+                        onchange="renderMethodWeekMaxWeisSelectStat()"
+                        class="appearance-none bg-white border border-gray-300 rounded-md px-3 py-1 pr-6 focus:outline-none focus:border-blue-500">
                 </select>
+
+                <!-- select 내 화살표 이미지 -->
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                     <svg
                         class="fill-current h-4 w-4"
@@ -132,11 +135,12 @@
                         />
                     </svg>
                 </div>
+
             </div>
         </div>
         <!-- 그래프 -->
         <div class="flex justify-between items-center p-0.5">
-            <canvas id="workout-part-wei-inc-trend-chart"></canvas>
+            <canvas id="workout-part-wei-inc-trend-chart" ></canvas>
         </div>
 
         <!-- 공유 버튼 -->
@@ -169,7 +173,6 @@
                                     id="newGrpNm"
                                     class="bottom-border"
                                     style="width: 50%; background-color:lemonchiffon; border-color:gray"
-                                    value="주니어올림피아"
                             />
                         </div>
 
@@ -188,372 +191,6 @@
 
 </body>
 
-<!-- graph.js -->
-<script>
-
-    /*
-    * '01' : 주간 (default)
-    * '02' : 월간
-    * */
-    var weekMonthClfCd;
-
-    /*
-    * Chart Configuration
-    * */
-    Chart.defaults.font.family = "'Stylish', sans-serif";
-    Chart.defaults.font.weight = "bold";
-
-    /**
-     * Event1) 초기 렌더링.
-     *  - 주/월간을 주간으로 초기화.
-     *  - 오늘날짜를 서버로 던져서 YYYYMMWW 가져온다.
-     *  - 가져온 YYYYMMWW를 Event3)에 던져서 화면을 렌더링한다.
-     * */
-    $(document).ready(function(){
-
-        // 부위별 색상 초기화
-        partColorMap = createPartColorMap();
-
-        // (1-0) 전체 운동종목 로딩
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/jnal/all-method",
-            async:false,
-            dataType:'json',
-            data: {},
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (wkoutMethodListDTO) {
-                allMethods = wkoutMethodListDTO;
-                console.log(allMethods);
-            },
-            error: function (request, error) {
-                console.log("Grps Loading Fail..");
-                alert("code:"+request.status+"\n"
-                    +"message:"+request.responseText+"\n"
-                    +"error:"+error)
-            }
-        });
-
-        // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/grp/my-all",
-            dataType:'json',
-            data: {},
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (response) {
-                renderSideGrps(response);
-            },
-            error: function (request, error) {
-                console.log("Grps Loading Fail..");
-                alert("code:"+request.status+"\n"
-                    +"message:"+request.responseText+"\n"
-                    +"error:"+error)
-            }
-        });
-
-        // (1-2) 주/월간 구분코드 주간으로 초기화
-        weekMonthClfCd = "01";
-
-        // (1-3) 오늘의 N주차 조회
-        var date = new Date();
-        var yyyy = date.getFullYear().toString();
-        var mm = (date.getMonth()+1).toString().length === 1
-            ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString();
-        var dd = date.getDate().toString().length === 1
-            ? "0"+date.getDate().toString() : date.getDate().toString();
-        var curYyyyMmDd = yyyy + mm + dd;
-
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/date/cuof-week",
-            dataType:'json',
-            async: false,
-            xhrFields: {
-                withCredentials: true
-            },
-            data: {
-                yyyyMmDd : curYyyyMmDd
-            },
-            success: function (yyyyMmW) {
-                console.log("기준 주차 Load Success");
-                // (1-4) 주간통계 렌더링한다.
-                renderWeeklyStats(yyyyMmW);
-            },
-            error: function (request, error) {
-                console.log("기준 주차 로딩중 오류가 발생했습니다.");
-                alert("code:"+request.status+"\n"
-                    +"message:"+request.responseText+"\n"
-                    +"error:"+error)
-            }
-        });
-
-    });
-
-    /**
-     * Event1-1) 주간 버튼 onclick
-     * */
-
-    /**
-     * Event1-2) 월간 버튼 onclick
-     * */
-
-    /**
-     * Event2) 좌우 통계화면 렌더링
-     * - ◀ / ▶ 버튼이 눌리면, 현재 주/월간 체크
-     * - 주/월간에 따라 YYYYMM or YYYYMMWW 를 구한다
-     * - YYYYMM or YYYYMMWW를 Event3 OR Event4 에 던진다
-     * */
-
-    /**
-     * Event3) 주간 통계 렌더링
-     *  - YYYYMMWW -> ajax -> 1.2.3 통계렌더링 함수 호출
-     * */
-    function renderWeeklyStats(yyyyMmW) {
-        // (0) 헤더 세팅
-        var yy = yyyyMmW.toString().substring(2, 4);
-        var mm = yyyyMmW.toString().substring(4, 6);
-        var w = yyyyMmW.toString().substring(6, 7);
-        var curTime = document.getElementById("curTime");
-        curTime.innerText = yy+"년 " + mm + "월 " + w + "주차";
-
-        // (1) ajax -> 1,2,3 통계렌더링 함수 호출
-        var param = yyyyMmW.toString();
-
-        // (1-1) [1.운동부위별 총 세트수] 렌더링
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/stat/my-weekly-total-sets",
-            dataType:'json',
-            xhrFields: {
-                withCredentials: true
-            },
-            data: {
-                yyyyMmW : param
-            },
-            success: function (targetPartTotalSets) {
-                console.log("[1. 운동부위별 총 세트수] 로딩 성공");
-                // [1.운동부위별 총 세트수] 렌더링
-                renderTargetPartTotalSets(targetPartTotalSets);
-
-            },
-            error: function (request, error) {
-                console.log("통계자료 로딩중 오류가 발생했습니다.");
-                alert("code:"+request.status+"\n"
-                    +"message:"+request.responseText+"\n"
-                    +"error:"+error)
-            }
-        });
-
-        // (1-2) [2.운동 종목별 중량 증감] 렌더링
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/stat/my-weekly-method-wei-incs",
-            dataType:'json',
-            xhrFields: {
-                withCredentials: true
-            },
-            data: {
-                yyyyMmW : param
-            },
-            success: function (methodWeiIncs) {
-                console.log("[2.운동 종목별 중량 증감] 로딩 성공");
-                // [2.운동 종목별 중량 증감]
-                renderMethodWeiIncs(methodWeiIncs);
-
-            },
-            error: function (request, error) {
-                console.log("통계자료 로딩중 오류가 발생했습니다.");
-                alert("code:"+request.status+"\n"
-                    +"message:"+request.responseText+"\n"
-                    +"error:"+error)
-            }
-        });
-
-        // (1-3) [3.운동 종목별 중량 상승 추이] 렌더링
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/stat/my-weekly-method-week-max-weis",
-            dataType:'json',
-            xhrFields: {
-                withCredentials: true
-            },
-            data: {
-                yyyyMmW : param
-            },
-            success: function (methodWeekMaxWeis) {
-                console.log("[3.운동 종목별 중량 상승 추이] 로딩 성공");
-                // [3.운동 종목별 중량 상승 추이]
-                renderMethodWeekMaxWeis(methodWeekMaxWeis);
-
-            },
-            error: function (request, error) {
-                console.log("통계자료 로딩중 오류가 발생했습니다.");
-                alert("code:"+request.status+"\n"
-                    +"message:"+request.responseText+"\n"
-                    +"error:"+error)
-            }
-        });
-
-    }
-
-    /**
-     * Event4) 월간 통계 렌더링
-     *  - YYYYMM -> ajax -> 1.2.3 통계렌더링 함수 호출
-     * */
-
-    /**
-     * Event5) DTO -> 1.통계 렌더링
-     * */
-    function renderTargetPartTotalSets(targetPartTotalSets) {
-        console.log(targetPartTotalSets);
-
-        var labels = new Array();
-        var sets = new Array();
-        var backgroundColors = new Array();
-
-        targetPartTotalSets.targetPartTotalSetDTOList.forEach(function(partTotalSet) {
-            labels.push(partTotalSet.targetPart.toString());
-            sets.push(parseInt(partTotalSet.totalSets === null ? "0" : partTotalSet.totalSets));
-            backgroundColors.push(partColorMap.get(partTotalSet.targetPart.toString()));
-        })
-
-        const totalSetChart = $("#total-set-chart");
-        const createTotalSetChart = new Chart(totalSetChart, {
-            type: "bar",
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: "세트수",
-                        data: sets,
-                        backgroundColor: backgroundColors, //배경색상
-                        hoverBackgroundColor: ["#CBCE91"], //hover할때 색상변경
-                    },
-                ],
-            },
-            options: {
-                maintainAspectRatio: false, //그래프의 비율 유지
-                plugins: {
-                    legend: {
-                        display: true,
-                    },
-                    label: {
-                        font: {},
-                    },
-                },
-                indexAxis: "y", //수평차트 만들기
-            },
-        });
-    }
-
-    /**
-     * Event6) DTO -> 2.통계 렌더링
-     * */
-    function renderMethodWeiIncs(methodWeiIncs) {
-        console.log(methodWeiIncs);
-
-        var methodNms = new Array();
-        var weiIncreases = new Array();
-        var backgroudColors = new Array();
-
-        methodWeiIncs.methodWeiIncDTOList.forEach(function(methodWeiInc) {
-
-            methodNms.push(methodWeiInc.methodNm.toString());
-            weiIncreases.push(parseInt(methodWeiInc.weiIcrease));
-            backgroudColors.push(parseInt(methodWeiInc.weiIcrease) >= 0 ? "red" : "blue");
-
-        })
-
-        const workoutPartWeiIncChart = $("#workout-part-wei-inc-chart");
-        const createWorkoutPartWeiIncChart = new Chart(workoutPartWeiIncChart, {
-            type: "bar",
-            data: {
-                labels: methodNms,
-                datasets: [
-                    {
-                        label: "kg",
-                        data: weiIncreases,
-                        backgroundColor: backgroudColors, //배경색상
-                        hoverBackgroundColor: ["#CBCE91"], //hover할때 색상변경
-                    },
-                ],
-            },
-            options: {
-                maintainAspectRatio: false, //그래프의 비율 유지
-                plugins: {
-                    legend: {
-                        display: true,
-                    },
-                    label: {
-                        font: {},
-                    },
-                },
-                indexAxis: "y", //수평차트 만들기
-            },
-        });
-    }
-
-    /**
-     * Event7) DTO -> 3.통계 中 select-option 만 렌더링
-     * */
-    function renderMethodWeekMaxWeis(methodWeekMaxWeis) {
-        console.log(methodWeekMaxWeis);
-    }
-
-    /**
-     * Event7-1)
-     *  - option선택됨
-     *  - 선택된 option의 methodId로 4번의 반복하며 3.통계 렌더링
-     * */
-
-
-    // ===================1. 개인 운동 통계===================
-
-
-    const workoutPartWeiIncTrendChart = $("#workout-part-wei-inc-trend-chart");
-    const createWorkoutPartWeiIncTrendChart = new Chart(
-        workoutPartWeiIncTrendChart,
-        {
-            type: "bar",
-            data: {
-                labels: ["11월 2주차", "11월 3주차", "11월 4주차", "12월 1주차"],
-                datasets: [
-                    {
-                        label: "kg",
-                        data: [45, 50, 65, 60],
-                        backgroundColor: [
-                            "lightskyblue",
-                            "lightskyblue",
-                            "lightskyblue",
-                            "lightskyblue",
-                        ], //배경색상
-                        hoverBackgroundColor: ["#CBCE91"], //hover할때 색상변경
-                    },
-                ],
-            },
-            options: {
-                maintainAspectRatio: false, //그래프의 비율 유지
-                plugins: {
-                    legend: {
-                        display: true,
-                    },
-                    label: {
-                        font: {},
-                    },
-                },
-                indexAxis: "x", //수평차트 만들기
-            },
-        }
-    );
-
-</script>
-
-<!-- common.js -->
-<script src="/js/common.js"></script>
+<script type="text/javascript" src="/js/stat/my-stat.js"></script>
 
 </html>
