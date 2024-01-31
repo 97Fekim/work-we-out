@@ -29,6 +29,11 @@ public class StatApiController {
     private final StatService statService;
     private final DateRepository dateRepository;
 
+    /**
+     * 01. [주간] 개인 운동 부위별 총 세트 수 조회
+     * - IN = YYYY/MM/W
+     * - OUT = 운동 부위별 총 세트 수  통계DTO
+     * */
     @GetMapping("/my-weekly-total-sets")
     ResponseEntity<TargetPartTotalSetsDTO> getMyWeeklyTotalSets(HttpSession session,
                                                                 @RequestParam("yyyyMmW") String yyyyMmW) {
@@ -41,6 +46,11 @@ public class StatApiController {
         return new ResponseEntity<>(targetPartTotalSets, HttpStatus.OK);
     }
 
+    /**
+     * 02. [주간] 개인 운동 종목별 중량 증감
+     * - IN = YYYY/MM/W
+     * - OUT = 운동 종목별 중량 증감  통계DTO
+     * */
     @GetMapping("/my-weekly-method-wei-incs")
     ResponseEntity<MethodWeiIncsDTO> getMyWeeklyMethodWeiIncs(HttpSession session,
                                                                 @RequestParam("yyyyMmW") String yyyyMmW) {
@@ -64,6 +74,11 @@ public class StatApiController {
         return new ResponseEntity<>(methodWeiIncs, HttpStatus.OK);
     }
 
+    /**
+     * 03. [주간] 운동 종목별 중량 상승 추이
+     * - IN = YYYY/MM/W
+     * - OUT = 운동 종목별 중량 상승 추이  통계DTO
+     * */
     @GetMapping("/my-weekly-method-week-max-weis")
     ResponseEntity<MethodWeekMaxWeisDTO> getMyWeeklyMethodWeekMaxWeis(HttpSession session,
                                                                       @RequestParam("yyyyMmW") String yyyyMmW) {
@@ -75,5 +90,7 @@ public class StatApiController {
 
         return new ResponseEntity<>(methodWeekMaxWeis, HttpStatus.OK);
     }
+
+
 
 }

@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 회원 서비스 MVC 컨트롤러
+ * */
 @Log4j2
 @Controller
 @RequiredArgsConstructor

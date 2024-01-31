@@ -21,6 +21,11 @@ public class JnalApiController {
 
     private final WkoutJnalService jnalService;
 
+    /**
+     * 01. 모든 운동종목 조회
+     * - IN = []
+     * - OUT = 모든 운동종목 리스트 DTO
+     * */
     @GetMapping("/all-method")
     ResponseEntity<WkoutMethodListDTO> getAllMethods() {
         WkoutMethodListDTO wkoutMethodListDTO = jnalService.getAllWkoutMethod();
@@ -28,6 +33,11 @@ public class JnalApiController {
         return new ResponseEntity<>(wkoutMethodListDTO, HttpStatus.OK);
     }
 
+    /**
+     * 02. 개인 캘린더 조회
+     * - IN = 기준월 (YYYY/MM)
+     * - OUT = 달력에 표시되는 모든 Grid Element
+     * */
     @GetMapping("/calendar")
     ResponseEntity<OneMonthCalendarDTO> getOneMonthCalendar(HttpSession session, @RequestParam("yyyyMm") String yyyyMm) {
 
@@ -39,6 +49,11 @@ public class JnalApiController {
         return new ResponseEntity<>(oneMonthCalendarDTO, HttpStatus.OK);
     }
 
+    /**
+     * 03. 개인 캘린더 조회
+     * - IN = YYYY/MM/DD
+     * - OUT = 하루동안 존재하는 모든 운동일지 리스트 DTO
+     * */
     @GetMapping("/one-day-jnals")
     ResponseEntity<OneDayJnalsDTO> getOneDayJnals(HttpSession session, @RequestParam("yyyyMmDd") String yyyyMmDd) {
 
@@ -50,6 +65,11 @@ public class JnalApiController {
         return new ResponseEntity<>(oneDayJnalsDTO, HttpStatus.OK);
     }
 
+    /**
+     * 04. 운동일지 조회
+     * - IN = 운동일지ID
+     * - OUT = 운동일지DTO
+     * */
     @GetMapping("/read-one")
     ResponseEntity<WkoutJnalDTO> readOneJnal(@RequestParam("jnalId") Long jnalId) {
         WkoutJnalDTO jnalDTO = jnalService.getOneJnal(jnalId);
@@ -57,6 +77,11 @@ public class JnalApiController {
         return new ResponseEntity<>(jnalDTO, HttpStatus.OK);
     }
 
+    /**
+     * 05. 운동일지 삭제
+     * - IN = 운동일지ID
+     * - OUT = []
+     * */
     @PostMapping("/remove")
     ResponseEntity<String> removeJnal(@RequestParam("jnalId") Long jnalId) {
 
@@ -65,6 +90,11 @@ public class JnalApiController {
         return new ResponseEntity<>("Removed Completely", HttpStatus.OK);
     }
 
+    /**
+     * 06. 운동일지 수정
+     * - IN = 운동일지수정DTO
+     * - OUT = 수정된 운동일지의 날짜 YYYY/MM/DD
+     * */
     @PostMapping("/modify")
     ResponseEntity<String> modifyJnal(HttpSession session,
                                     @RequestBody WkoutJnalDTO jnalDTO) {
@@ -80,6 +110,11 @@ public class JnalApiController {
         return new ResponseEntity<>(newYyyyMmDd, HttpStatus.OK);
     }
 
+    /**
+     * 07. 새 운동일지 저장
+     * - IN = 운동일지저장DTO
+     * - OUT = 저장된 운동일지의 날짜 YYYY/MM/DD
+     * */
     @PostMapping("/register")
     ResponseEntity<String> registerJnal(HttpSession session,
                                         @RequestBody WkoutJnalDTO jnalDTO) {

@@ -19,6 +19,11 @@ public class GrpApiController {
 
     private final GrpService grpService;
 
+    /**
+     * 01. 내 모든 그룹 조회
+     * - IN = []
+     * - OUT = 모든 그룹 리스트 DTO
+     * */
     @GetMapping("/my-all")
     ResponseEntity<GrpListDTO> getMyGrps(HttpSession session) {
 
@@ -30,6 +35,11 @@ public class GrpApiController {
         return new ResponseEntity<>(grpListDTO, HttpStatus.OK);
     }
 
+    /**
+     * 02. 신규그룹 생성
+     * - IN = 그룹이름
+     * - OUT = 신규그룹ID
+     * */
     @PostMapping("/register")
     ResponseEntity<Long> registerGrp(HttpSession session,
                               @RequestParam("grpNm") String grpNm) {
