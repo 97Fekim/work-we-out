@@ -22,8 +22,8 @@ public interface StatRepository extends Repository<WkoutJnalMethod, Long> {
             "  and D.yyyyMmW.cuofYyyy = :#{#yyyyMmW.cuofYyyy} " +
             "  and D.yyyyMmW.cuofMm = :#{#yyyyMmW.cuofMm} " +
             "  and D.yyyyMmW.cuofWeek = :#{#yyyyMmW.cuofWeek} " +
-            "group by WM.methodNm " +
-            "order by WM.methodId ")
+            "group by WM.targetPart " +
+            "order by WM.targetPart ")
     List<Object[]> findWeeklyMethodTotalSets(@Param("mbrId") Long mbrId, @Param("yyyyMmW") YyyyMmW yyyyMmW);
 
     @Query(value = "" +
@@ -36,8 +36,8 @@ public interface StatRepository extends Repository<WkoutJnalMethod, Long> {
             "where WJ.member.mbrId = :#{#mbrId} " +
             "  and D.yyyyMmW.cuofYyyy = :#{#yyyyMm.cuofYyyy} " +
             "  and D.yyyyMmW.cuofMm = :#{#yyyyMm.cuofMm} " +
-            "group by WM.methodNm " +
-            "order by WM.methodId ")
+            "group by WM.targetPart " +
+            "order by WM.targetPart ")
     List<Object[]> findMonthlyMethodTotalSets(@Param("mbrId") Long mbrId, @Param("yyyyMm") YyyyMm yyyyMm);
 
 

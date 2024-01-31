@@ -77,7 +77,8 @@ function createPartColorMap() {
         ['가슴', '#c0ed70'],
         ['등', 'moccasin'],
         ['하체', 'lightskyblue'],
-        ['삼두', 'hotpink']
+        ['삼두', 'hotpink'],
+        ['이두', '#c0ed70']
     ])
     return partColorMap;
 }
