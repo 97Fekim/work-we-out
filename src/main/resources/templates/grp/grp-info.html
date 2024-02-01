@@ -84,11 +84,13 @@
         <tr th:each="memberDTO : ${grpDTO.memberGrpDTOList}">
             <div class="flex justify-between items-center p-2"
                  style="padding-left: 35px">
-                <div class="flex items-center" style="margin: 3px">
+                <div class="flex items-center"
+                     style="margin: 3px">
                     <img
-                        src="https://placehold.co/30"
-                        alt="profile placeholder"
+                        th:src="'../img/' + ${memberDTO.profImgPath}"
+                        alt=""
                         class="rounded-full mr-3"
+                        style="witdh:30px; height:30px;"
                     />
                     <span class="text-xl">
                         [[${memberDTO.mbrNm}]]
@@ -112,6 +114,7 @@
             </button>
         </div>
     </div>
+
 
     <!-- 새 그룹생성 모달 -->
     <div id="new-workout-group-modal" class="modal-container">

@@ -236,9 +236,10 @@ function renderMainListModalContent(oneDayJnalsDTO) {
             d2_userInfo.setAttribute("style", "margin:3px");
 
             var d3_userImg = document.createElement("img");
-            d3_userImg.setAttribute("src", "https://placehold.co/30");
-            d3_userImg.setAttribute("alt", "profile placeholder");
+            d3_userImg.setAttribute("src", "../img/" + wkoutJnal.profImgPath);
+            d3_userImg.setAttribute("alt", "");
             d3_userImg.setAttribute("class", "rounded-full mr-3");
+            d3_userImg.setAttribute("style", "width:25px; height:25px");
             var d3_userNm = document.createElement("span");
             d3_userNm.innerText = wkoutJnal.mbrNm;
 
