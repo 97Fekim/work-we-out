@@ -148,7 +148,36 @@
 
 </body>
 
-  <!-- common.js -->
-  <script src="/js/common.js"></script>
+<script>
+
+
+  $(document).ready(function(){
+
+    /* 사이드바 로딩 */
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/grp/my-all",
+      dataType:'json',
+      data: {},
+      xhrFields: {
+        withCredentials: true
+      },
+      success: function (response) {
+        renderSideGrps(response);
+      },
+      error: function (request, error) {
+        console.log("Grps Loading Fail..");
+        alert("code:"+request.status+"\n"
+                +"message:"+request.responseText+"\n"
+                +"error:"+error)
+      }
+    });
+
+  });
+
+</script>
+
+<!-- common.js -->
+<script src="/js/common.js"></script>
   
 </html>

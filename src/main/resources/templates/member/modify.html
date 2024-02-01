@@ -159,9 +159,29 @@
 
   <script>
 
-    /* 동의/미동의 버튼의 초기 상태를 렌더링한다. */
     $(document).ready(function(){
 
+      /* 사이드바 로딩 */
+      $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/grp/my-all",
+        dataType:'json',
+        data: {},
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (response) {
+          renderSideGrps(response);
+        },
+        error: function (request, error) {
+          console.log("Grps Loading Fail..");
+          alert("code:"+request.status+"\n"
+                  +"message:"+request.responseText+"\n"
+                  +"error:"+error)
+        }
+      });
+
+      /* 동의/미동의 버튼의 초기 상태를 렌더링한다. */
       var initStatSmsSendYn = $('input[name=initStatSmsSendYn]').val();
 
       var btnStatSmsSendYn = document.getElementById("btn-stat-sms-send-yn");
