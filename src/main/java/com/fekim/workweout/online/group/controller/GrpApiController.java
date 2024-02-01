@@ -4,6 +4,7 @@ import com.fekim.workweout.online.group.service.GrpService;
 import com.fekim.workweout.online.group.service.dto.GrpDTO;
 import com.fekim.workweout.online.group.service.dto.GrpListDTO;
 import com.fekim.workweout.online.group.service.dto.OneMonthGrpCalendarDTO;
+import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.servlet.http.HttpSession;
@@ -68,5 +69,18 @@ public class GrpApiController {
         return new ResponseEntity<>(oneMonthGrpCalendarDTO, HttpStatus.OK);
     }
 
+    /**
+     * 04. 그룹 오늘의 운동일지 리스트 조회
+     * - IN = YYYY/MM/DD
+     * - OUT = 그룹이 하루동안 운동한 모든 운동일지 리스트 DTO
+     * */
+    @GetMapping("/one-day-jnals")
+    ResponseEntity<OneDayJnalsDTO> getOneDayJnals(@RequestParam("yyyyMmDd") String yyyyMmDd,
+                                                  @RequestParam("grpId") Long grpId) {
+
+        OneDayJnalsDTO oneDayJnalsDTO = grpService.getOneDayGrpJnals(grpId, yyyyMmDd);
+
+        return new ResponseEntity<>(oneDayJnalsDTO, HttpStatus.OK);
+    }
 
 }
