@@ -107,19 +107,19 @@ function renderSideGrps(grpListDTO) {
         var d4_li1 = document.createElement("li");
 
         var d5_a1 = document.createElement("a");
-        d5_a1.setAttribute("href", "/grp/info?grpId="+grpDTO.grpId);
+        d5_a1.setAttribute("href", "/grp/grp-info?grpId="+grpDTO.grpId);
         d5_a1.setAttribute("style", "padding-left:50px");
         d5_a1.innerText = "그룹 페이지";
 
         var d4_li2 = document.createElement("li");
         var d5_a2 = document.createElement("a");
-        d5_a2.setAttribute("href", "/grp/grpCalendar?grpId="+grpDTO.grpId);
+        d5_a2.setAttribute("href", "/grp/grp-calendar?grpId="+grpDTO.grpId);
         d5_a2.setAttribute("style", "padding-left:50px");
         d5_a2.innerText = "운동 캘린더";
 
         var d4_li3 = document.createElement("li");
         var d5_a3 = document.createElement("a");
-        d5_a3.setAttribute("href", "/stat/grp?grpId="+grpDTO.grpId);
+        d5_a3.setAttribute("href", "/stat/grp-stat?grpId="+grpDTO.grpId);
         d5_a3.setAttribute("style", "padding-left:50px");
         d5_a3.innerText = "운동 통계";
 
@@ -162,7 +162,7 @@ $(document).on("click", "#newGrpBtn", function() {
         },
         success: function (response) {
             alert("새 그룹이 생성되었습니다.");
-            location.href="/grp/info?grpId="+response;
+            location.href="/grp/grp-info?grpId="+response;
         },
         error: function (request, error) {
             console.log("그룹 생성 도중 오류가 발생하였습니다.");
