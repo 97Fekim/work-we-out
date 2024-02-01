@@ -1,7 +1,9 @@
 package com.fekim.workweout.online.group.service;
 
+import com.fekim.workweout.online.date.repository.entity.key.YyyyMmDd;
 import com.fekim.workweout.online.group.repository.entity.Grp;
 import com.fekim.workweout.online.group.service.dto.*;
+import com.fekim.workweout.online.jnal.service.dto.OneDayCalendarDTO;
 import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 
 import java.util.ArrayList;
@@ -73,58 +75,7 @@ public interface GrpService {
                 .build();
     }
 
-    /**
-     * Transform Grp Calendar  [List] Entity => [Single] OneMonthGrpCalendar DTO
-     * */
-    default OneMonthGrpCalendarDTO makeOneMonthCalendarDTO(List<Object[]> entities, Long grpId) {
 
-        OneMonthGrpCalendarDTO oneMonthGrpCalendarDTO = OneMonthGrpCalendarDTO.builder().grpId(grpId).build();
-
-        for (Object[] oneDay : entities) {
-
-            // 초기 바인딩변수 선언한다.
-            String yyyy = (String) oneDay[0];
-            String mm = (String) oneDay[1];
-            String dd = (String) oneDay[2];
-            List<MemberGrpDTO> memberGrpDTOList = new ArrayList<>();
-
-            // 일기가 존재하는 날짜인 경우에만 설정한다.
-            if (oneDay[3] != null) {
-
-                String[] mbrGrps = ((String) oneDay[3]).split(",");
-
-                for (String member : mbrGrps) {
-                    String[] mbrInfo = member.split("/");
-
-                    Long mbrGrpId = Long.parseLong(mbrInfo[0]);
-                    Long mbrId = Long.parseLong(mbrInfo[1]);
-                    String mbrNm = mbrInfo[2];
-                    String profImgPath = mbrInfo[3];
-
-                    memberGrpDTOList.add(MemberGrpDTO
-                            .builder()
-                            .mbrGrpId(mbrGrpId)
-                            .mbrId(mbrId)
-                            .mbrNm(mbrNm)
-                            .profImgPath(profImgPath)
-                            .build());
-                }
-            }
-
-            // 최종 바인딩한다.
-            OneDayGrpCalendarDTO oneDayGrpCalendarDTO = new OneDayGrpCalendarDTO();
-            oneDayGrpCalendarDTO.setYyyy(yyyy);
-            oneDayGrpCalendarDTO.setMm(mm);
-            oneDayGrpCalendarDTO.setDd(dd);
-            oneDayGrpCalendarDTO.setMemberGrpDTOList(memberGrpDTOList);
-
-            oneMonthGrpCalendarDTO.getOneDayGrpCalendarDTOList()
-                    .add(oneDayGrpCalendarDTO);
-        }
-
-        return oneMonthGrpCalendarDTO;
-
-    }
 
 
 }

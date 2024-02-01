@@ -17,6 +17,7 @@ public class OneDayGrpCalendarDTO {
     String yyyy;
     String mm;
     String dd;
+    String dayOfWeekClsfCd;
 
     @Builder.Default
     List<MemberGrpDTO> memberGrpDTOList = new ArrayList<>();

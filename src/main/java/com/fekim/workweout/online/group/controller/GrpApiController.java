@@ -3,6 +3,8 @@ package com.fekim.workweout.online.group.controller;
 import com.fekim.workweout.online.group.service.GrpService;
 import com.fekim.workweout.online.group.service.dto.GrpDTO;
 import com.fekim.workweout.online.group.service.dto.GrpListDTO;
+import com.fekim.workweout.online.group.service.dto.OneMonthGrpCalendarDTO;
+import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
 import com.fekim.workweout.online.member.repository.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -51,5 +53,20 @@ public class GrpApiController {
 
         return new ResponseEntity<>(grpDTO.getGrpId(), HttpStatus.OK);
     }
+
+    /**
+     * 03. 그룹 캘린더 조회
+     * - IN = 기준월 (YYYY/MM), 그룹아이디(grpId)
+     * - OUT = 달력에 표시되는 모든 Grid Element
+     * */
+    @GetMapping("/calendar")
+    ResponseEntity<OneMonthGrpCalendarDTO> getOneMonthCalendar(@RequestParam("yyyyMm") String yyyyMm,
+                                                            @RequestParam("grpId") Long grpId) {
+
+        OneMonthGrpCalendarDTO oneMonthGrpCalendarDTO = grpService.getOneMonthGrpCalendar(grpId, yyyyMm);
+
+        return new ResponseEntity<>(oneMonthGrpCalendarDTO, HttpStatus.OK);
+    }
+
 
 }

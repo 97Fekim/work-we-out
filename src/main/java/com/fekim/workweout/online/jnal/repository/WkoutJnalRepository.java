@@ -55,6 +55,7 @@ public interface WkoutJnalRepository extends JpaRepository<WkoutJnal, Long> {
             "    TD.YYYY     AS yyyy, " +
             "    TD.MM       AS mm, " +
             "    TD.DD       AS dd, " +
+            "    TD.DAY_OF_WEEK_CLSF_CD AS dayOfWeekClsfCd, " +
             "    MEMBERS.memberGrps AS memberGrps " +
             "FROM TBL_DATE TD " +
             "LEFT OUTER JOIN " +

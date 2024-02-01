@@ -29,7 +29,13 @@ public class GrpController {
         GrpDTO grpDTO = grpService.getGrpInfo(grpId);
 
         model.addAttribute("grpDTO", grpDTO);
+    }
 
+    @GetMapping("/grp-calendar")
+    public void showGrpCalendar(@RequestParam("grpId") Long grpId,
+                        Model model) {
+
+        model.addAttribute("grpId", grpId);
     }
 
 }
