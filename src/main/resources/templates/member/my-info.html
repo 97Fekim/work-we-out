@@ -156,7 +156,7 @@
     /* 사이드바 로딩 */
     $.ajax({
       type: "GET",
-      url: "http://localhost:8080/grp/my-all",
+      url: domain+":"+port_API+"/grp/my-all",
       dataType:'json',
       data: {},
       xhrFields: {

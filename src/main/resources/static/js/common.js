@@ -72,6 +72,11 @@ function newWorkoutGroupModalClose() {
 var partColorMap;
 var mbrColorMap;
 
+// 도메인 및 포트
+var domain = window.location.protocol + "//" + window.location.hostname;
+var port_API = "8080";
+var port_BTCH = "8081";
+
 // 운동부위 컬러 MAP 생성
 function createPartColorMap() {
     partColorMap = new Map([
@@ -169,7 +174,7 @@ $(document).on("click", "#newGrpBtn", function() {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/grp/register",
+        url: domain+":"+port_API+"/grp/register",
         dataType:'json',
         data: {
             grpNm : newGrpNm

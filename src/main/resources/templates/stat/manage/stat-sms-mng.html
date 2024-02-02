@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work We Out</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-white text-black">
+    <!-- 좌측 사이드 바 메뉴 -->
+    <div class="left-side-bar-box">
+    <div class="left-side-bar">
+        <div class="menu-1">
+            <ul>
+                <li>
+                    <a href="/jnal/my-calendar" style="padding-left:21px">내 운동 캘린더</a>
+                </li>
+                <li>
+                    <a href="/stat/my-stat" style="padding-left:21px">내 운동 통계</a>
+                </li>
+                <li>
+                    <a>> 내 운동 그룹</a>
+                    <ul id="my-grps">
+                        <li>
+                            <a href="#" style="padding-left:37px" onclick='newWorkoutGroupModalOpen();'>새 운동그룹 생성</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="flex flex-col h-screen">
+        <!-- 헤더 -->
+        <nav class="border-b border-gray-600 p-4 flex justify-between items-center">
+            <!-- 사이드바 토글버튼 -->
+            <div class="flex items-center">
+                <button class="extra-btn p-2 bg-gray-600 rounded toggle-side-bar-btn" style="background-color:bisque">
+                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- 제목 -->
+            <h1 id="pageTitle"
+                class="ml-4 text-2xl font-semibold">문자 발송 관리</h1>
+            <!-- 마이페이지 버튼 -->
+            <button onclick="location.href='/member/my-info'" class="extra-btn p-2 bg-gray-600 text-white rounded-full" style="background-color:bisque"> My </button>
+        </nav>
+
+        <!-- N월차 / N주차 -->
+        <div class="flex justify-between items-center p-4">
+            <button onclick="renderNewSuccessFailCnt(-1)" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <span id="curTime" class="text-2xl font-semibold"></span>
+
+            <button onclick="renderNewSuccessFailCnt(1)" class="extra-btn bg-green-600 p-2 rounded" style="background-color:#608EBD">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- 주간/월간 -->
+        <div style="margin: 0 auto">
+            <button class="extra-btn text-black rounded"
+                    onclick="changeToWeekly()">
+                주간
+            </button>
+            <span style="margin-left: 15px; margin-right: 15px">/</span>
+            <button class="extra-btn text-black rounded"
+                    onclick="changeToMonthly()">
+                월간
+            </button>
+        </div>
+
+        <!-- 멤버별 평균 운동 일수 -->
+        <div class="flex justify-between items-center p-4" style="padding-top:30px">
+            <span class="text-1xl font-semibold">▷ 개인운동통계 문자발송 처리 현황</span>
+        </div>
+        <div class="flex justify-between items-center p-0.5">
+            <!-- 그래프 -->
+            <canvas id="send-msg-sts-chart"></canvas>
+        </div>
+
+        <!-- 공유 버튼 -->
+        <div class="flex justify-center items-center p-1" style="padding-top: 40px">
+            <button onclick="reSendFailedSms()"
+                    class="extra-btn p-2 bg-gray-600 text-white rounded"
+                    style="background-color: #1196c1;">
+                실패건 재처리 실행
+            </button>
+        </div>
+    </div>
+
+<!-- 새 그룹생성 모달 -->
+<div id="new-workout-group-modal" class="modal-container">
+    <div class="modal-wrap">
+        <div class="bg-gray-800 p-3 rounded-lg max-w-xl w-full" style="background-color:white">
+            <div class="bg-gray-800 p-6 rounded-lg max-w-xl w-full flex justify-between items-center" style="background-color: white;">
+                <div class="text-xl font-bold text-center flex-1">새 운동 그룹</div>
+                <div onclick='newWorkoutGroupModalClose();' class="extra-btn p-2 cursor-pointer modal-close rounded" style="background-color:#C2C2C2">
+                    <span>&times;</span>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="extra-btn bg-sky-700 p-4 rounded-lg flex items-center justify-between" style="margin:3px; display:block; background-color:lemonchiffon">
+                    <div class="flex items-center" style="margin:3px">
+                        <span class="text-1xl font-semibold">▷ 그룹명</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4">
+                        <input
+                                type="text"
+                                id="newGrpNm"
+                                class="bottom-border"
+                                style="width: 50%; background-color:lemonchiffon; border-color:gray"
+                        />
+                    </div>
+
+                    <div class="flex justify-end items-center p-1">
+                        <button id="newGrpBtn"
+                                class="extra-btn p-2 bg-gray-600 text-white rounded" style="background-color: #1196c1; margin-right: 10px">
+                            저장
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="new-workout-group-background" id="new-workout-group-background"></div>
+
+</body>
+
+<script>
+
+
+
+</script>
+
+<!-- common.js -->
+<script type="text/javascript" src="/js/stat/manage/stat-sms-mng.js"></script>
+
+</html>

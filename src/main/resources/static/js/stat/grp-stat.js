@@ -29,7 +29,7 @@ $(document).ready(function(){
     // (1-0) 전체 운동종목 로딩
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/jnal/all-method",
+        url: domain+":"+port_API+"/jnal/all-method",
         async:false,
         dataType:'json',
         data: {},
@@ -51,7 +51,7 @@ $(document).ready(function(){
     // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/grp/my-all",
+        url: domain+":"+port_API+"/grp/my-all",
         dataType:'json',
         data: {},
         xhrFields: {
@@ -71,7 +71,7 @@ $(document).ready(function(){
     // (1-2) 그룹명 조회하여 페이지 제목 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/grp/one-grp",
+        url: domain+":"+port_API+"/grp/one-grp",
         dataType:'json',
         data: {
             grpId : cacheGrpId
@@ -108,7 +108,7 @@ $(document).ready(function(){
     // (1-5) 주간통계 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/date/cuof-week",
+        url: domain+":"+port_API+"/date/cuof-week",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -155,7 +155,7 @@ function changeToWeekly() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/date/cuof-week",
+        url: domain+":"+port_API+"/date/cuof-week",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -201,7 +201,7 @@ function changeToMonthly() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/date/cuof-month",
+        url: domain+":"+port_API+"/date/cuof-month",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -240,7 +240,7 @@ function renderNewStats(range) {
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/date/new-week",
+            url: domain+":"+port_API+"/date/new-week",
             dataType:'json',
             xhrFields: {
                 withCredentials: true
@@ -253,7 +253,7 @@ function renderNewStats(range) {
                 console.log("new YyyyMmW = " + newYyyyMmW);
 
                 // 신규 주차정보로 주간통계 렌더링
-                renderWeeklyStats(newYyyyMmW, weekMonthClfCd);
+                renderWeeklyStats(newYyyyMmW);
             },
             error: function (request, error) {
                 console.log("새로운 주차 로딩중 오류가 발생했습니다.");
@@ -269,7 +269,7 @@ function renderNewStats(range) {
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/date/new-month",
+            url: domain+":"+port_API+"/date/new-month",
             dataType:'json',
             xhrFields: {
                 withCredentials: true
@@ -282,7 +282,7 @@ function renderNewStats(range) {
                 console.log("new YyyyMm = " + newYyyyMm);
 
                 // 신규 주차정보로 주간통계 렌더링
-                renderMonthlyStats(newYyyyMm, weekMonthClfCd);
+                renderMonthlyStats(newYyyyMm);
             },
             error: function (request, error) {
                 console.log("새로운 월차 로딩중 오류가 발생했습니다.");
@@ -317,7 +317,7 @@ function renderWeeklyStats(yyyyMmW) {
     // (1-1) [1.멤버별 평균 운동일수] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/grp-weekly-avg-days",
+        url: domain+":"+port_API+"/stat/grp-weekly-avg-days",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -343,7 +343,7 @@ function renderWeeklyStats(yyyyMmW) {
     // (1-2) [2.우리 그룹의 운동부위 분포] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/grp-weekly-dstb-part",
+        url: domain+":"+port_API+"/stat/grp-weekly-dstb-part",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -369,7 +369,7 @@ function renderWeeklyStats(yyyyMmW) {
     // (1-3) [3.멤버별 운동부위 분포] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/grp-weekly-dstb-part-by-mbr",
+        url: domain+":"+port_API+"/stat/grp-weekly-dstb-part-by-mbr",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -412,7 +412,7 @@ function renderMonthlyStats(yyyyMm) {
     // (1-1) [1.멤버별 평균 운동일수] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/grp-monthly-avg-days",
+        url: domain+":"+port_API+"/stat/grp-monthly-avg-days",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -437,7 +437,7 @@ function renderMonthlyStats(yyyyMm) {
     // (1-2) [2.우리 그룹의 운동부위 분포] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/grp-monthly-dstb-part",
+        url: domain+":"+port_API+"/stat/grp-monthly-dstb-part",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -463,7 +463,7 @@ function renderMonthlyStats(yyyyMm) {
     // (1-3) [3.멤버별 운동부위 분포] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/grp-monthly-dstb-part-by-mbr",
+        url: domain+":"+port_API+"/stat/grp-monthly-dstb-part-by-mbr",
         dataType:'json',
         xhrFields: {
             withCredentials: true

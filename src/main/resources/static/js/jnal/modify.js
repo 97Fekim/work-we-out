@@ -16,7 +16,7 @@ $(document).ready(function(){
     // (1-0) 전체 운동종목 로딩
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/jnal/all-method",
+        url: domain+":"+port_API+"/jnal/all-method",
         async:false,
         dataType:'json',
         data: {},
@@ -38,7 +38,7 @@ $(document).ready(function(){
     // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/grp/my-all",
+        url: domain+":"+port_API+"/grp/my-all",
         dataType:'json',
         data: {},
         xhrFields: {
@@ -71,7 +71,7 @@ function renderJnal(jnalId) {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/jnal/read-one",
+        url: domain+":"+port_API+"/jnal/read-one",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -527,7 +527,7 @@ function modifyJnal() {
     // ajax post
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/jnal/modify",
+        url: domain+":"+port_API+"/jnal/modify",
         contentType:'application/json',
         xhrFields: {
             withCredentials: true
@@ -536,7 +536,7 @@ function modifyJnal() {
         ,
         success: function (yyyyMmDd) {
             console.log("jnal modify success! new YyyyMmDd = " + yyyyMmDd);
-            location.href = "http://localhost:8080/jnal/read-one-day?yyyyMmDd="+yyyyMmDd;
+            location.href = domain+":"+port_API+"/jnal/read-one-day?yyyyMmDd="+yyyyMmDd;
         }
         ,
         error: function (request, error) {

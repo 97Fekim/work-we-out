@@ -164,7 +164,7 @@
       /* 사이드바 로딩 */
       $.ajax({
         type: "GET",
-        url: "http://localhost:8080/grp/my-all",
+        url: domain+":"+port_API+"/grp/my-all",
         dataType:'json',
         data: {},
         xhrFields: {
@@ -230,7 +230,7 @@
       // ajax post
       $.ajax({
         type: "POST",
-        url: "http://localhost:8080/member/modify",
+        url: domain+":"+port_API+"/member/modify",
         contentType:'application/json',
         xhrFields: {
           withCredentials: true
@@ -239,7 +239,7 @@
         ,
         success: function (mbrId) {
           console.log("Information modify success! mbrId = " + mbrId);
-          location.href = "http://localhost:8080/member/my-info";
+          location.href = domain+":"+port_API+"/member/my-info";
         }
         ,
         error: function (request, error) {

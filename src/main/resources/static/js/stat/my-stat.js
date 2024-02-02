@@ -27,7 +27,7 @@ $(document).ready(function(){
     // (1-0) 전체 운동종목 로딩
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/jnal/all-method",
+        url: domain+":"+port_API+"/jnal/all-method",
         async:false,
         dataType:'json',
         data: {},
@@ -49,7 +49,7 @@ $(document).ready(function(){
     // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/grp/my-all",
+        url: domain+":"+port_API+"/grp/my-all",
         dataType:'json',
         data: {},
         xhrFields: {
@@ -80,7 +80,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/date/cuof-week",
+        url: domain+":"+port_API+"/date/cuof-week",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -127,7 +127,7 @@ function changeToWeekly() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/date/cuof-week",
+        url: domain+":"+port_API+"/date/cuof-week",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -173,7 +173,7 @@ function changeToMonthly() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/date/cuof-month",
+        url: domain+":"+port_API+"/date/cuof-month",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -212,7 +212,7 @@ function renderNewStats(range) {
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/date/new-week",
+            url: domain+":"+port_API+"/date/new-week",
             dataType:'json',
             xhrFields: {
                 withCredentials: true
@@ -241,7 +241,7 @@ function renderNewStats(range) {
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/date/new-month",
+            url: domain+":"+port_API+"/date/new-month",
             dataType:'json',
             xhrFields: {
                 withCredentials: true
@@ -289,7 +289,7 @@ function renderWeeklyStats(yyyyMmW) {
     // (1-1) [1.운동부위별 총 세트수] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/my-weekly-total-sets",
+        url: domain+":"+port_API+"/stat/my-weekly-total-sets",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -314,7 +314,7 @@ function renderWeeklyStats(yyyyMmW) {
     // (1-2) [2.운동 종목별 중량 증감] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/my-weekly-method-wei-incs",
+        url: domain+":"+port_API+"/stat/my-weekly-method-wei-incs",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -339,7 +339,7 @@ function renderWeeklyStats(yyyyMmW) {
     // (1-3) [3.운동 종목별 중량 상승 추이] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/my-weekly-method-week-max-weis",
+        url: domain+":"+port_API+"/stat/my-weekly-method-week-max-weis",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -381,7 +381,7 @@ function renderMonthlyStats(yyyyMm) {
     // (1-1) [1.운동부위별 총 세트수] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/my-monthly-total-sets",
+        url: domain+":"+port_API+"/stat/my-monthly-total-sets",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -406,7 +406,7 @@ function renderMonthlyStats(yyyyMm) {
     // (1-2) [2.운동 종목별 중량 증감] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/my-monthly-method-wei-incs",
+        url: domain+":"+port_API+"/stat/my-monthly-method-wei-incs",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -431,7 +431,7 @@ function renderMonthlyStats(yyyyMm) {
     // (1-3) [3.운동 종목별 중량 상승 추이] 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/stat/my-monthly-method-week-max-weis",
+        url: domain+":"+port_API+"/stat/my-monthly-method-week-max-weis",
         dataType:'json',
         xhrFields: {
             withCredentials: true

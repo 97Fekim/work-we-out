@@ -7,7 +7,7 @@ $(document).ready(function(){
     // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/grp/my-all",
+        url: domain+":"+port_API+"/grp/my-all",
         dataType:'json',
         data: {},
         xhrFields: {
@@ -47,7 +47,7 @@ function renderJnals(curYyyyMmDd) {
     // (1) 컨텐츠렌더링
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/jnal/one-day-jnals",
+        url: domain+":"+port_API+"/jnal/one-day-jnals",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -288,7 +288,7 @@ function removeJnal(jnalId) {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/jnal/remove",
+        url: domain+":"+port_API+"/jnal/remove",
         //dataType:'json',
         xhrFields: {
             withCredentials: true

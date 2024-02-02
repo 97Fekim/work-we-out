@@ -163,7 +163,7 @@
         /* 사이드바 로딩 */
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/grp/my-all",
+            url: domain+":"+port_API+"/grp/my-all",
             dataType:'json',
             data: {},
             xhrFields: {
@@ -183,11 +183,11 @@
     });
 
     function redirectGrpCalender() {
-        location.href = "http://localhost:8080/grp/grp-calendar?grpId=" + [[${grpDTO.grpId}]];
+        location.href = domain+":"+port_API+"/grp/grp-calendar?grpId=" + [[${grpDTO.grpId}]];
     }
 
     function redirectGrpStats() {
-        location.href = "http://localhost:8080/stat/grp-stat?grpId=" + [[${grpDTO.grpId}]];
+        location.href = domain+":"+port_API+"/stat/grp-stat?grpId=" + [[${grpDTO.grpId}]];
     }
 
 </script>
