@@ -23,6 +23,17 @@ public class GrpApiController {
     private final GrpService grpService;
 
     /**
+     * 00. 그룹 정보 조회
+     * - IN = [그룹ID]
+     * - OUT = 그룹 DTO
+     * */
+    @GetMapping("/one-grp")
+    ResponseEntity<GrpDTO> getGrp(@RequestParam("grpId") Long grpId) {
+        GrpDTO grpDTO = grpService.getGrpInfo(grpId);
+        return new ResponseEntity<>(grpDTO, HttpStatus.OK);
+    }
+    
+    /**
      * 01. 내 모든 그룹 조회
      * - IN = []
      * - OUT = 모든 그룹 리스트 DTO
@@ -82,5 +93,6 @@ public class GrpApiController {
 
         return new ResponseEntity<>(oneDayJnalsDTO, HttpStatus.OK);
     }
+
 
 }

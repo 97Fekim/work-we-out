@@ -28,7 +28,7 @@ public class StatApiController {
     private final DateRepository dateRepository;
 
     /**
-     * 01. [주간] 개인 운동 부위별 총 세트 수 조회
+     * 01. [개인-주간] 개인 운동 부위별 총 세트 수 조회
      * - IN = YYYY/MM/W
      * - OUT = 운동 부위별 총 세트 수  통계DTO
      * */
@@ -45,7 +45,7 @@ public class StatApiController {
     }
 
     /**
-     * 02. [주간] 개인 운동 종목별 중량 증감
+     * 02. [개인-주간] 개인 운동 종목별 중량 증감
      * - IN = YYYY/MM/W
      * - OUT = 운동 종목별 중량 증감  통계DTO
      * */
@@ -73,7 +73,7 @@ public class StatApiController {
     }
 
     /**
-     * 03. [주간] 운동 종목별 중량 상승 추이
+     * 03. [개인-주간] 운동 종목별 중량 상승 추이
      * - IN = YYYY/MM/W
      * - OUT = 운동 종목별 중량 상승 추이  통계DTO
      * */
@@ -90,7 +90,7 @@ public class StatApiController {
     }
 
     /**
-     * 04. [월간] 개인 운동 부위별 총 세트 수 조회
+     * 04. [개인-월간] 개인 운동 부위별 총 세트 수 조회
      * - IN = YYYY/MM
      * - OUT = 운동 부위별 총 세트 수  통계DTO
      * */
@@ -107,7 +107,7 @@ public class StatApiController {
     }
 
     /**
-     * 05. [월간] 개인 운동 종목별 중량 증감
+     * 05. [개인-월간] 개인 운동 종목별 중량 증감
      * - IN = YYYY/MM
      * - OUT = 운동 종목별 중량 증감  통계DTO
      * */
@@ -135,7 +135,7 @@ public class StatApiController {
     }
 
     /**
-     * 06. [월간] 운동 종목별 중량 상승 추이
+     * 06. [개인-월간] 운동 종목별 중량 상승 추이
      * - IN = YYYY/MM
      * - OUT = 운동 종목별 중량 상승 추이  통계DTO
      * */
@@ -150,4 +150,83 @@ public class StatApiController {
 
         return new ResponseEntity<>(methodMonthMaxWeis, HttpStatus.OK);
     }
+
+    /**
+     * 07. [그룹-주간] 멤버별 평균 운동일수 조회
+     *  - IN = YYYY/MM/W , 그룹ID
+     *  - 멤버별 평균 운동일수 DTO
+     * */
+    @GetMapping("/grp-weekly-avg-days")
+    ResponseEntity<MbrWkoutDaysCntsDTO> getGrpWeeklyAvgDays(@RequestParam("yyyyMmW") String yyyyMmW,
+                                @RequestParam("grpId") Long grpId) {
+        MbrWkoutDaysCntsDTO avgDays = statService.getWeeklyGrpWkoutDaysCnt(grpId, yyyyMmW);
+
+        return new ResponseEntity(avgDays, HttpStatus.OK);
+    }
+
+    /**
+     * 08. [그룹-주간] 그룹의 운동분포 조회
+     *  - IN = YYYY/MM/W , 그룹ID
+     *  - 그룹의 운동분포 DTO
+     * */
+    @GetMapping("/grp-weekly-dstb-part")
+    ResponseEntity<TargetPartTotalSetsDTO> getGrpWeeklyDstbPart(@RequestParam("yyyyMmW") String yyyyMmW,
+                                                            @RequestParam("grpId") Long grpId) {
+        TargetPartTotalSetsDTO dstbPart = statService.getWeeklyGrpTargetPartTotalSets(grpId, yyyyMmW);
+
+        return new ResponseEntity(dstbPart, HttpStatus.OK);
+    }
+
+    /**
+     * 09. [그룹-주간] 그룹의 멤버별 운동분포 조회
+     *  - IN = YYYY/MM/W , 그룹ID
+     *  - 그룹의 운동분포 DTO
+     * */
+    @GetMapping("/grp-weekly-dstb-part-by-mbr")
+    ResponseEntity<GrpMbrTargetPartTotalSetsDTO> getGrpWeeklyDstbPartByMbr(@RequestParam("yyyyMmW") String yyyyMmW,
+                                                                     @RequestParam("grpId") Long grpId) {
+        GrpMbrTargetPartTotalSetsDTO dstbPartByMbr = statService.getWeeklyGrpMbrTargetPartTotalSets(grpId, yyyyMmW);
+
+        return new ResponseEntity(dstbPartByMbr, HttpStatus.OK);
+    }
+
+    /**
+     * 10. [그룹-월간] 멤버별 평균 운동일수 조회
+     *  - IN = YYYY/MM , 그룹ID
+     *  - 멤버별 평균 운동일수 DTO
+     * */
+    @GetMapping("/grp-monthly-avg-days")
+    ResponseEntity<MbrWkoutDaysCntsDTO> getGrpMonthlyAvgDays(@RequestParam("yyyyMm") String yyyyMm,
+                                                   @RequestParam("grpId") Long grpId) {
+        MbrWkoutDaysCntsDTO avgDays = statService.getMonthlyGrpWkoutDaysCnt(grpId, yyyyMm);
+
+        return new ResponseEntity(avgDays, HttpStatus.OK);
+    }
+
+    /**
+     * 11. [그룹-월간] 그룹의 운동분포 조회
+     *  - IN = YYYY/MM , 그룹ID
+     *  - 그룹의 운동분포 DTO
+     * */
+    @GetMapping("/grp-monthly-dstb-part")
+    ResponseEntity<TargetPartTotalSetsDTO> getGrpMonthlyDstbPart(@RequestParam("yyyyMm") String yyyyMm,
+                                                                 @RequestParam("grpId") Long grpId) {
+        TargetPartTotalSetsDTO dstbPart = statService.getMonthlyGrpTargetPartTotalSets(grpId, yyyyMm);
+
+        return new ResponseEntity(dstbPart, HttpStatus.OK);
+    }
+
+    /**
+     * 12. [그룹-월간] 그룹의 멤버별 운동분포 조회
+     *  - IN = YYYY/MM , 그룹ID
+     *  - 그룹의 운동분포 DTO
+     * */
+    @GetMapping("/grp-monthly-dstb-part-by-mbr")
+    ResponseEntity<GrpMbrTargetPartTotalSetsDTO> getGrpMonthlyDstbPartByMbr(@RequestParam("yyyyMm") String yyyyMm,
+                                                                           @RequestParam("grpId") Long grpId) {
+        GrpMbrTargetPartTotalSetsDTO dstbPartByMbr = statService.getMonthlyGrpMbrTargetPartTotalSets(grpId, yyyyMm);
+
+        return new ResponseEntity(dstbPartByMbr, HttpStatus.OK);
+    }
+
 }
