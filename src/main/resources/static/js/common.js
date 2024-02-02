@@ -70,6 +70,7 @@ function newWorkoutGroupModalClose() {
 
 // 운동부위 컬러 MAP
 var partColorMap;
+var mbrColorMap;
 
 // 운동부위 컬러 MAP 생성
 function createPartColorMap() {
@@ -82,6 +83,19 @@ function createPartColorMap() {
     ])
     return partColorMap;
 }
+
+// 회원 컬러 MAP 생성
+function createMbrColorMap() {
+    mbrColorMap = new Map([
+        [1, '#c0ed70'],
+        [2, 'moccasin'],
+        [3, 'lightskyblue'],
+        [4, 'hotpink'],
+        [5, '#c0ed70']
+    ])
+    return mbrColorMap;
+}
+
 
 // 뒤로가기
 function goBack() {
