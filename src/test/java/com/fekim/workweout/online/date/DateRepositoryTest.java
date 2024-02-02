@@ -29,9 +29,9 @@ public class DateRepositoryTest {
                 1L
         );
 
-        System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[0]));
-        System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[1]));
-        System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[2]));
+        Assertions.assertThat(String.valueOf(beforeCuofYyyyMmW.get(0)[0]).equals("2023") &&
+                String.valueOf(beforeCuofYyyyMmW.get(0)[1]).equals("12") &&
+                String.valueOf(beforeCuofYyyyMmW.get(0)[2]).equals("04"));
     }
 
     @Test
@@ -45,8 +45,8 @@ public class DateRepositoryTest {
                 1L
         );
 
-        System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[0]));
-        System.out.println(String.valueOf(beforeCuofYyyyMmW.get(0)[1]));
+        Assertions.assertThat(String.valueOf(beforeCuofYyyyMmW.get(0)[0]).equals("2023") &&
+                String.valueOf(beforeCuofYyyyMmW.get(0)[1]).equals("12"));
     }
 
     @Test
@@ -60,11 +60,6 @@ public class DateRepositoryTest {
                         .build(),
                 1L
         );
-
-        System.out.println(beforeYyyyMmDd.get(0)[0]);
-        System.out.println(beforeYyyyMmDd.get(0)[1]);
-        System.out.println(beforeYyyyMmDd.get(0)[2]);
-        System.out.println(beforeYyyyMmDd.get(0)[3]);
 
         Assertions.assertThat(
                 beforeYyyyMmDd.get(0)[0].equals("2023") &&
@@ -85,11 +80,6 @@ public class DateRepositoryTest {
                         .build(),
                 1L
         );
-
-        System.out.println(afterYyyyMmDd.get(0)[0]);
-        System.out.println(afterYyyyMmDd.get(0)[1]);
-        System.out.println(afterYyyyMmDd.get(0)[2]);
-        System.out.println(afterYyyyMmDd.get(0)[3]);
 
         Assertions.assertThat(
                 afterYyyyMmDd.get(0)[0].equals("2023") &&

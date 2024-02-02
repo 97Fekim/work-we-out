@@ -20,7 +20,7 @@
             <Policies>
                 <TimeBasedTriggeringPolicy
                         modulate="true"
-                        interval="1" /><!-- 시간별 로그 파일 생성-->
+                        interval="24" /><!-- 시간별 로그 파일 생성-->
             </Policies>
             <DefaultRolloverStrategy max="5" fileIndex="min" > <!-- 롤링 파일 5개 까지 생성 -->
                 <Delete basePath="/logs" maxDepth="3">
@@ -52,8 +52,8 @@
     <!--TRACE > DEBUG > INFO > WARN > ERROR > FATAL -->
     <!--Log가 찍힐 대상 설정.-->
     <Loggers>
-        <!-- 스프링 프레임워크에서 찍는건 level을 info로 설정 -->
-        <logger name="org.springframework" level="info" additivity="false" >
+        <!-- 스프링 프레임워크에서 찍는건 level을 debug로 설정 -->
+        <logger name="org.springframework" level="debug" additivity="false" >
             <AppenderRef ref="console" />
             <AppenderRef ref="file" />
         </logger>
@@ -64,6 +64,6 @@
         </logger>
 
         <!-- ROOT logger-->
-        <Root level="info"></Root>
+        <Root level="debug"></Root>
     </Loggers>
 </Configuration>

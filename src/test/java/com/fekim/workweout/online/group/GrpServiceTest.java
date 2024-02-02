@@ -35,7 +35,6 @@ public class GrpServiceTest {
     }
 
     @Test
-    @Commit
     void createGrpTest() {
         GrpDTO grpDTO = grpService.createGrp("두번째그룹", 2L);
 

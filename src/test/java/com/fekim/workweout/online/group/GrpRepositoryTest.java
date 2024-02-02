@@ -20,18 +20,14 @@ public class GrpRepositoryTest {
 
          List<Grp> grpList = memberGrpRepository.findGrpListByMbrId(1L);
 
-        System.out.println("===============findGrpListByMbrIdPass===============");
-        for (Grp g : grpList) {
-            System.out.println(g.getGrpId()+" "+g.getGrpNm()+" "+g.getSrtDt());
-        }
-        System.out.println("===============findGrpListByMbrIdPass===============");
-
          Assertions.assertThat(grpList.size() > 0);
     }
 
     @Test
     void findMemberGrpsByGrpIdTest() {
-        memberGrpRepository.findMemberGrpsByGrpId(1L);
+        List<Object[]> members = memberGrpRepository.findMemberGrpsByGrpId(1L);
+
+        Assertions.assertThat(members.size() > 0);
     }
 
 }

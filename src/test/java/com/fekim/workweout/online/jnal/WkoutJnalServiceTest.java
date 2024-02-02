@@ -97,13 +97,11 @@ public class WkoutJnalServiceTest {
     }
 
     @Test
-    @Commit
     void removeJnalTest() {
         wkoutJnalService.removeJnal(26L);
     }
 
     @Test
-    @Commit
     void modifyJnalTest() {
         List<WkoutJnalMethodDTO> wkoutJnalMethodDTOList = new ArrayList<>();
 

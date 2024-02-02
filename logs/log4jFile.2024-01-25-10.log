@@ -1,2 +1,0 @@
-2024-01-25 17:52:38,094 [SpringApplicationShutdownHook] INFO  org.springframework.scheduling.quartz.SchedulerFactoryBean(destroy:847) - Shutting down Quartz Scheduler
-2024-01-25 17:52:38,125 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean(destroy:650) - Closing JPA EntityManagerFactory for persistence unit 'default'
