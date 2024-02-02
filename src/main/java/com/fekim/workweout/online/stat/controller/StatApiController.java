@@ -1,9 +1,6 @@
 package com.fekim.workweout.online.stat.controller;
 
 import com.fekim.workweout.online.date.repository.DateRepository;
-import com.fekim.workweout.online.date.repository.entity.key.YyyyMmDd;
-import com.fekim.workweout.online.jnal.service.dto.WkoutMethodListDTO;
-import com.fekim.workweout.online.member.repository.entity.Member;
 import com.fekim.workweout.online.stat.service.StatService;
 import com.fekim.workweout.online.stat.service.dto.*;
 import jakarta.servlet.http.HttpSession;
@@ -36,8 +33,7 @@ public class StatApiController {
     ResponseEntity<TargetPartTotalSetsDTO> getMyWeeklyTotalSets(HttpSession session,
                                                                 @RequestParam("yyyyMmW") String yyyyMmW) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         TargetPartTotalSetsDTO targetPartTotalSets = statService.getWeeklyTargetPartTotalSets(mbrId, yyyyMmW);
 
@@ -53,8 +49,7 @@ public class StatApiController {
     ResponseEntity<MethodWeiIncsDTO> getMyWeeklyMethodWeiIncs(HttpSession session,
                                                                 @RequestParam("yyyyMmW") String yyyyMmW) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         List<Object[]> bfYyyyMmWObj = dateRepository.findBeforeCuofYyyyMmW(statService.makeYyyyMmW(yyyyMmW), 1L);
         String bfYyyyMmW = String.valueOf(bfYyyyMmWObj.get(0)[0]) + String.valueOf(bfYyyyMmWObj.get(0)[1]) + String.valueOf(bfYyyyMmWObj.get(0)[2]);
@@ -81,8 +76,7 @@ public class StatApiController {
     ResponseEntity<MethodWeekMaxWeisDTO> getMyWeeklyMethodWeekMaxWeis(HttpSession session,
                                                                       @RequestParam("yyyyMmW") String yyyyMmW) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         MethodWeekMaxWeisDTO methodWeekMaxWeis = statService.getMethodWeekMaxWeis(mbrId, yyyyMmW, 4);
 
@@ -98,8 +92,7 @@ public class StatApiController {
     ResponseEntity<TargetPartTotalSetsDTO> getMyMonthlyTotalSets(HttpSession session,
                                                                 @RequestParam("yyyyMm") String yyyyMm) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         TargetPartTotalSetsDTO targetPartTotalSets = statService.getMonthlyTargetPartTotalSets(mbrId, yyyyMm);
 
@@ -115,8 +108,7 @@ public class StatApiController {
     ResponseEntity<MethodWeiIncsDTO> getMyMonthlyMethodWeiIncs(HttpSession session,
                                                               @RequestParam("yyyyMm") String yyyyMm) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         List<Object[]> bfYyyyMmObj = dateRepository.findBeforeCuofYyyyMm(statService.makeYyyyMm(yyyyMm), 1L);
         String bfYyyyMm = String.valueOf(bfYyyyMmObj.get(0)[0]) + String.valueOf(bfYyyyMmObj.get(0)[1]);
@@ -143,8 +135,7 @@ public class StatApiController {
     ResponseEntity<MethodMonthMaxWeisDTO> getMyMonthlyMethodWeekMaxWeis(HttpSession session,
                                                                       @RequestParam("yyyyMm") String yyyyMm) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         MethodMonthMaxWeisDTO methodMonthMaxWeis = statService.getMethodMonthMaxWeis(mbrId, yyyyMm, 4);
 
@@ -228,5 +219,30 @@ public class StatApiController {
 
         return new ResponseEntity(dstbPartByMbr, HttpStatus.OK);
     }
+
+    /**
+     * 13. [관리-주간] 개인 통계 문자발송 처리건수 조회
+     *  - IN = YYYY/MM/W
+     *  - 성공건수 및 실패건수 DTO
+     * */
+    @GetMapping("/manage/weekly-stat-sms-cnt")
+    ResponseEntity<SmsSendSuccessFailCntDTO> getWeeklyStatSmsCnt(@RequestParam("yyyyMmW") String yyyyMmW) {
+        SmsSendSuccessFailCntDTO successFailCnt = statService.getWeeklySmsSendSuccessFailCnt(yyyyMmW);
+
+        return new ResponseEntity(successFailCnt, HttpStatus.OK);
+    }
+
+    /**
+     * 14. [관리-월간] 개인 통계 문자발송 처리건수 조회
+     *  - IN = YYYY/MM
+     *  - 성공건수 및 실패건수 DTO
+     * */
+    @GetMapping("/manage/monthly-stat-sms-cnt")
+    ResponseEntity<SmsSendSuccessFailCntDTO> getMonthlyStatSmsCnt(@RequestParam("yyyyMm") String yyyyMm) {
+        SmsSendSuccessFailCntDTO successFailCnt = statService.getMonthlySmsSendSuccessFailCnt(yyyyMm);
+
+        return new ResponseEntity(successFailCnt, HttpStatus.OK);
+    }
+    
 
 }

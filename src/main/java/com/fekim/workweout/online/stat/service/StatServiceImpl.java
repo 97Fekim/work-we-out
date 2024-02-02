@@ -7,9 +7,8 @@ import com.fekim.workweout.online.group.repository.MemberGrpRepository;
 import com.fekim.workweout.online.jnal.repository.WkoutMethodRepository;
 import com.fekim.workweout.online.member.repository.MemberRepository;
 import com.fekim.workweout.online.member.repository.entity.Member;
-import com.fekim.workweout.online.stat.repository.StatRepository;
-import com.fekim.workweout.online.stat.repository.WeeklyWkoutStatRsltRepository;
-import com.fekim.workweout.online.stat.repository.WeeklyWkoutStatScheduleRepository;
+import com.fekim.workweout.online.stat.repository.*;
+import com.fekim.workweout.online.stat.repository.entity.MonthlyWkoutStatSchedule;
 import com.fekim.workweout.online.stat.repository.entity.WeeklyWkoutStatSchedule;
 import com.fekim.workweout.online.stat.service.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +29,8 @@ public class StatServiceImpl implements StatService{
     private final WkoutMethodRepository wkoutMethodRepository;
     private final WeeklyWkoutStatScheduleRepository weeklyWkoutStatScheduleRepository;
     private final WeeklyWkoutStatRsltRepository weeklyWkoutStatRsltRepository;
+    private final MonthlyWkoutStatScheduleRepository monthlyWkoutStatScheduleRepository;
+    private final MonthlyWkoutStatRsltRepository monthlyWkoutStatRsltRepository;
 
     /**
      * 01. 회원 주간 운동부위별 총세트수 조회
@@ -478,7 +479,7 @@ public class StatServiceImpl implements StatService{
      *  - OUT = [ 성공건수/실패건수 DTO ]
      * */
     @Override
-    public SmsSendSuccessFailCntDTO getSmsSendSuccessFailCnt(String yyyyMmW) {
+    public SmsSendSuccessFailCntDTO getWeeklySmsSendSuccessFailCnt(String yyyyMmW) {
         Optional<WeeklyWkoutStatSchedule> curSchedule = weeklyWkoutStatScheduleRepository.findById(makeYyyyMmW(yyyyMmW));
 
         // (0) 아직 문자발송 스케줄이 완료되지 않았다면, 0/0 건을 리턴한다.
@@ -496,6 +497,40 @@ public class StatServiceImpl implements StatService{
         // (2) 실패 건수를 조회한다.
         Long failCnt = weeklyWkoutStatRsltRepository.findWeeklyTotalCntBySmsSendRsltClsfCd(
                 makeYyyyMmW(yyyyMmW),
+                "02"
+        );
+
+        return SmsSendSuccessFailCntDTO.builder()
+                .successCnt(successCnt)
+                .failCnt(failCnt)
+                .build();
+
+    }
+
+    /**
+     * 13. 주간 문자발송처리현황조회
+     *  - IN = [ YYYY/MM/W ]
+     *  - OUT = [ 성공건수/실패건수 DTO ]
+     * */
+    @Override
+    public SmsSendSuccessFailCntDTO getMonthlySmsSendSuccessFailCnt(String yyyyMm) {
+        Optional<MonthlyWkoutStatSchedule> curSchedule = monthlyWkoutStatScheduleRepository.findById(makeYyyyMm(yyyyMm));
+
+        // (0) 아직 문자발송 스케줄이 완료되지 않았다면, 0/0 건을 리턴한다.
+        if (curSchedule.isEmpty() ||
+                curSchedule.get().getStatCplnYn().equals("N")) {
+            return SmsSendSuccessFailCntDTO.builder().build();
+        }
+
+        // (1) 성공 건수를 조회한다.
+        Long successCnt = monthlyWkoutStatRsltRepository.findMonthlyTotalCntBySmsSendRsltClsfCd(
+                makeYyyyMm(yyyyMm),
+                "01"
+        );
+
+        // (2) 실패 건수를 조회한다.
+        Long failCnt = monthlyWkoutStatRsltRepository.findMonthlyTotalCntBySmsSendRsltClsfCd(
+                makeYyyyMm(yyyyMm),
                 "02"
         );
 

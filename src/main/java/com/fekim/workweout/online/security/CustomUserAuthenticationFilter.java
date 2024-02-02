@@ -18,14 +18,18 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class CustomUserAuthenticationFilter extends OncePerRequestFilter {
 
+    private final MemberRepository memberRepository;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         System.out.println("[DEBUG]===================CustomUserAuthenticationFilter Start==============");
 
-        Member member = (Member) request.getSession().getAttribute("LOGIN_MEMBER");
+        Long mbrId = (Long) request.getSession().getAttribute("LOGIN_MEMBER");
 
-        if (member != null) {
+        if (mbrId != null) {
+            Member member = memberRepository.findById(mbrId).get();
+
             SecurityContextHolder.getContext().setAuthentication(member.makeAuthentication());
         }
 

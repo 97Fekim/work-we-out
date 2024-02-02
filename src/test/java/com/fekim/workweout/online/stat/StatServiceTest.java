@@ -178,8 +178,18 @@ public class StatServiceTest {
     }
 
     @Test
-    void getSmsSendSuccessFailCntTest() {
-        SmsSendSuccessFailCntDTO smsSendSuccessFailCnt = statService.getSmsSendSuccessFailCnt("2024011");
+    void getWeeklySmsSendSuccessFailCntTest() {
+        SmsSendSuccessFailCntDTO smsSendSuccessFailCnt = statService.getWeeklySmsSendSuccessFailCnt("2024011");
+
+        Assertions.assertThat(smsSendSuccessFailCnt != null);
+
+        System.out.println(smsSendSuccessFailCnt.toString());
+
+    }
+
+    @Test
+    void getMonthlySmsSendSuccessFailCntTest() {
+        SmsSendSuccessFailCntDTO smsSendSuccessFailCnt = statService.getMonthlySmsSendSuccessFailCnt("202401");
 
         Assertions.assertThat(smsSendSuccessFailCnt != null);
 

@@ -41,8 +41,7 @@ public class GrpApiController {
     @GetMapping("/my-all")
     ResponseEntity<GrpListDTO> getMyGrps(HttpSession session) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         GrpListDTO grpListDTO = grpService.getGrpListByMbrId(mbrId);
 
@@ -58,8 +57,7 @@ public class GrpApiController {
     ResponseEntity<Long> registerGrp(HttpSession session,
                               @RequestParam("grpNm") String grpNm) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         GrpDTO grpDTO = grpService.createGrp(grpNm, mbrId);
 

@@ -41,8 +41,7 @@ public class JnalApiController {
     @GetMapping("/calendar")
     ResponseEntity<OneMonthCalendarDTO> getOneMonthCalendar(HttpSession session, @RequestParam("yyyyMm") String yyyyMm) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         OneMonthCalendarDTO oneMonthCalendarDTO = jnalService.getOneMonthCalendar(mbrId, yyyyMm);
 
@@ -57,8 +56,7 @@ public class JnalApiController {
     @GetMapping("/one-day-jnals")
     ResponseEntity<OneDayJnalsDTO> getOneDayJnals(HttpSession session, @RequestParam("yyyyMmDd") String yyyyMmDd) {
 
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         OneDayJnalsDTO oneDayJnalsDTO = jnalService.getOneDayJnals(mbrId, yyyyMmDd, "01");
 
@@ -98,8 +96,7 @@ public class JnalApiController {
     @PostMapping("/modify")
     ResponseEntity<String> modifyJnal(HttpSession session,
                                     @RequestBody WkoutJnalDTO jnalDTO) {
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         jnalDTO.setMbrId(mbrId);
 
@@ -118,8 +115,7 @@ public class JnalApiController {
     @PostMapping("/register")
     ResponseEntity<String> registerJnal(HttpSession session,
                                         @RequestBody WkoutJnalDTO jnalDTO) {
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         jnalDTO.setMbrId(mbrId);
 

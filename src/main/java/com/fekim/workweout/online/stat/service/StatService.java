@@ -98,8 +98,15 @@ public interface StatService {
      *  - IN = [ YYYY/MM/W ]
      *  - OUT = [ 성공건수/실패건수 DTO ]
      * */
-    SmsSendSuccessFailCntDTO getSmsSendSuccessFailCnt(String yyyyMmW);
+    SmsSendSuccessFailCntDTO getWeeklySmsSendSuccessFailCnt(String yyyyMmW);
 
+    /**
+     * 14. 월간 문자발송처리현황조회
+     *  - IN = [ YYYY/MM ]
+     *  - OUT = [ 성공건수/실패건수 DTO ]
+     * */
+    SmsSendSuccessFailCntDTO getMonthlySmsSendSuccessFailCnt(String yyyyMm);
+    
 
     /**
      * Transform TargetPartTotalSets entity to DTO

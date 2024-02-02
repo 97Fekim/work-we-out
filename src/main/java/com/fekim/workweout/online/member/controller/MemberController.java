@@ -24,8 +24,7 @@ public class MemberController {
 
     @GetMapping("/my-info")
     public void myInfo(HttpSession session, Model model) {
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         MemberDTO memberDTO = memberService.getNormalMember(mbrId);
 
@@ -34,8 +33,7 @@ public class MemberController {
 
     @GetMapping("/modify")
     public void modifyInfo(HttpSession session, Model model) {
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         MemberDTO memberDTO = memberService.getNormalMember(mbrId);
 

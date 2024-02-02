@@ -21,7 +21,9 @@ public class MemberApiController {
     private final MemberService memberService;
 
     @GetMapping("/login")
-    public ResponseEntity<String> login(HttpSession session, String email, String password) {
+    public ResponseEntity<String> login(HttpSession session,
+                                        @RequestParam("email") String email,
+                                        @RequestParam("password") String password) {
 
         try {
             memberService.login(session, email, password);
@@ -36,8 +38,7 @@ public class MemberApiController {
     @PostMapping("/modify")
     ResponseEntity<Long> modifyInfo(HttpSession session,
                                       @RequestBody MemberDTO memberDTO) {
-        Member member = (Member) session.getAttribute("LOGIN_MEMBER");
-        Long mbrId = member.getMbrId();
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
         memberDTO.setMbrId(mbrId);
 

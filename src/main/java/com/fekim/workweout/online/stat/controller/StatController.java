@@ -29,4 +29,9 @@ public class StatController {
         model.addAttribute("grpId", grpId);
     }
 
+    @GetMapping("/manage/stat-sms-mng")
+    public void statSmsMng() {
+
+    }
+
 }
