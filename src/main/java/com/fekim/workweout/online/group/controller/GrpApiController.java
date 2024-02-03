@@ -7,6 +7,7 @@ import com.fekim.workweout.online.group.service.dto.OneMonthGrpCalendarDTO;
 import com.fekim.workweout.online.jnal.service.dto.OneDayJnalsDTO;
 import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
 import com.fekim.workweout.online.member.repository.entity.Member;
+import com.fekim.workweout.online.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class GrpApiController {
 
     private final GrpService grpService;
+    private final MemberService memberService;
 
     /**
      * 00. 그룹 정보 조회
@@ -28,7 +30,15 @@ public class GrpApiController {
      * - OUT = 그룹 DTO
      * */
     @GetMapping("/one-grp")
-    ResponseEntity<GrpDTO> getGrp(@RequestParam("grpId") Long grpId) {
+    ResponseEntity<GrpDTO> getGrp(HttpSession session,
+                                  @RequestParam("grpId") Long grpId) {
+
+        /* 본인이 속하지 않은 그룹의 자원에 접근시, 이전 페이지로 되돌려 보낸다. */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         GrpDTO grpDTO = grpService.getGrpInfo(grpId);
         return new ResponseEntity<>(grpDTO, HttpStatus.OK);
     }
@@ -70,8 +80,15 @@ public class GrpApiController {
      * - OUT = 달력에 표시되는 모든 Grid Element
      * */
     @GetMapping("/calendar")
-    ResponseEntity<OneMonthGrpCalendarDTO> getOneMonthCalendar(@RequestParam("yyyyMm") String yyyyMm,
-                                                            @RequestParam("grpId") Long grpId) {
+    ResponseEntity<OneMonthGrpCalendarDTO> getOneMonthCalendar(HttpSession session,
+                                                               @RequestParam("yyyyMm") String yyyyMm,
+                                                               @RequestParam("grpId") Long grpId) {
+
+        /* 본인이 속하지 않은 그룹의 자원에 접근시, 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
 
         OneMonthGrpCalendarDTO oneMonthGrpCalendarDTO = grpService.getOneMonthGrpCalendar(grpId, yyyyMm);
 
@@ -84,8 +101,15 @@ public class GrpApiController {
      * - OUT = 그룹이 하루동안 운동한 모든 운동일지 리스트 DTO
      * */
     @GetMapping("/one-day-jnals")
-    ResponseEntity<OneDayJnalsDTO> getOneDayJnals(@RequestParam("yyyyMmDd") String yyyyMmDd,
+    ResponseEntity<OneDayJnalsDTO> getOneDayJnals(HttpSession session,
+                                                  @RequestParam("yyyyMmDd") String yyyyMmDd,
                                                   @RequestParam("grpId") Long grpId) {
+
+        /* 본인이 속하지 않은 그룹의 자원에 접근시, 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
 
         OneDayJnalsDTO oneDayJnalsDTO = grpService.getOneDayGrpJnals(grpId, yyyyMmDd);
 

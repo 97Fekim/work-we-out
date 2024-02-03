@@ -1,6 +1,11 @@
 package com.fekim.workweout.online.stat.controller;
 
 import com.fekim.workweout.online.date.repository.DateRepository;
+import com.fekim.workweout.online.group.repository.GrpRepository;
+import com.fekim.workweout.online.group.service.GrpService;
+import com.fekim.workweout.online.group.service.dto.GrpListDTO;
+import com.fekim.workweout.online.member.repository.MemberRepository;
+import com.fekim.workweout.online.member.service.MemberService;
 import com.fekim.workweout.online.stat.service.StatService;
 import com.fekim.workweout.online.stat.service.dto.*;
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +27,7 @@ import java.util.List;
 public class StatApiController {
 
     private final StatService statService;
+    private final MemberService memberService;
     private final DateRepository dateRepository;
 
     /**
@@ -148,8 +154,16 @@ public class StatApiController {
      *  - 멤버별 평균 운동일수 DTO
      * */
     @GetMapping("/grp-weekly-avg-days")
-    ResponseEntity<MbrWkoutDaysCntsDTO> getGrpWeeklyAvgDays(@RequestParam("yyyyMmW") String yyyyMmW,
-                                @RequestParam("grpId") Long grpId) {
+    ResponseEntity<MbrWkoutDaysCntsDTO> getGrpWeeklyAvgDays(HttpSession session,
+                                                            @RequestParam("yyyyMmW") String yyyyMmW,
+                                                            @RequestParam("grpId") Long grpId) {
+
+        /* 본인이 속하지 않은 그룹의 자원에 접근시 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         MbrWkoutDaysCntsDTO avgDays = statService.getWeeklyGrpWkoutDaysCnt(grpId, yyyyMmW);
 
         return new ResponseEntity(avgDays, HttpStatus.OK);
@@ -161,8 +175,15 @@ public class StatApiController {
      *  - 그룹의 운동분포 DTO
      * */
     @GetMapping("/grp-weekly-dstb-part")
-    ResponseEntity<TargetPartTotalSetsDTO> getGrpWeeklyDstbPart(@RequestParam("yyyyMmW") String yyyyMmW,
-                                                            @RequestParam("grpId") Long grpId) {
+    ResponseEntity<TargetPartTotalSetsDTO> getGrpWeeklyDstbPart(HttpSession session,
+                                                                @RequestParam("yyyyMmW") String yyyyMmW,
+                                                                @RequestParam("grpId") Long grpId) {
+        /* 본인이 속하지 않은 그룹의 자원에 접근시 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         TargetPartTotalSetsDTO dstbPart = statService.getWeeklyGrpTargetPartTotalSets(grpId, yyyyMmW);
 
         return new ResponseEntity(dstbPart, HttpStatus.OK);
@@ -174,8 +195,15 @@ public class StatApiController {
      *  - 그룹의 운동분포 DTO
      * */
     @GetMapping("/grp-weekly-dstb-part-by-mbr")
-    ResponseEntity<GrpMbrTargetPartTotalSetsDTO> getGrpWeeklyDstbPartByMbr(@RequestParam("yyyyMmW") String yyyyMmW,
-                                                                     @RequestParam("grpId") Long grpId) {
+    ResponseEntity<GrpMbrTargetPartTotalSetsDTO> getGrpWeeklyDstbPartByMbr(HttpSession session,
+                                                                           @RequestParam("yyyyMmW") String yyyyMmW,
+                                                                           @RequestParam("grpId") Long grpId) {
+        /* 본인이 속하지 않은 그룹의 자원에 접근시 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         GrpMbrTargetPartTotalSetsDTO dstbPartByMbr = statService.getWeeklyGrpMbrTargetPartTotalSets(grpId, yyyyMmW);
 
         return new ResponseEntity(dstbPartByMbr, HttpStatus.OK);
@@ -187,8 +215,15 @@ public class StatApiController {
      *  - 멤버별 평균 운동일수 DTO
      * */
     @GetMapping("/grp-monthly-avg-days")
-    ResponseEntity<MbrWkoutDaysCntsDTO> getGrpMonthlyAvgDays(@RequestParam("yyyyMm") String yyyyMm,
-                                                   @RequestParam("grpId") Long grpId) {
+    ResponseEntity<MbrWkoutDaysCntsDTO> getGrpMonthlyAvgDays(HttpSession session,
+                                                             @RequestParam("yyyyMm") String yyyyMm,
+                                                             @RequestParam("grpId") Long grpId) {
+        /* 본인이 속하지 않은 그룹의 자원에 접근시 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         MbrWkoutDaysCntsDTO avgDays = statService.getMonthlyGrpWkoutDaysCnt(grpId, yyyyMm);
 
         return new ResponseEntity(avgDays, HttpStatus.OK);
@@ -200,8 +235,15 @@ public class StatApiController {
      *  - 그룹의 운동분포 DTO
      * */
     @GetMapping("/grp-monthly-dstb-part")
-    ResponseEntity<TargetPartTotalSetsDTO> getGrpMonthlyDstbPart(@RequestParam("yyyyMm") String yyyyMm,
+    ResponseEntity<TargetPartTotalSetsDTO> getGrpMonthlyDstbPart(HttpSession session,
+                                                                 @RequestParam("yyyyMm") String yyyyMm,
                                                                  @RequestParam("grpId") Long grpId) {
+        /* 본인이 속하지 않은 그룹의 자원에 접근시 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         TargetPartTotalSetsDTO dstbPart = statService.getMonthlyGrpTargetPartTotalSets(grpId, yyyyMm);
 
         return new ResponseEntity(dstbPart, HttpStatus.OK);
@@ -213,8 +255,15 @@ public class StatApiController {
      *  - 그룹의 운동분포 DTO
      * */
     @GetMapping("/grp-monthly-dstb-part-by-mbr")
-    ResponseEntity<GrpMbrTargetPartTotalSetsDTO> getGrpMonthlyDstbPartByMbr(@RequestParam("yyyyMm") String yyyyMm,
+    ResponseEntity<GrpMbrTargetPartTotalSetsDTO> getGrpMonthlyDstbPartByMbr(HttpSession session,
+                                                                            @RequestParam("yyyyMm") String yyyyMm,
                                                                            @RequestParam("grpId") Long grpId) {
+        /* 본인이 속하지 않은 그룹의 자원에 접근시 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isGrpOfMember(mbrId, grpId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         GrpMbrTargetPartTotalSetsDTO dstbPartByMbr = statService.getMonthlyGrpMbrTargetPartTotalSets(grpId, yyyyMm);
 
         return new ResponseEntity(dstbPartByMbr, HttpStatus.OK);

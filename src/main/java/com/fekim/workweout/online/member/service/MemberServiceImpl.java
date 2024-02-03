@@ -19,7 +19,6 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     /**
@@ -139,6 +138,28 @@ public class MemberServiceImpl implements MemberService {
      * */
     public void logout(HttpSession session) {
         session.removeAttribute("LOGIN_USER");
+    }
+
+    /**
+     * 06. 회원-운동일지 일치여부 판정
+     *  - IN : 회원ID , 운동일지ID
+     *  - OUT :
+     *    회원-운동일지 일치 : true
+     *    회원-운동일지 불일치 : false
+     * */
+    public boolean isJnalOfMember(Long mbrId, Long jnalId) {
+        return memberRepository.findJnalByMbrIdAndJnalId(mbrId, jnalId).isPresent();
+    }
+
+    /**
+     * 07. 회원-그룹 일치여부 판정
+     *  - IN : 회원ID , 그룹ID
+     *  - OUT :
+     *    회원-그룹 일치 : true
+     *    회원-그룹 불일치 : false
+     * */
+    public boolean isGrpOfMember(Long mbrId, Long grpId) {
+        return memberRepository.findMemberGrpByMbrIdAndGrpId(mbrId, grpId).isPresent();
     }
 
 }

@@ -6,6 +6,7 @@ import com.fekim.workweout.online.jnal.service.dto.OneMonthCalendarDTO;
 import com.fekim.workweout.online.jnal.service.dto.WkoutJnalDTO;
 import com.fekim.workweout.online.jnal.service.dto.WkoutMethodListDTO;
 import com.fekim.workweout.online.member.repository.entity.Member;
+import com.fekim.workweout.online.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class JnalApiController {
 
     private final WkoutJnalService jnalService;
+    private final MemberService memberService;
 
     /**
      * 01. 모든 운동종목 조회
@@ -39,7 +41,8 @@ public class JnalApiController {
      * - OUT = 달력에 표시되는 모든 Grid Element
      * */
     @GetMapping("/calendar")
-    ResponseEntity<OneMonthCalendarDTO> getOneMonthCalendar(HttpSession session, @RequestParam("yyyyMm") String yyyyMm) {
+    ResponseEntity<OneMonthCalendarDTO> getOneMonthCalendar(HttpSession session,
+                                                            @RequestParam("yyyyMm") String yyyyMm) {
 
         Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
@@ -54,7 +57,8 @@ public class JnalApiController {
      * - OUT = 하루동안 존재하는 모든 운동일지 리스트 DTO
      * */
     @GetMapping("/one-day-jnals")
-    ResponseEntity<OneDayJnalsDTO> getOneDayJnals(HttpSession session, @RequestParam("yyyyMmDd") String yyyyMmDd) {
+    ResponseEntity<OneDayJnalsDTO> getOneDayJnals(HttpSession session,
+                                                  @RequestParam("yyyyMmDd") String yyyyMmDd) {
 
         Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
@@ -69,7 +73,15 @@ public class JnalApiController {
      * - OUT = 운동일지DTO
      * */
     @GetMapping("/read-one")
-    ResponseEntity<WkoutJnalDTO> readOneJnal(@RequestParam("jnalId") Long jnalId) {
+    ResponseEntity<WkoutJnalDTO> readOneJnal(HttpSession session,
+                                             @RequestParam("jnalId") Long jnalId) {
+
+        /* 본인이 속하지 않은 운동일지에 접근시, 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isJnalOfMember(mbrId, jnalId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         WkoutJnalDTO jnalDTO = jnalService.getOneJnal(jnalId);
 
         return new ResponseEntity<>(jnalDTO, HttpStatus.OK);
@@ -81,7 +93,14 @@ public class JnalApiController {
      * - OUT = []
      * */
     @PostMapping("/remove")
-    ResponseEntity<String> removeJnal(@RequestParam("jnalId") Long jnalId) {
+    ResponseEntity<String> removeJnal(HttpSession session,
+                                      @RequestParam("jnalId") Long jnalId) {
+
+        /* 본인이 속하지 않은 운동일지에 접근시, 응답코드:403 */
+        Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
+        if (!memberService.isJnalOfMember(mbrId, jnalId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
 
         jnalService.removeJnal(jnalId);
         
@@ -98,9 +117,14 @@ public class JnalApiController {
                                     @RequestBody WkoutJnalDTO jnalDTO) {
         Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
+        /* 본인이 속하지 않은 운동일지에 접근시, 응답코드:403 */
+        if (!memberService.isJnalOfMember(mbrId, jnalDTO.getJnalId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         jnalDTO.setMbrId(mbrId);
 
-        Long jnalId = jnalService.modifyJnal(jnalDTO);
+        jnalService.modifyJnal(jnalDTO);
 
         String newYyyyMmDd = jnalDTO.getYyyy() + jnalDTO.getMm() + jnalDTO.getDd();
 
@@ -117,9 +141,14 @@ public class JnalApiController {
                                         @RequestBody WkoutJnalDTO jnalDTO) {
         Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
+        /* 본인이 속하지 않은 운동일지에 접근시, 응답코드:403 */
+        if (!memberService.isJnalOfMember(mbrId, jnalDTO.getJnalId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         jnalDTO.setMbrId(mbrId);
 
-        Long jnalId = jnalService.createJnal(jnalDTO, mbrId);
+        jnalService.createJnal(jnalDTO, mbrId);
 
         String yyyyMmDd = jnalDTO.getYyyy() + jnalDTO.getMm() + jnalDTO.getDd();
 

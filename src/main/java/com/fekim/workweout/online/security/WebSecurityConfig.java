@@ -49,11 +49,9 @@ public class WebSecurityConfig {
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("member/sign-up").permitAll()
-                                .requestMatchers("member/sign-in").permitAll()
-                                .requestMatchers("/stat/manage/").hasRole("ADMIN")
-                                .requestMatchers("/stat/manage/**").hasRole("ADMIN")
-                                .requestMatchers("/", "/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("member/sign-up", "member/sign-in").permitAll()
+                                .requestMatchers("/stat/manage/", "/stat/manage/**").hasRole("ADMIN")
+                                .requestMatchers("/", "/**").hasAnyRole("USER")
                 )
                 .cors(httpSecurityCorsConfigurer ->
                         httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource)

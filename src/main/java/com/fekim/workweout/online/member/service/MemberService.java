@@ -46,6 +46,23 @@ public interface MemberService {
      * */
     void logout(HttpSession session);
 
+    /**
+     * 06. 회원-운동일지 일치여부 판정
+     *  - IN : 회원ID , 운동일지ID
+     *  - OUT :
+     *    회원-운동일지 일치 : true
+     *    회원-운동일지 불일치 : false
+     * */
+    boolean isJnalOfMember(Long mbrId, Long jnalId);
+
+    /**
+     * 07. 회원-그룹 일치여부 판정
+     *  - IN : 회원ID , 그룹ID
+     *  - OUT :
+     *    회원-그룹 일치 : true
+     *    회원-그룹 불일치 : false
+     * */
+    boolean isGrpOfMember(Long mbrId, Long grpId);
 
     /**
      * Transform Member => MemberDTO

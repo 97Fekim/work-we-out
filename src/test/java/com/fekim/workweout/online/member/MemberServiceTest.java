@@ -3,6 +3,7 @@ package com.fekim.workweout.online.member;
 import com.fekim.workweout.online.member.service.MemberService;
 import com.fekim.workweout.online.member.service.dto.MemberDTO;
 import com.fekim.workweout.online.member.service.dto.MemberRegisterDTO;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,6 +51,16 @@ public class MemberServiceTest {
             );
         }
 
+    }
+
+    @Test
+    void isJnalOfMemberTest() {
+        Assertions.assertThat(memberService.isJnalOfMember(1L, 1L));
+    }
+
+    @Test
+    void isGrpOfMemberTest() {
+        Assertions.assertThat(memberService.isGrpOfMember(2L, 1L));
     }
 
 }
