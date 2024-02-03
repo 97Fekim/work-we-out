@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * 인가되지 않은 사용자의 접근을 처리한다.
+ *  - EX) USER_ROLE 사용자의  ADMIN_ROLE 페이지 접근
+ * */
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
