@@ -22,6 +22,19 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    /* 회원가입 페이지으로 이동 */
+    @GetMapping("/sign-up")
+    public void singUp() {
+
+    }
+
+    /* 로그인 페이지으로 이동 */
+    @GetMapping("/sign-in")
+    public void singIn() {
+
+    }
+
+    /* 내 정보 페이지으로 이동 */
     @GetMapping("/my-info")
     public void myInfo(HttpSession session, Model model) {
         Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
@@ -31,6 +44,7 @@ public class MemberController {
         model.addAttribute("memberDTO", memberDTO);
     }
 
+    /* 내 정보 편집 페이지으로 이동 */
     @GetMapping("/modify")
     public void modifyInfo(HttpSession session, Model model) {
         Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");

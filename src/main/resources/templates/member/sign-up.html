@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work We Out</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/common.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-white text-black">
+
+<!-- 메인화면 -->
+<div class="flex flex-col h-screen">
+
+    <!-- 헤더 -->
+    <nav class="border-b border-gray-600 p-4 flex justify-between items-center">
+        <!--dummy-->
+        <div></div>
+        <!-- 제목 -->
+        <h1 class="ml-4 text-2xl font-semibold">회원가입</h1>
+        <!--dummy-->
+        <div></div>
+    </nav>
+
+    <!-- 이메일 -->
+    <div class="flex justify-between items-center p-3">
+        <span class="text-1xl font-semibold">▷ 이메일 (*)</span>
+    </div>
+    <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
+        <input
+            id="input-email"
+            type="text"
+            class="bottom-border"
+            style="width: 50%"
+        />
+    </div>
+
+    <!-- 비밀번호 -->
+    <div class="flex justify-between items-center p-3" style="padding-top: 15px">
+        <span class="text-1xl font-semibold">▷ 비밀번호 (*)</span>
+    </div>
+    <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
+        <input
+            id="input-password"
+            type="tel"
+            class="bottom-border"
+            style="width: 50%"
+        />
+    </div>
+
+    <!-- 닉네임 -->
+    <div class="flex justify-between items-center p-3">
+        <span class="text-1xl font-semibold">▷ 닉네임</span>
+    </div>
+    <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
+        <input
+            id="input-mbrNm"
+            type="text"
+            class="bottom-border"
+            style="width: 50%"
+        />
+    </div>
+
+    <!-- 휴대폰 번호 -->
+    <div class="flex justify-between items-center p-3" style="padding-top: 15px">
+        <span class="text-1xl font-semibold">▷ 휴대폰 번호</span>
+    </div>
+    <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
+        <input
+            id="input-phone"
+            type="tel"
+            class="bottom-border"
+            style="width: 50%"
+        />
+    </div>
+
+    <!-- 운동통계 문자 발신 동의 여부 -->
+    <div class="flex justify-between items-center p-3" style="padding-top: 15px">
+        <span class="text-1xl font-semibold">▷ 운동통계 문자 발신 동의 여부</span>
+    </div>
+    <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
+        <button id="btn-stat-sms-send-yn"
+                onclick="toggleYn()"
+                value="Y"
+                class="extra-btn p-2 bg-gray-600 text-white rounded"
+                style="background-color: blue; margin-right: 10px">
+            동의
+        </button>
+    </div>
+
+    <!-- 회원가입 버튼 -->
+    <div class="flex justify-end items-center p-1" style="padding-top: 40px">
+        <button onclick="signUp()"
+                class="extra-btn p-2 bg-gray-600 text-white rounded"
+                style="background-color: #1196c1; margin-right: 10px">
+            저장
+        </button>
+    </div>
+
+</div>
+
+</body>
+
+<script>
+
+    function signUp() {
+        var email = document.getElementById("input-email").value;
+        var password = document.getElementById("input-password").value;
+        var mbrNm = document.getElementById("input-mbrNm").value;
+        var phone = document.getElementById("input-phone").value;
+        var statSmsSendYn = document.getElementById("btn-stat-sms-send-yn").getAttribute("value");
+
+        var newMemberRegisterDTO = new Object();
+        newMemberRegisterDTO.email = email;
+        newMemberRegisterDTO.password = password;
+        newMemberRegisterDTO.mbrNm = mbrNm;
+        newMemberRegisterDTO.phone = phone;
+        newMemberRegisterDTO.statSmsSendYn = statSmsSendYn;
+
+        $.ajax({
+            type: "POST",
+            url: domain+":"+port_API+"/member/sign-up",
+            contentType:'application/json',
+            xhrFields: {
+                withCredentials: true
+            },
+            data: JSON.stringify(newMemberRegisterDTO)
+            ,
+            success: function (response) {
+                location.href = domain+":"+port_API+"/member/sign-in";
+            },
+            error: function (request, error) {
+                if (request.responseText === "00") {
+                    location.href = domain+":"+port_API+"/member/sign-in";
+                } else if (request.responseText === "01") {
+                    alert("이메일을 입력해주세요.");
+                } else if (request.responseText === "02") {
+                    alert("비밀번호를 입력해주세요.");
+                } else if (request.responseText === "03") {
+                    alert("이미 존재하는 이메일입니다.\n다른 이메일을 입력해주세요.");
+                } else {
+                    alert("로그인 처리중 오류가 발생했습니다.\n 잠시후 다시 시도해주세요.");
+                }
+            }
+        });
+    }
+
+    /* 동의/미동의 버튼이 눌릴때 상태를 반전시킨다. */
+    function toggleYn() {
+        var btnStatSmsSendYn = document.getElementById("btn-stat-sms-send-yn");
+
+        if (btnStatSmsSendYn.getAttribute("value") === "Y") {
+            btnStatSmsSendYn.setAttribute("style", "background-color: red; margin-right: 10px");
+            btnStatSmsSendYn.setAttribute("value", "N");
+            btnStatSmsSendYn.innerText = "미동의";
+        } else {
+            btnStatSmsSendYn.setAttribute("style", "background-color: blue; margin-right: 10px");
+            btnStatSmsSendYn.setAttribute("value", "Y");
+            btnStatSmsSendYn.innerText = "동의";
+        }
+
+    }
+
+
+</script>
+
+<!-- common.js -->
+<script src="/js/common.js"></script>
+
+</html>

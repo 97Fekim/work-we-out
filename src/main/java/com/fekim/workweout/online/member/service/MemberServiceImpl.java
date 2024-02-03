@@ -44,6 +44,7 @@ public class MemberServiceImpl implements MemberService {
         Member originEntity =
                 memberRepository.findMemberByIdAndMbrStatClsfCd(memberDTO.getMbrId(), "01");
 
+        /* In DTO에 값이 존재하면 변경. */
         if (memberDTO.getEmail() != null && memberDTO.getEmail().isEmpty()) {
             originEntity.setEmail(memberDTO.getEmail());
         }
@@ -64,7 +65,23 @@ public class MemberServiceImpl implements MemberService {
      *  - OUT = 가입된 회원DTO
      * */
     @Override
-    public MemberDTO registerMember(MemberRegisterDTO memberRegisterDTO) {
+    public MemberDTO registerMember(MemberRegisterDTO memberRegisterDTO) throws SecurityException {
+
+        /* 예외처리 */
+        // ▼ 결과코드 명세 ▼
+        //  - 01 : 이메일 미입력
+        //  - 02 : 비밀번호 미입력
+        //  - 03 : 기존재하는 이메일
+        // 이미 존재하는 이메일인 경우
+        if (memberRegisterDTO.getEmail() == null || memberRegisterDTO.getEmail().isEmpty()) {
+            throw new SecurityException("01");
+        }
+        if (memberRegisterDTO.getPassword() == null || memberRegisterDTO.getPassword().isEmpty()) {
+            throw new SecurityException("02");
+        }
+        if (memberRepository.findByEmail(memberRegisterDTO.getEmail()).isPresent()) {
+            throw new SecurityException("03");
+        }
 
         String password = passwordEncoder.encode(memberRegisterDTO.getPassword());
         String mbrNm = memberRegisterDTO.getMbrNm();
@@ -97,18 +114,18 @@ public class MemberServiceImpl implements MemberService {
      *  - OUt : 세션ID
      * */
     @Transactional(readOnly = true) // 조회용 API임을 명시 + flush X
-    public void login(HttpSession session, String email, String password)  {
+    public void login(HttpSession session, String email, String password) throws SecurityException {
 
         Optional<Member> member = memberRepository.findByEmail(email);
 
         /* (1) 이메일 미존재 */
         if (member.isEmpty()) {
-            throw new SecurityException();
+            throw new SecurityException("01");
         }
 
         /* (2) 비밀번호 불일치 */
         if (!member.get().isPasswordMatch(passwordEncoder, password)) {
-            throw new SecurityException();
+            throw new SecurityException("02");
         }
 
         session.setAttribute("LOGIN_MEMBER", member.get().getMbrId());

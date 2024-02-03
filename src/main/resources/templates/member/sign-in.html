@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work We Out</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/common.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-white text-black">
+
+    <!-- 메인화면 -->
+    <div class="flex flex-col h-screen">
+
+    <!-- 헤더 -->
+    <nav class="border-b border-gray-600 p-4 flex justify-between items-center">
+        <div></div>
+        <!-- 제목 -->
+        <h1 class="ml-4 text-2xl font-semibold">로그인</h1>
+        <div></div>
+    </nav>
+
+    <!-- 닉네임 -->
+    <div class="flex justify-between items-center p-3">
+        <span class="text-1xl font-semibold">▷ 이메일</span>
+    </div>
+    <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
+        <input
+            id="input-email"
+            type="text"
+            class="bottom-border"
+            style="width: 50%"
+        />
+    </div>
+
+    <!-- 비밀번호 -->
+    <div class="flex justify-between items-center p-3" style="padding-top: 15px">
+        <span class="text-1xl font-semibold">▷ 비밀번호</span>
+    </div>
+    <div class="flex justify-between" style="padding-left: 35px; padding-right: 35px">
+        <input
+            id="input-password"
+            type="tel"
+            class="bottom-border"
+            style="width: 50%"
+        />
+    </div>
+
+    <!-- 로그인 버튼 -->
+    <div class="flex justify-end items-center p-1" style="padding-top: 40px">
+        <button onclick="signIn()"
+                class="extra-btn p-2 bg-gray-600 text-white rounded"
+                style="background-color: #1196c1; margin-right: 20px">
+            로그인
+        </button>
+        <button onclick="redirectSignUp()"
+                class="extra-btn p-2 bg-gray-600 text-white rounded"
+                style="background-color: #c0ed70; margin-right: 10px">
+            회원가입
+        </button>
+    </div>
+
+
+</div>
+
+</body>
+
+<script>
+
+    /**
+     * 로그인 POST
+     * */
+    function signIn() {
+
+        $.ajax({
+            type: "POST",
+            url: domain+":"+port_API+"/member/sign-in",
+            dataType:'json',
+            data: {
+                email : document.getElementById("input-email").value,
+                password : document.getElementById("input-password").value
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (response) {
+                location.href = domain+":"+port_API+"/jnal/my-calendar";
+            },
+            error: function (request, error) {
+                if (request.responseText === "00") {
+                    location.href = domain+":"+port_API+"/jnal/my-calendar";
+                } else if (request.responseText === "01") {
+                    alert("이메일을 확인해주세요.");
+                } else if (request.responseText === "02") {
+                    alert("비밀번호를 확인해주세요.");
+                } else {
+                    alert("로그인 처리중 오류가 발생했습니다.\n 잠시후 다시 시도해주세요.");
+                }
+            }
+        });
+
+    }
+
+    // 회원가입 페이지로 이동
+    function redirectSignUp() {
+        location.href=domain+':'+port_API+'/member/sign-up';
+    }
+
+</script>
+
+<!-- common.js -->
+<script src="/js/common.js"></script>
+
+</html>

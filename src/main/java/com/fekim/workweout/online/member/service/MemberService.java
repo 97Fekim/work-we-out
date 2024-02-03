@@ -37,7 +37,7 @@ public interface MemberService {
      *  - IN : [ 이메일, 비밀번호 ]
      *  - OUt : 세션ID
      * */
-    void login(HttpSession session, String email, String password) throws AuthenticationException;
+    void login(HttpSession session, String email, String password) throws SecurityException;
 
     /**
      * 05. 로그아웃
