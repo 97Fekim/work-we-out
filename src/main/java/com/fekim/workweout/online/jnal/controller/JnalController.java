@@ -54,7 +54,7 @@ public class JnalController {
 
         model.addAttribute("jnalId", jnalId);
 
-        return "/jnal/modify";
+        return "jnal/modify";
     }
 
 }

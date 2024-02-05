@@ -45,7 +45,7 @@ public class GrpController {
 
         model.addAttribute("grpDTO", grpDTO);
 
-        return "/grp/grp-info";
+        return "grp/grp-info";
     }
 
     @GetMapping("/grp-calendar")
@@ -62,7 +62,7 @@ public class GrpController {
 
         model.addAttribute("grpId", grpId);
 
-        return "/grp/grp-calendar";
+        return "grp/grp-calendar";
     }
 
 }
