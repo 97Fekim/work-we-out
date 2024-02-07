@@ -1,7 +1,7 @@
 # work-we-out  
-> [API 프로젝트](https://github.com/97Fekim/work-we-out)
+> [API 서버 프로젝트](https://github.com/97Fekim/work-we-out)
 > <br>
-> [Batch 프로젝트](https://github.com/97Fekim/work-we-out_batch)
+> [배치 서버 프로젝트](https://github.com/97Fekim/work-we-out_batch)
 
 ## 🔘 소개
 
