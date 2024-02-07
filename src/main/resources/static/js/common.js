@@ -74,8 +74,8 @@ var mbrColorMap;
 
 // 도메인 및 포트
 var domain = window.location.protocol + "//" + window.location.hostname;
-var port_API = "8080";
-var port_BTCH = "8081";
+var port_API = "80";
+var port_BTCH = "81";
 
 // 운동부위 컬러 MAP 생성
 function createPartColorMap() {
