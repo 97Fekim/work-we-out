@@ -123,7 +123,7 @@
 </details>
 
 <details>
-  <summary>📒 개념 모델링 단계에서 놓친 엔티티 데이터의 관리 난해</summary>
+  <summary>📒 개념 모델링 단계에서 놓친 엔티티의 데이터 관리 난해</summary>
   <br> 
    o <strong>현상</strong> : <br><br>
    o <strong>원인</strong> : <br><br>
