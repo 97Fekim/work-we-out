@@ -85,7 +85,13 @@
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 
 ## 🔘 데이터 관계 모델
-![image](https://github.com/97Fekim/work-we-out/assets/81150979/4e63bed3-41f3-46cd-a4c3-40665691dddc)
+> - domain1 - 회원 도메인
+> - domain2 - 운동일지 도메인
+> - domain3 - 그룹 도메인
+> - domain4 - 운동통계 도메인
+
+![image](https://github.com/97Fekim/work-we-out/assets/81150979/f341835d-f017-42c3-a977-030ef009f589)
+
 
 ## 🔘 인프라 아키텍처
 
