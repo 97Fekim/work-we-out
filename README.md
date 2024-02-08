@@ -98,3 +98,82 @@
 
 
 ## 🔘 트러블슈팅 및 배운 점
+<details>
+  <summary>📒 MPA와 SPA 혼용 설계의 아쉬움</summary>
+  <br>
+   o <strong>현상</strong> : 프론트 엔드 개발 단계에서 중복되는 컴포넌트와 스크립트가 다수 발생하였다. 하지만 이미 페이지 목업 단계에서 페이지의 갯수와 기능이 정해졌기 때문에, 구조를 재정의하기는 어려웠다. 이로 인해 Copy&Paste로 개발하는 컴포넌트가 많아졌고, 이렇게 개발된 컴포넌트에 수정이 생겼을때 일일이 모두 수정해야 했기 때문에 개발 생산성의 저하를 야기했다.<br><br>
+   o <strong>원인</strong> : UI설계 당시 명확한 SPA로 정의하지 않고, MPA와 혼용하여 설계한 탓이 크다. 결과론적이지만 개발이 끝나고 되돌아보니, 레이아웃으로 하나의 페이지만 두고 사용자의 요청이 있을때마다 데이터의 렌더링만 CSR 방식으로 해도 되었을 것 처럼 보였다. <br><br>
+   o <strong>해결안</strong> : 앞으로 한 두 개만의 신규 기능이 추가될 예정이라면 기존의 구조를 유지한 채 기능을 추가하는 것이 더 효율적으로 보인다. 하지만 신규 기능이 많이 추가될 것이라는 확신이 든다면, 프론트엔드 소스의 재 개발을 하는 편이 앞으로의 개발 생산성을 가속할 것이라고 생각한다. <br><br>
+</details>
+
+<details>
+  <summary>📒 프론트엔드 프레임워크의 부재로 인한 개발 생산성 저하</summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
+
+<details>
+  <summary>📒 잦은 변경/삭제 가 일어나는 PK에 대한 인덱스 설계 미흡</summary>
+  <br> 
+   o <strong>현상</strong> : 운동일지운동종목ID의 수정삭제가 빈번한 이슈<br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
+
+<details>
+  <summary>📒 개념 모델링 단계에서 놓친 도메인의 관리 난해</summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
+
+<details>
+  <summary>📒 Native Query 강요에 의한 JPA의 DBMS 종속</summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
+
+<details>
+  <summary>📒 Stateless 세션 정책에 의해 발생한 Ajax 요청 거부</summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
+
+<details>
+  <summary>📒 다른 서버와 요청간 CORS 정책 위반</summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
+
+<details>
+  <summary>📒 JpaPagingItemReader의 N+1 문제</summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
+
+<details>
+  <summary>📒 다중서버 환경에서 인증/인가 메커니즘의 이해</summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
+
+<details>
+  <summary>📒 파라미터 변조 취약점 및 방어의 이해</summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> : <br><br>
+</details>
