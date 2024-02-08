@@ -85,6 +85,7 @@
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 
 ## 🔘 데이터 관계 모델
+![image](https://github.com/97Fekim/work-we-out/assets/81150979/4e63bed3-41f3-46cd-a4c3-40665691dddc)
 
 ## 🔘 인프라 아키텍처
 
