@@ -139,7 +139,7 @@
 </details>
 
 <details>
-  <summary>📒 Stateless 세션 정책에 의해 발생한 Ajax 요청 거부</summary>
+  <summary>📒 Stateless 세션 정책에 의해, 모든 Ajax 요청의 인증 실패</summary>
   <br> 
    o <strong>현상</strong> : <br><br>
    o <strong>원인</strong> : <br><br>
