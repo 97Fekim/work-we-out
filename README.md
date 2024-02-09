@@ -143,8 +143,8 @@
   <summary>📒 Native Query 강요에 의한 JPA의 DBMS 종속</summary>
   <br> 
    o <strong>현상</strong> : JPQL이 아닌 Native Query로 작성된 SQL로 인한, DBMS의 전환 시 중복 개발 발생.<br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> : <br><br>
+   o <strong>원인</strong> : 서브쿼리 혹은 Oracle의 그룹함수 등이 불가피하게 사용되었다. 서브쿼리는 메인 캘린더의 렌더링시 속도 저하를 방지하기 위한 One Query 서비스에 사용되었고, 날짜와 관련 다양한 정보를 테이블에서 조회하기 위해 Oracle의 그룹 함수 몇 개가 사용되었다. 프로젝트의 대부분 SQL은 JQPL로 작성되었지만, DBMS 전환시에는 상기의 Native Query을 일일이 목표 DBMS에 맞게 수정해야 한다. 따라서 중복 개발이 발생한다. <br><br>
+   o <strong>해결안</strong> : 명확한 해결방법은 찾지 못하였지만, Native Query를 JPQL로 대체하는 방법을 고안해야 한다. 서브쿼리를 대체하며 성능저하를 막는 비즈니스 로직을 고안하거나, QueryDSL을 사용하는 등의 방법을 찾아볼 수 있다. <br><br>
 </details>
 
 <details>
