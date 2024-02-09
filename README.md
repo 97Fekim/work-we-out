@@ -159,9 +159,9 @@
 <details>
   <summary>📒 다른 서버와 요청간 CORS 정책 위반</summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> : <br><br>
+   o <strong>현상</strong> : 온디맨드배치 실행 요청(API서버 -> 배치서버)시 도메인 불일치로 인한 CORS 정책 위반 <br><br>
+   o <strong>원인</strong> : 프로그램의 설계상, 자원이 서비스되는 최초 도메인은 API서버(8080 port)의 도메인이지만 온디맨드 배치 프로그램의 실행은 배치 서버(8081 port)에서 처리되기 때문에 CORS정책의 위반을 피할 수 없었다.<br><br>
+   o <strong>해결안</strong> : JSONP를 이용한 GET방식 요청을 통해, CORS를 우회한 요청을 배치서버로 보낼 수 있었다. 이를 활용하여 정기 배치 도중 실패한 대상을 재수행하는 서비스를 구현 가능했다.<br><br>
 </details>
 
 <details>
