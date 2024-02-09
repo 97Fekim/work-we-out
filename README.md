@@ -150,9 +150,10 @@
 <details>
   <summary>📒 Stateless 세션 정책에 의해, 모든 Ajax 요청의 인증 실패</summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> : <br><br>
+   o <strong>현상</strong> : Ajax 요청에만 유효하지 않은 세션ID가 담겨있었다. 의아함을 느껴 Ajax 가 아닌 다른 요청의 세션ID 를 분석해 본 결과, 서버에서 인증 가능한 세션ID를 매번 새로 만들어주고 있었다. <br><br>
+   o <strong>원인</strong> : 세션 정책을 Stateless 로 설정해 둔 것이 원인. 비동기 통신인 AJAX는 Stateless한 SessionID를 보장하지 못하기 때문이다.<br><br>
+   o <strong>해결안</strong> : 세션 관리 방식을 Default 방식인 IF_REQUIRED로 수정. 따라서 하나의 세션ID가 유지되도록 함(Statefull). <br>
+  원인분석을 하면서 의도치 않게 CORS정책에 관해서 많이 공부하게 되었다. 초기에는 "CORS정책에 의한 인증 거부"를 원인으로 가정했기 때문이다. 또한 문제 해결 과정에서 AuthenticationEntryPoint(인증 실패)와 AccessDeniedHandler(인가 실패) 개념을 숙지하였고, Session와 Cookie의 관리방식을 눈으로 보며 체감할 수 있었다.<br><br>
 </details>
 
 <details>
