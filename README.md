@@ -130,15 +130,19 @@
 <details>
   <summary>📒 개념 모델링 단계에서 놓친 엔티티의 데이터 관리 난해</summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> : <br><br>
+   o <strong>현상</strong> : 개인운동캘린더에서 보여지는 [운동부위 컴포넌트의 색깔] 그리고 그룹운동캘린더에서 보여지는 [회원 컴포넌트의 색깔] 이 두 가지 매핑 정보는 DB가 아닌, 화면 스크립트에서 Map으로 관리되고 있다.<br><br>
+   o <strong>원인</strong> : "색깔 정보"의 관리 방식을 개념 모델링 단계에서 명확하게 정의하지 않은 탓이다. 색깔에 관련된 정보는 랜덤으로 부여되기 보다, 명확하게 정해져 있어야 한다. 하지만 이를 스크립트에서 관리하게 될 경우 일관성을 보장하기 위해서는 스크립트를 주기적으로 수정해야 하는 필요성이 생긴다.<br><br>
+   o <strong>해결안</strong> : DB설계의 변경은 다른 무엇보다 사이드 이펙트가 크기 때문에, 개념 모델링 단계에서 명확한 엔티티 식별의 중요성을 다시 한번 느낀다. 그럼에도 고안안 해결안은 아래와 같다.<br><br>
+  1) 색깔 정보 마스터 테이블의 추가<br>
+  2) 운동부위-색깔 정보 릴레이션 테이블의 추가<br>
+  3) 회원-색깔 정보 릴레이션 테이블의 추가<br>
+  <br>
 </details>
 
 <details>
   <summary>📒 Native Query 강요에 의한 JPA의 DBMS 종속</summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
+   o <strong>현상</strong> : JPQL이 아닌 Native Query로 작성된 SQL로 인한, DBMS의 전환 시 중복 개발 발생.<br><br>
    o <strong>원인</strong> : <br><br>
    o <strong>해결안</strong> : <br><br>
 </details>
