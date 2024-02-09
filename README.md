@@ -109,17 +109,22 @@
 <details>
   <summary>📒 프론트엔드 프레임워크의 부재로 인한 개발 생산성 저하</summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> : <br><br>
+   o <strong>현상</strong> : 무겁고 복잡한 CSR 스크립트.<br><br>
+   o <strong>원인</strong> : 화면 데이터의 렌더링 방식의 90%는 CSR(Client Side Rendaring)방식이었다. 프론트엔트 프레임워크를 사용하지 않고, CSR를 바닐라 Javascript 만으로 구현한 탓에 createElement, setAttribute, appendChild 등의 남발을 하게 되어 스크립트는 복잡하고 무거워졌으며, 기술적인 한계에 부딪혔다.<br><br>
+   o <strong>해결안</strong> : 리액트 등의 프론트엔드 프레임워크의 존재 이유를 몸소 체감하게 되었고, 학습의 필요성을 느꼈다. 많은 신규 기능의 추가가 확신된다면, 프론트엔드 소스의 재 설계 및 개발이 필요할 듯 싶다.<br><br>
 </details>
 
 <details>
   <summary>📒 잦은 변경/삭제 가 일어나는 PK에 대한 인덱스 설계 미흡</summary>
   <br> 
-   o <strong>현상</strong> : 운동일지운동종목ID의 수정삭제가 빈번한 이슈<br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> : <br><br>
+   o <strong>현상</strong> : "운동일지운동종목" 테이블의 PK이며 Unique Index인 운동일지운동종목ID의 빈번한 수정 및 삭제 발생. 이로 인해 인덱스 컬럼임에도 불구하고 조회 성능의 저하.<br><br>
+   o <strong>원인</strong> : "운동일지운동종목: 테이블은 수정 및 삭제가 매우 빈번하게 일어나는 테이블이다. 그 이유는 운동일지수정 트랜잭션이 아래의 처리를 하기 때문이다.<br>
+  1) 기존의 운동일지운동종목 cascade all 삭제<br> 
+  2) 입력받은 새로운 운동일지운동종목으로 모두 INSERT<br>
+  따라서 실제로 "운동일지운동종목" 테이블에 존재하는 row의 갯수보다 인덱스의 양이 비대해져 성능 저하가 발생할 가능성이 높다. <br><br>
+   o <strong>해결안</strong> : 테이블 구조 수정 or 인덱스 삭제가 강요된다. 그 이유는 운동일지 수정 트랜잭션의 처리 로직을 바꾸는 것은 쉽지 않기 때문이다.(화면에서 테이블의 PK를 추적하기 쉽지 않음) 따라서 고안한 해결 방안은 아래의 두 가지 방법이다.<br>
+  1) 테이블에 del_yn 컬럼을 두고, row의 삭제가 일어날때 논리적 삭제처리만 하여 불필요한 인덱스 row 증가를 방지한다.<br>
+  2) PK에 대한 인덱스를 삭제처리한 후, 다른 컬럼의 조합으로 Unique 인덱스를 생성한다. <br><br>
 </details>
 
 <details>
