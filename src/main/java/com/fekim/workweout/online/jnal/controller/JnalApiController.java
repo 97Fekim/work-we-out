@@ -141,11 +141,6 @@ public class JnalApiController {
                                         @RequestBody WkoutJnalDTO jnalDTO) {
         Long mbrId = (Long) session.getAttribute("LOGIN_MEMBER");
 
-        /* 본인이 속하지 않은 운동일지에 접근시, 응답코드:403 */
-        if (!memberService.isJnalOfMember(mbrId, jnalDTO.getJnalId())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
         jnalDTO.setMbrId(mbrId);
 
         jnalService.createJnal(jnalDTO, mbrId);
