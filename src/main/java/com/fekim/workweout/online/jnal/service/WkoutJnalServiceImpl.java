@@ -307,7 +307,7 @@ public class WkoutJnalServiceImpl implements WkoutJnalService {
                             .weight(wkoutJnalMethodDTO.getWeight())
                             .sets(wkoutJnalMethodDTO.getSets())
                             .reps(wkoutJnalMethodDTO.getReps())
-                            .reps(wkoutJnalMethodDTO.getRestTime())
+                            .restTime(wkoutJnalMethodDTO.getRestTime())
                             .build()
             );
         }
