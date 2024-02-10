@@ -9,7 +9,7 @@
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/d2a74a5a-6216-45c3-b7f9-cc6e01705867" width="320px" height="560px" />
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/666218cf-2d68-4f3f-a3a5-1bca93de79ff" width="320px;" height="560px" />
 
-### 📆 2nd. 서로의 운동을 공유하는 그룹운동캘린더를 제공합니다.
+### 📆 2nd. 운동을 공유하는 그룹운동캘린더를 제공합니다.
 > - 그룹의 멤버간 <strong>운동스케줄 공유</strong>, 동기부여를 도모합니다.
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395" width="320px;" />
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254" width="320px;" />
@@ -20,7 +20,7 @@
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395" width="320px;" />
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254" width="320px;" />
 
-### 📩 4th. 내 운동통계 자료를 문자로 받을 수 있는 기능을 제공합니다.
+### 📩 4th. 내 운동통계 자료를 문자로 받는 기능을 제공합니다.
 > - 직접 조회하기 바쁜 유저를 위해, 주간/월간 운동통계 자료를 <strong>정기적으로 발송합니다.</strong><br>
 > - 문자 수신여부는 <strong>선택이 가능</strong>합니다.
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395" width="320px;" />
