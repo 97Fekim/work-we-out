@@ -76,6 +76,8 @@
      * 로그인 POST
      * */
     function signIn() {
+	
+	    console.log("port = " + port_API);
 
         $.ajax({
             type: "POST",
@@ -108,6 +110,11 @@
 
     // 회원가입 페이지로 이동
     function redirectSignUp() {
+	
+	    
+	
+	    console.log("port = " + port_API);
+	
         location.href=domain+':'+port_API+'/member/sign-up';
     }
 
