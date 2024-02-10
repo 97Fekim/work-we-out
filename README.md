@@ -4,10 +4,20 @@
 > [배치 서버 프로젝트](https://github.com/97Fekim/work-we-out_batch)
 
 ## 🔘 소개
-🎟날짜별 운동부위를 요약한 운동캘린더를 제공합니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎟날짜별 운동부위를 요약한 운동캘린더를 제공합니다.<br>
-🎟칼같은 운동루틴을 지키는 "헬창"유저들에게 편의성을 제공합니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎟날짜별 운동부위를 요약한 운동캘린더를 제공합니다.<br>
-![image](https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![image](https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254) 
-
+<div>
+  <span display="inline">
+    <div>🎟날짜별 운동부위를 요약한 운동캘린더를 제공합니다.</div>
+    <div>
+      <img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395"/>
+    </div>
+  </span>
+  <span display="inline">
+    <div>🎟날짜별 운동부위를 요약한 운동캘린더를 제공합니다.</div>
+    <div>
+      <img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254"/>
+    </div>
+  </span>  
+</div>
 
 ## 🔘 프로젝트 기간
 
