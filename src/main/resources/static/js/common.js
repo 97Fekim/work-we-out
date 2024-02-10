@@ -80,8 +80,8 @@ var port_BTCH = "81";
 // 운동부위 컬러 MAP 생성
 function createPartColorMap() {
     partColorMap = new Map([
-        ['가슴', '#c0ed70'],
-        ['등', 'moccasin'],
+        ['가슴', 'hotpink'],
+        ['등', 'orange'],
         ['하체', 'lightskyblue'],
         ['삼두', 'hotpink'],
         ['이두', '#c0ed70'],
