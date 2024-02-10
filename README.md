@@ -4,8 +4,30 @@
 > [배치 서버 프로젝트](https://github.com/97Fekim/work-we-out_batch)
 
 ## 🔘 소개
-#### 📆 날짜별 운동부위를 요약한 운동캘린더를 제공합니다. 
-> <strong>칼같은 운동루틴을 지키는 "헬창"유저들에게 편의성을 제공합니다.</strong>
+### 📆 1st. 날짜별 운동부위를 요약한 운동캘린더를 제공합니다. 
+> - 칼같은 운동루틴을 지키는 "헬창"유저들에게 편의성을 제공합니다.
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395"/>
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254"/>
+
+### 📆 2nd. 서로의 운동을 공유하는 그룹운동캘린더를 제공합니다.
+> - 그룹의 멤버간 <strong>운동스케줄 공유</strong>, 동기부여를 도모합니다.
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395"/>
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254"/>
+
+### 📊 3rd. 운동 통계 서비스를 제공합니다.
+> - <strong>[내 운동통계] , [우리 그룹의 운동통계]</strong> 자료를 확인 할 수 있습니다.<br>
+> - [<strong>주간</strong> 운동통계] , [<strong>월간</strong> 운동통계] 모두 한 눈에 확인 가능합니다.
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395"/>
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254"/>
+
+### 📩 4th. 내 운동통계 자료를 문자로 받을 수 있는 기능을 제공합니다.
+> - 직접 조회하기 바쁜 유저를 위해, 주간/월간 운동통계 자료를 <strong>정기적으로 발송합니다.</strong><br>
+> - 문자 수신여부는 <strong>선택이 가능</strong>합니다.
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395"/>
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254"/>
+
+### 🛠 5th. 문자 발송이 실패한 자료를 재발송 할 수 있습니다.
+> - 프로그램 <strong>관리자에 한하여 이용 가능합니다.</strong><br>
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395"/>
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254"/>
 
