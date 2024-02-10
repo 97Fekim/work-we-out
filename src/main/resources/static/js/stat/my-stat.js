@@ -544,7 +544,7 @@ function renderMethodWeiIncs(methodWeiIncs) {
             ],
         },
         options: {
-            maintainAspectRatio: false, //그래프의 비율 유지
+            maintainAspectRatio: true, //그래프의 비율 유지
             plugins: {
                 legend: {
                     display: true,
