@@ -49,6 +49,7 @@ public class WebSecurityConfig {
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
+                                .requestMatchers("/h2-console", "/h2-console/**").permitAll()
                                 .requestMatchers("member/sign-up", "member/sign-in").permitAll()
                                 .requestMatchers("/stat/manage/", "/stat/manage/**").hasRole("ADMIN")
                                 .requestMatchers("/", "/**").hasAnyRole("USER")
