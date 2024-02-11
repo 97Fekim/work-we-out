@@ -5,9 +5,9 @@
 ## 🔘 소개
 ### 📆 1st. 날짜별 운동부위를 요약한 운동캘린더를 제공합니다. 
 > - 칼같은 운동루틴을 지키는 "헬창"유저들에게 편의성을 제공합니다.
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/3a2e3f41-ac27-4a46-ae1b-e3e24fdb263a"/>
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/bdc8ee4a-6f62-43c8-bc70-e72d42c20392"/>
 
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/d2a74a5a-6216-45c3-b7f9-cc6e01705867" width="320px" height="560px" />
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/666218cf-2d68-4f3f-a3a5-1bca93de79ff" width="320px;" height="560px" />
 
 ### 📆 2nd. 운동을 공유하는 그룹운동캘린더를 제공합니다.
 > - 그룹의 멤버간 <strong>운동스케줄 공유</strong>, 동기부여를 도모합니다.
