@@ -8,11 +8,10 @@
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/3a2e3f41-ac27-4a46-ae1b-e3e24fdb263a"/>
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/bdc8ee4a-6f62-43c8-bc70-e72d42c20392"/>
 
-
 ### 📆 2nd. 운동을 공유하는 그룹운동캘린더를 제공합니다.
 > - 그룹의 멤버간 <strong>운동스케줄 공유</strong>, 동기부여를 도모합니다.
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395" width="320px;" />
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254" width="320px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/69d490a2-d289-4a16-9ab5-5dc45821aec2" width="324px;" height="586px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/c09d1c65-cabd-4a9f-a53b-3c28ded35004" width="320px;" height="586px;" />
 
 ### 📊 3rd. 운동 통계 서비스를 제공합니다.
 > - <strong>[내 운동통계] , [우리 그룹의 운동통계]</strong> 자료를 확인 할 수 있습니다.<br>
