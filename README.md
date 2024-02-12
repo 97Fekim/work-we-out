@@ -5,19 +5,19 @@
 ## 🔘 소개
 ### 📆 1st. 날짜별 운동부위를 요약한 운동캘린더를 제공합니다. 
 > - 칼같은 운동루틴을 지키는 "헬창"유저들에게 편의성을 제공합니다.
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/3a2e3f41-ac27-4a46-ae1b-e3e24fdb263a"/>
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/bdc8ee4a-6f62-43c8-bc70-e72d42c20392"/>
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/85c4e0ad-f06e-4466-bd1b-80ce132d1a70" width="324px;" height="550px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/427a2174-7836-4e48-867b-0ff69e4e88be" width="324px;" height="550px;" />
 
 ### 📆 2nd. 운동을 공유하는 그룹운동캘린더를 제공합니다.
 > - 그룹의 멤버간 <strong>운동스케줄 공유</strong>, 동기부여를 도모합니다.
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/445109c5-8f24-4f97-8933-6f80ce1aaa46" width="324px;" height="586px;" />
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/f6a88907-4671-41de-9d8b-40f22b70db6e" width="320px;" height="586px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/bbaa7caf-0ef1-4ee4-970b-f7a84c75d022" width="324px;" height="550px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/99928707-9f61-49b8-bb3d-f4e5898a63c7" width="320px;" height="550px;" />
 
 ### 📊 3rd. 운동 통계 서비스를 제공합니다.
 > - <strong>[내 운동통계] , [우리 그룹의 운동통계]</strong> 자료를 확인 할 수 있습니다.<br>
 > - [<strong>주간</strong> 운동통계] , [<strong>월간</strong> 운동통계] 모두 한 눈에 확인 가능합니다.
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/3915f767-841d-4b91-9f11-589646655943" width="320px;" height="586px;" />
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/54738b41-b7d8-4884-a64a-66e9fdcf1fad" width="320px;" height="586px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/89bfff54-9a9a-4fd6-8bfc-fd1eddc71101" width="320px;" height="550px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/546e9c34-6b9d-4b41-a712-28b5ac173bbf" width="320px;" height="550px;" />
 
 ### 📩 4th. 내 운동통계 자료를 문자로 받는 기능을 제공합니다.
 > - 직접 조회하기 바쁜 유저를 위해, 주간/월간 운동통계 자료를 <strong>정기적으로 발송합니다.</strong><br>
