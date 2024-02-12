@@ -22,13 +22,13 @@
 ### 📩 4th. 내 운동통계 자료를 문자로 받는 기능을 제공합니다.
 > - 직접 조회하기 바쁜 유저를 위해, 주간/월간 운동통계 자료를 <strong>정기적으로 발송합니다.</strong><br>
 > - 문자 수신여부는 <strong>선택이 가능</strong>합니다.
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/29a1b4fb-b6d3-466c-985f-e85124a9b1f2" width="320px;" height="586px;" />
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/11535d05-3dbe-47d3-8150-6d80b69da85e" width="320px;" height="586px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/29a1b4fb-b6d3-466c-985f-e85124a9b1f2" width="320px;" height="550px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/11535d05-3dbe-47d3-8150-6d80b69da85e" width="320px;" height="550px;" />
 
 ### 🛠 5th. 문자 발송이 실패한 자료를 재발송 할 수 있습니다.
 > - 프로그램 <strong>관리자에 한하여 이용 가능합니다.</strong><br>
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/6e78ad56-2ccf-4f95-b3ac-7fdce3e0c395" width="320px;" />
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/1ba967bc-8451-4a32-a40c-11f42c170254" width="320px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/6b029938-dd39-47d0-93a9-c952fab92184" width="320px;" height="550px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/7c57ed77-5969-436b-9754-4179cb75ef91" width="320px;" height="550px;" />
 
 ## 🔘 프로젝트 기간
 
