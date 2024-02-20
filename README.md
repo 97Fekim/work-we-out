@@ -194,7 +194,7 @@
   <br> 
    o <strong>현상</strong> : chunk size = 1  조건에서 문제가 발생. 예를 들어 6건의 데이터가 존재하는 경우에, [2,4,6] 번째 Item은 processor로 전달되지 않는 버그가 발생.<br><br>
    o <strong>원인</strong> : 로그 분석 결과, [1,3,5] 번째 Item을 조회할때 각각 2번의 select qeury가 실행되어 [2,4,6] 번째 Item이 through pass 처리됨.<br><br>
-   o <strong>해결안</strong> : 임시적으로 chunk size = 1000 으로 설정하여 해결함. 근본적인 해결 방안 고안 필요.<br><br>
+   o <strong>해결안</strong> : 임시적으로 chunk size = 1000 으로 설정하여 해결함. ItemReader의 queryString join문 부분에 fetch를 삽입하여 해결하는 방안을 테스트할 예정.<br><br>
 </details>
 
 <details>
