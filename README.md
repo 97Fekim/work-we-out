@@ -2,7 +2,9 @@
 > - [API 서버 프로젝트](https://github.com/97Fekim/work-we-out)
 > - [배치 서버 프로젝트](https://github.com/97Fekim/work-we-out_batch)
 
-## 🔘 소개
+<details close>
+  <summary><h2>🔘 소개</h1></summary>
+
 ### 📆 1st. 날짜별 운동부위를 요약한 운동캘린더를 제공합니다. 
 > - 칼같은 운동루틴을 지키는 "헬창"유저들에게 편의성을 제공합니다.
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/85c4e0ad-f06e-4466-bd1b-80ce132d1a70" width="324px;" height="550px;" />
@@ -29,6 +31,7 @@
 > - 프로그램 <strong>관리자에 한하여 이용 가능합니다.</strong><br>
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/6b029938-dd39-47d0-93a9-c952fab92184" width="320px;" height="550px;" />
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/7c57ed77-5969-436b-9754-4179cb75ef91" width="320px;" height="550px;" />
+</details>
 
 ## 🔘 프로젝트 기간
 
