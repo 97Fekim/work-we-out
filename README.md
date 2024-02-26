@@ -2,8 +2,8 @@
 > - [API 서버 프로젝트](https://github.com/97Fekim/work-we-out)
 > - [배치 서버 프로젝트](https://github.com/97Fekim/work-we-out_batch)
 
-<details open>
-  <summary><h2>🔘 소개</h1></summary>
+<details close>
+  <summary><h2>🔘 소개</h1> (펼쳐서 확인할 수 있습니다.)</summary>
 
 ### 📆 1st. 날짜별 운동부위를 요약한 운동캘린더를 제공합니다. 
 > - 칼같은 운동루틴을 지키는 "헬창"유저들에게 편의성을 제공합니다.
@@ -110,7 +110,7 @@
 <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
 
 ### 빌드 및 배포
-<img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/windows10-0078D6?style=for-the-badge&logo=windows10&logoColor=white">  <img src="https://img.shields.io/badge/apache http server-D22128?style=for-the-badge&logo=apache&logoColor=black">  <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black"> 
+<img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">  <img src="https://img.shields.io/badge/apache http server-D22128?style=for-the-badge&logo=apache&logoColor=black">  <img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black"> 
 
 ### 형상관리
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
@@ -127,9 +127,9 @@
 ## 🔘 인프라 아키텍처
 ### Release 1.0.0 ↓
 ![제목 없는 다이어그램 drawio (1)](https://github.com/97Fekim/work-we-out/assets/81150979/aba71622-1f20-4cc8-8269-ebb58aba83d9)
-
+<br><br><br>
 ### Release 1.0.1 ↓
-
+![인프라 Release1 0 1](https://github.com/97Fekim/work-we-out/assets/81150979/69b205d3-32ed-4eff-a6de-029c7066328d)
 
 ## 🔘 트러블슈팅 및 배운 점
 <details>
