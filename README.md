@@ -129,7 +129,7 @@
 ![제목 없는 다이어그램 drawio (1)](https://github.com/97Fekim/work-we-out/assets/81150979/aba71622-1f20-4cc8-8269-ebb58aba83d9)
 <br><br><br>
 ### 2️⃣ 컨테이너 기반 아키텍처 ↓
-![인프라 Release1 0 1](https://github.com/97Fekim/work-we-out/assets/81150979/2ef45ef1-ad99-401e-9b5f-69c8be5ddac8)
+![인프라 Release1 0 1](https://github.com/97Fekim/work-we-out/assets/81150979/d5ca3379-dc55-4164-b7c1-bcb67d3bba32)
 
 
 ## 🔘 트러블슈팅 및 배운 점
