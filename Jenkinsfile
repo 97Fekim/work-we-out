@@ -13,7 +13,8 @@ pipeline{
         stage('Clean'){
             steps{
                 script {
-                    
+                    try{
+					
                     }catch(e){
                         
                     }
