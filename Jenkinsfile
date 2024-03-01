@@ -1,5 +1,7 @@
 pipeline{
-    agent any
+    agent {
+	    label 'linux'
+	}
 
     environment {
        CONTAINER_NAME="work-we-out"
@@ -17,24 +19,24 @@ pipeline{
             steps{
                 script {
                     try{
-                        bat "docker stop ${CONTAINER_NAME}"
+                        sh "docker stop ${CONTAINER_NAME}"
                         sleep 1
-                        bat "docker rm ${CONTAINER_NAME}"
+                        sh "docker rm ${CONTAINER_NAME}"
                     }catch(e){
-                        bat 'exit 0'
+                        sh 'exit 0'
                     }
                 }
             }
         }
         stage('Build') {
             steps {
-                bat "docker build -t ${NAME} ."
+                sh "docker build -t ${NAME} ."
             }
         }
         stage('Deploy'){
             steps {
-                bat "docker tag ${NAME}:latest ${NAME}:${VERSION}"
-                bat "docker run -d --name=${CONTAINER_NAME} -p 8080:8080 ${NAME}:latest"
+                sh "docker tag ${NAME}:latest ${NAME}:${VERSION}"
+                sh "docker run -d --name=${CONTAINER_NAME} -p 8080:8080 ${NAME}:latest"
             }
         }
     }
