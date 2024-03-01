@@ -31,7 +31,7 @@
 > - 프로그램 <strong>관리자에 한하여 이용 가능합니다.</strong><br>
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/6b029938-dd39-47d0-93a9-c952fab92184" width="320px;" height="550px;" />
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/7c57ed77-5969-436b-9754-4179cb75ef91" width="320px;" height="550px;" />
-</details>
+</details> 
 
 ## 🔘 프로젝트 기간
  
