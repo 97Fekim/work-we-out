@@ -5,7 +5,7 @@ pipeline{
        CONTAINER_NAME="work-we-out"
        NAME = "work-we-out"
 	   VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
-	   GIT_URL="http://180.233.234.220:2014/git/work-we-out.git"
+	   GIT_URL="https://github.com/97Fekim/work-we-out.git"
     }
     stages {
         stage('Pull') {
