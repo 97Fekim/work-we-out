@@ -33,7 +33,6 @@ pipeline{
         }
         stage('Deploy'){
             steps {
-                docker tag ${NAME}:latest ${NAME}:${VERSION}
                 docker run -d --name=${CONTAINER_NAME} -p 8080:8080 ${NAME}:latest
             }
         }
