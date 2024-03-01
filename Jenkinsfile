@@ -28,7 +28,7 @@ pipeline{
         }
         stage('Build') {
             steps {
-                docker build -t ${NAME} .
+                docker build -t ${NAME}
             }
         }
         stage('Deploy'){
