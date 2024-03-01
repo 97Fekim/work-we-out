@@ -33,7 +33,7 @@ pipeline{
         }
         stage('Deploy'){
             steps {
-                docker run -d --name=${CONTAINER_NAME} -p 8080:8080 ${NAME}:latest
+                docker run -d --name ${CONTAINER_NAME} -p 8080:8080 ${NAME}
             }
         }
     }
