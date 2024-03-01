@@ -1,7 +1,5 @@
 pipeline{
-    agent {
-	    label 'linux'
-	}
+    agent any
 
     environment {
        CONTAINER_NAME="work-we-out"
