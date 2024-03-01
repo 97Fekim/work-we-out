@@ -17,23 +17,24 @@ pipeline{
             steps{
                 script {
                     try{
-                        docker stop ${CONTAINER_NAME}
+                        sh "docker stop ${CONTAINER_NAME}"
                         sleep 1
-                        docker rm ${CONTAINER_NAME}
+                        sh "docker rm ${CONTAINER_NAME}"
                     }catch(e){
-                        echo "Error caused in Clean"
+                        sh 'exit 0'
                     }
                 }
             }
         }
         stage('Build') {
             steps {
-                docker build -t ${NAME}
+                sh "docker build -t ${NAME} ."
             }
         }
         stage('Deploy'){
             steps {
-                docker run -d --name ${CONTAINER_NAME} -p 8080:8080 ${NAME}
+                sh "docker tag ${NAME}:latest ${NAME}:${VERSION}"
+                sh "docker run -d --name=${CONTAINER_NAME} -p 8080:8080 ${NAME}:latest"
             }
         }
     }
