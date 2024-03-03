@@ -10,7 +10,7 @@ pipeline{
     stages {
         stage('Pull') {
             steps {
-                git url:"${GIT_URL}", branch:"master", poll:true, changelog:true,credentialsId: 'Fekim'
+                git url:"https://github.com/97Fekim/work-we-out.git", branch:"master", poll:true, changelog:true,credentialsId: 'token'
             }
         }
         stage('Clean'){
