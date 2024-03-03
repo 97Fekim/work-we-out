@@ -131,6 +131,8 @@
 ### 2️⃣ 컨테이너 기반 아키텍처 ↓
 ![인프라 Release1 0 1 (1)](https://github.com/97Fekim/work-we-out/assets/81150979/ebd15672-9ca9-4f3f-a8cd-5dd868923527)
 
+## 🔘 CI / CD
+![인프라 Release 1 0 2](https://github.com/97Fekim/work-we-out/assets/81150979/25e732cf-f022-40dc-b375-2df118cba956)
 
 ## 🔘 트러블슈팅 및 배운 점
 <details>
