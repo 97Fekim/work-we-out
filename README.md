@@ -2,6 +2,16 @@
 > - [API 서버 프로젝트](https://github.com/97Fekim/work-we-out)
 > - [배치 서버 프로젝트](https://github.com/97Fekim/work-we-out_batch)
 
+## 🔘 목차
+> ### 1. 소개
+> ### 2. 프로젝트 기간
+> ### 3. 설계
+> ### 4. 사용 기술
+> ### 5. 데이터 관계 모델
+> ### 6. 인프라 아키텍처
+> ### 7. CI / CD
+> ### 8. 트러블슈팅 및 배운점
+
 ## 🔘 소개
 <details close>
   <summary><strong>(소개 이미지 펼치기)</strong></summary>
