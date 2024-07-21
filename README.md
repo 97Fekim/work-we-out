@@ -7,9 +7,8 @@
 > ### 2. 프로젝트 기간
 > ### 3. 설계
 > ### 4. 사용 기술
-> ### 5. 데이터 관계 모델
-> ### 6. 인프라 아키텍처
-> ### 7. 트러블슈팅 및 배운점
+> ### 5. 인프라 아키텍처
+> ### 6. 트러블슈팅 및 배운점
 
 ## 🔘 소개
 <details close>
@@ -67,10 +66,11 @@
   </details>
   
   <details open>
-    <summary>&nbsp;&nbsp;&nbsp;⏰배포 및 통합테스트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2024.02.04 ~ 2024.03.02 → 28일간] </summary>
+    <summary>&nbsp;&nbsp;&nbsp;⏰배포 및 통합테스트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2024.02.04 ~ yyyy.mm.dd → n일간] </summary>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳초기 운영서버 구축&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2024.02.04 ~ 2024.02.17 → 14일간]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳운영 서버 컨테이너 전환&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;[2024.02.18 ~ 2024.02.24 → 7일간]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳CI/CD 환경 구축&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;[2024.02.25 ~ 2024.03.02 → 7일간]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳클라우드 마이그레이션&nbsp&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;[2024.07.21 ~ yyyy.mm.dd → n일간]<br>    
   </details>
 </details>
 
@@ -134,14 +134,6 @@
 ### 보안
 <img src="https://img.shields.io/badge/aws secrets manager-DD344C?style=for-the-badge&logo=awssecretsmanager&logoColor=white">
 
-## 🔘 데이터 관계 모델
-> - domain1 - 회원 도메인
-> - domain2 - 운동일지 도메인
-> - domain3 - 그룹 도메인
-> - domain4 - 운동통계 도메인
-
-![image](https://github.com/97Fekim/work-we-out/assets/81150979/f341835d-f017-42c3-a977-030ef009f589)
-
 
 ## 🔘 인프라 아키텍처
 
@@ -160,7 +152,7 @@
 <br><br><br>
 
 ### 4️⃣ 컨테이너 오케스트레이션 기반 아키텍처
-> 2024.06 개발 예정
+> 2024.12 개발 예정
 <br><br><br>
 
 
