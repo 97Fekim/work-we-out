@@ -38,7 +38,7 @@ public interface WkoutJnalRepository extends JpaRepository<WkoutJnal, Long> {
             "AND TD.DD = JNALS.DD " +
             "WHERE TD.YYYY = :#{#yyyyMm.cuofYyyy} " +
             "  AND TD.MM = :#{#yyyyMm.cuofMm} " +
-            "ORDER BY yyyy, mm, dd; "
+            "ORDER BY yyyy, mm, dd "
             , nativeQuery = true)
     List<Object[]> findOneMonthCalendarObjects(@Param("mbrId")Long mbrId, @Param("yyyyMm")YyyyMm yyyyMm);
 
@@ -81,7 +81,7 @@ public interface WkoutJnalRepository extends JpaRepository<WkoutJnal, Long> {
             "AND TD.DD = MEMBERS.DD " +
             "WHERE TD.YYYY = :#{#yyyyMm.cuofYyyy} " +
             "  AND TD.MM = :#{#yyyyMm.cuofMm} " +
-            "ORDER BY yyyy, mm, dd; " +
+            "ORDER BY yyyy, mm, dd " +
             "", nativeQuery = true)
     List<Object[]> findOneMonthGrpCalendarObject(@Param("grpId")Long grpId, @Param("yyyyMm")YyyyMm yyyyMm);
 

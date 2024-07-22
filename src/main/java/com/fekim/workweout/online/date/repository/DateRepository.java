@@ -33,7 +33,7 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             "  AND CUOF_YYYY = :#{#cuofYyyyMmW.cuofYyyy} " +
             "  AND CUOF_MM = :#{#cuofYyyyMmW.cuofMm} " +
             "  AND CUOF_WEEK = :#{#cuofYyyyMmW.cuofWeek} " +
-            "ORDER BY BF_CUOF_YYYY, BF_CUOF_MM, BF_CUOF_WEEK; "
+            "ORDER BY BF_CUOF_YYYY, BF_CUOF_MM, BF_CUOF_WEEK "
             , nativeQuery = true)
     List<Object[]> findBeforeCuofYyyyMmW(@Param("cuofYyyyMmW") YyyyMmW cuofYyyyMmW,
                                    @Param("range") Long range);
@@ -58,7 +58,7 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             "  AND CUOF_YYYY = :#{#cuofYyyyMmW.cuofYyyy} " +
             "  AND CUOF_MM = :#{#cuofYyyyMmW.cuofMm} " +
             "  AND CUOF_WEEK = :#{#cuofYyyyMmW.cuofWeek} " +
-            "ORDER BY AF_CUOF_YYYY, AF_CUOF_MM, AF_CUOF_WEEK; "
+            "ORDER BY AF_CUOF_YYYY, AF_CUOF_MM, AF_CUOF_WEEK "
             , nativeQuery = true)
     List<Object[]> findAfterCuofYyyyMmW(@Param("cuofYyyyMmW") YyyyMmW cuofYyyyMmW,
                                          @Param("range") Long range);
@@ -79,7 +79,7 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             "WHERE 1=1  " +
             "  AND CUOF_YYYY = :#{#cuofYyyyMm.cuofYyyy} " +
             "  AND CUOF_MM = :#{#cuofYyyyMm.cuofMm} " +
-            "ORDER BY BF_CUOF_YYYY, BF_CUOF_MM; "
+            "ORDER BY BF_CUOF_YYYY, BF_CUOF_MM "
             , nativeQuery = true)
     List<Object[]> findBeforeCuofYyyyMm(@Param("cuofYyyyMm") YyyyMm cuofYyyyMm,
                                          @Param("range") Long range);
@@ -100,7 +100,7 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             "WHERE 1=1  " +
             "  AND CUOF_YYYY = :#{#cuofYyyyMm.cuofYyyy} " +
             "  AND CUOF_MM = :#{#cuofYyyyMm.cuofMm} " +
-            "ORDER BY AF_CUOF_YYYY, AF_CUOF_MM; "
+            "ORDER BY AF_CUOF_YYYY, AF_CUOF_MM "
             , nativeQuery = true)
     List<Object[]> findAfterCuofYyyyMm(@Param("cuofYyyyMm") YyyyMm cuofYyyyMm,
                                         @Param("range") Long range);
@@ -121,12 +121,12 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             "     LAG(DD, :#{#range} ) OVER (ORDER BY YYYY, MM, DD) AS BF_DD, " +
             "     LAG(DAY_OF_WEEK_CLSF_CD, :#{#range} ) OVER (ORDER BY YYYY, MM, DD) AS BF_DAY_OF_WEEK_CLSF_CD " +
             "   FROM TBL_DATE " +
-            "   ORDER BY YYYY, MM, DD ) DATE " +
+            "   ORDER BY YYYY, MM, DD ) CUOF_DATE " +
             "WHERE 1=1  " +
             "  AND YYYY = :#{#yyyyMmDd.yyyy} " +
             "  AND MM = :#{#yyyyMmDd.mm} " +
             "  AND DD = :#{#yyyyMmDd.dd} " +
-            "ORDER BY BF_YYYY, BF_MM, BF_DD; "
+            "ORDER BY BF_YYYY, BF_MM, BF_DD "
             , nativeQuery = true)
     List<Object[]> findBeforeYyyyMmDd(@Param("yyyyMmDd") YyyyMmDd yyyyMmDd,
                                           @Param("range") Long range);
@@ -147,12 +147,12 @@ public interface DateRepository extends JpaRepository<Date, YyyyMmDd> {
             "     LEAD(DD, :#{#range} ) OVER (ORDER BY YYYY, MM, DD) AS AF_DD, " +
             "     LEAD(DAY_OF_WEEK_CLSF_CD, :#{#range} ) OVER (ORDER BY YYYY, MM, DD) AS AF_DAY_OF_WEEK_CLSF_CD " +
             "   FROM TBL_DATE " +
-            "   ORDER BY YYYY, MM, DD ) DATE " +
+            "   ORDER BY YYYY, MM, DD ) CUOF_DATE " +
             "WHERE 1=1  " +
             "  AND YYYY = :#{#yyyyMmDd.yyyy} " +
             "  AND MM = :#{#yyyyMmDd.mm} " +
             "  AND DD = :#{#yyyyMmDd.dd} " +
-            "ORDER BY AF_YYYY, AF_MM, AF_DD; "
+            "ORDER BY AF_YYYY, AF_MM, AF_DD "
             , nativeQuery = true)
     List<Object[]> findAfterYyyyMmDd(@Param("yyyyMmDd") YyyyMmDd yyyyMmDd,
                                       @Param("range") Long range);
