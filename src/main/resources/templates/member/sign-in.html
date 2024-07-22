@@ -70,7 +70,10 @@
 
 </body>
 
-<script>
+<script th:inline="javascript">
+
+    localStorage.setItem('work-we-out-domain', window.location.protocol + "//" + [[${albDnsName}]]);
+    localStorage.setItem('work-we-out-batch-domain', window.location.protocol + "//" + [[${batchDnsName}]])
 
     /**
      * 로그인 POST
@@ -110,12 +113,10 @@
 
     // 회원가입 페이지로 이동
     function redirectSignUp() {
+
+        console.log("domain = " + domain);
 	
-	    
-	
-	    console.log("port = " + port_API);
-	
-        location.href=domain+':'+port_API+'/member/sign-up';
+        location.href=window.domain+':'+port_API+'/member/sign-up';
     }
 
 </script>

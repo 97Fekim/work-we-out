@@ -229,7 +229,7 @@ function renderMainListModalContent(oneDayJnalsDTO) {
             var d1_frame = document.createElement("div");
             d1_frame.setAttribute("class", "extra-btn bg-sky-700 p-4 rounded-lg flex items-center justify-between");
             d1_frame.setAttribute("style", "margin:3px; display:block; background-color:lemonchiffon");
-            d1_frame.setAttribute("onclick", "location.href='/jnal/read-one-day?yyyyMmDd="+wkoutJnal.yyyy+wkoutJnal.mm+wkoutJnal.dd+"'");
+            d1_frame.setAttribute("onclick", "location.href=" + domain + port_API + "'/jnal/read-one-day?yyyyMmDd="+wkoutJnal.yyyy+wkoutJnal.mm+wkoutJnal.dd+"'");
 
             var d2_userInfo = document.createElement("div");
             d2_userInfo.setAttribute("class", "flex items-center");

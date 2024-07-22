@@ -414,7 +414,7 @@ function reSendFailedSms() {
         // (1-1) 렌더링
         $.ajax({
             type: "GET",
-            url: domain+":"+port_BTCH+"/stat/manage/weekly-re-send-failed-sms",
+            url: domain_batch+":"+port_API+"/stat/manage/weekly-re-send-failed-sms",
             dataType:'jsonp',
             xhrFields: {
                 withCredentials: true
@@ -444,7 +444,7 @@ function reSendFailedSms() {
         // (1-1) 렌더링
         $.ajax({
             type: "GET",
-            url: domain+":"+port_BTCH+"/stat/manage/monthly-re-send-failed-sms",
+            url: domain_batch+":"+port_API+"/stat/manage/monthly-re-send-failed-sms",
             dataType:'jsonp',
             data: {
                 yyyyMm : curYyyyMm
