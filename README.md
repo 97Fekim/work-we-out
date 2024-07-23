@@ -258,7 +258,7 @@
 </details>
 
 <details>
-  <summary>📒 HTML a태그의 리다이렉트 경로가 하드코딩되어있어, DNS 경로가 바뀔때마다 동적으로 관리하기 어려운 문제 </summary>
+  <summary>📒 Request 경로의 하드코딩으로 인하여, 동적인 DNS 관리가 어려운 문제 </summary>
   <br> 
    o <strong>현상</strong> : <br><br>
    o <strong>원인</strong> : <br><br>
