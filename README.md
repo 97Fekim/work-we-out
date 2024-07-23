@@ -264,3 +264,11 @@
    o <strong>원인</strong> : <br><br>
    o <strong>해결안</strong> :  <br><br>
 </details>
+
+<details>
+  <summary>📒 로컬의 localhost와 로컬 컨테이너의 localhost가 다른 점 </summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> :  <br><br>
+</details>
