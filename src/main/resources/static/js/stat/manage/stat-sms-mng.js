@@ -328,7 +328,6 @@ function renderMonthlySuccessFailCnt(yyyyMm) {
     // (1-1) 렌더링
     $.ajax({
         type: "GET",
-        port:"8080",
         url: domain+":"+port_API+"/stat/manage/monthly-stat-sms-cnt",
         dataType:'json',
         xhrFields: {

@@ -220,7 +220,7 @@ function renderJnalsContent(oneDayJnalsDTO) {
         var d4_btnModify = document.createElement("button");
         d4_btnModify.setAttribute("class", "extra-btn p-2 bg-gray-600 text-white rounded");
         d4_btnModify.setAttribute("style", "background-color: palegoldenrod; margin-right: 10px");
-        d4_btnModify.setAttribute("onclick", "location.href='/jnal/modify?jnalId="+wkoutJnal.jnalId+"'");
+        d4_btnModify.setAttribute("onclick", "location.href='" + domain + ":" + port_API + "/jnal/modify?jnalId="+wkoutJnal.jnalId+"'");
         d4_btnModify.innerText = "편집";
         var d4_btnDelete = document.createElement("button");
         d4_btnDelete.setAttribute("class", "extra-btn p-2 bg-gray-600 text-white rounded");
@@ -298,7 +298,7 @@ function removeJnal(jnalId) {
         },
         success: function (data) {
             alert("삭제 되었습니다.")
-            location.href = "/jnal/read-one-day?yyyyMmDd="+document.getElementById("YYYYMMDD").getAttribute("yyyyMmDd");
+            location.href = domain + ":" + port_API +"/jnal/read-one-day?yyyyMmDd="+document.getElementById("YYYYMMDD").getAttribute("yyyyMmDd");
         },
         error: function (request, error) {
             console.log("운동일지 삭제 중 오류가 발생하였습니다..\n");
