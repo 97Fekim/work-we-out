@@ -23,7 +23,10 @@ public class CustomUserAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        System.out.println("[DEBUG]===================CustomUserAuthenticationFilter Start==============");
+        logger.debug("[DEBUG]===================CustomUserAuthenticationFilter Start==============");
+        logger.debug("[DEBUG]request = " + request.getSession());
+        logger.debug("[DEBUG]request = " + request.getPathInfo());
+        logger.debug("[DEBUG]request = " + request.getRequestURI());
 
         Long mbrId = (Long) request.getSession().getAttribute("LOGIN_MEMBER");
 
