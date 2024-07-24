@@ -272,3 +272,11 @@
    o <strong>원인</strong> : <br><br>
    o <strong>해결안</strong> :  <br><br>
 </details>
+
+<details>
+  <summary>📒 ECS Service의 동적IP 할당에 의해, API Gateway - ECS 통합이 불가능한 점 </summary>
+  <br> 
+   o <strong>현상</strong> : <br><br>
+   o <strong>원인</strong> : <br><br>
+   o <strong>해결안</strong> :  <br><br>
+</details>
