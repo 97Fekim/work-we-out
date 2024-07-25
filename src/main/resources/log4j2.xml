@@ -53,7 +53,7 @@
     <!--Log가 찍힐 대상 설정.-->
     <Loggers>
         <!-- 스프링 프레임워크 : INFO -->
-        <logger name="org.springframework" level="debug" additivity="false" >
+        <logger name="org.springframework" level="info" additivity="false" >
             <AppenderRef ref="console" />
             <AppenderRef ref="file" />
         </logger>
@@ -65,6 +65,10 @@
         </logger>
 
         <!-- ROOT logger-->
-        <Root level="debug"></Root>
+        <!-- 어플리케이션 : DEBUG -->
+        <logger name="com.fekim" level="debug" additivity="false" >
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </logger>
     </Loggers>
 </Configuration>
