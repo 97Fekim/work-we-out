@@ -149,7 +149,7 @@
 <br><br><br>
 
 ### 3️⃣ 클라우드 네이티브 기반 아키텍처
-> 2024.07 개발 예정
+![제목 없는 다이어그램](https://github.com/user-attachments/assets/3a4e5189-2d04-451a-9be7-f5e0be93a802)
 <br><br><br>
 
 ### 4️⃣ 컨테이너 오케스트레이션 기반 아키텍처
