@@ -285,6 +285,6 @@
   <summary>📒 ECS Service 배포 후, 지속적으로 실패하는 Health Check </summary>
   <br> 
    o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
+   o <strong>원인</strong> : ElastiCache의 "전송중 암호화" 옵션이 활성화되어 있었기 때문에, HTTP 통신의 불능<br><br>
    o <strong>해결안</strong> :  <br><br>
 </details>
