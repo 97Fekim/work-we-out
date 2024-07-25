@@ -12,10 +12,10 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 public class RedisConfig {
 
-    @Value("${redisHost}")
+    @Value("${spring.data.redis.host}")
     private String host;
 
-    @Value("${redisPort}")
+    @Value("${spring.data.redis.port}")
     private String port;
 
     @Bean
