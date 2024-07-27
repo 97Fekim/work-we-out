@@ -151,7 +151,7 @@
 <br><br><br>
 
 ### 2️⃣ 컨테이너 기반 아키텍처
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/ebd15672-9ca9-4f3f-a8cd-5dd868923527" width="700px;" height="500px;" />
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/ebd15672-9ca9-4f3f-a8cd-5dd868923527" width="700px;" height="550px;" />
 
 #### ※ CI / CI
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/9dad5fdf-ce92-4d03-bcf1-7a6c7e92e139" width="700px;" height="500px;" />
