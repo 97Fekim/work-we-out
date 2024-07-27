@@ -158,7 +158,7 @@
 <br><br><br>
 
 ### 3️⃣ 클라우드 네이티브 기반 아키텍처
-<img src="https://github.com/user-attachments/assets/3a4e5189-2d04-451a-9be7-f5e0be93a802" width="700px;" height="500px;" />
+<img src="https://github.com/user-attachments/assets/c98b9b21-5ea1-4443-8caf-0f0375ff59c7" width="700px;" height="500px;" />
 <br><br><br>
 
 ### 4️⃣ 컨테이너 오케스트레이션 기반 아키텍처
