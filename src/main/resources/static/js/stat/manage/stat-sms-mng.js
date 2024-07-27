@@ -24,8 +24,7 @@ $(document).ready(function(){
     // (1-0) 전체 운동종목 로딩
     $.ajax({
         type: "GET",
-        port: "8080",
-        url: "/jnal/all-method",
+        url: domain+":"+port_API+"/jnal/all-method",
         async:false,
         dataType:'json',
         data: {},
@@ -47,8 +46,7 @@ $(document).ready(function(){
     // (1-1) 내 그룹 모두 조회하여 사이드바에 렌더링
     $.ajax({
         type: "GET",
-        port: "8080",
-        url: "/grp/my-all",
+        url: domain+":"+port_API+"/grp/my-all",
         dataType:'json',
         data: {},
         xhrFields: {
@@ -80,8 +78,7 @@ $(document).ready(function(){
     // (1-4) 처리현황 렌더링
     $.ajax({
         type: "GET",
-        port: "8080",
-        url: "/date/cuof-week",
+        url: domain+":"+port_API+"/date/cuof-week",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -128,8 +125,7 @@ function changeToWeekly() {
 
     $.ajax({
         type: "GET",
-        port: "8080",
-        url: "/date/cuof-week",
+        url: domain+":"+port_API+"/date/cuof-week",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -176,7 +172,7 @@ function changeToMonthly() {
     $.ajax({
         type: "GET",
         port: "8080",
-        url: "/date/cuof-month",
+        url: domain+":"+port_API+"/date/cuof-month",
         dataType:'json',
         async: false,
         xhrFields: {
@@ -214,8 +210,7 @@ function renderNewSuccessFailCnt(range) {
 
         $.ajax({
             type: "GET",
-            port: "8080",
-            url: "/date/new-week",
+            url: domain+":"+port_API+"/date/new-week",
             dataType:'json',
             xhrFields: {
                 withCredentials: true
@@ -291,8 +286,7 @@ function renderWeeklySuccessFailCnt(yyyyMmW) {
 
     $.ajax({
         type: "GET",
-        port: "8080",
-        url: "/stat/manage/weekly-stat-sms-cnt",
+        url: domain+":"+port_API+"/stat/manage/weekly-stat-sms-cnt",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -334,8 +328,7 @@ function renderMonthlySuccessFailCnt(yyyyMm) {
     // (1-1) 렌더링
     $.ajax({
         type: "GET",
-        port:"8080",
-        url: "/stat/manage/monthly-stat-sms-cnt",
+        url: domain+":"+port_API+"/stat/manage/monthly-stat-sms-cnt",
         dataType:'json',
         xhrFields: {
             withCredentials: true
@@ -414,7 +407,7 @@ function reSendFailedSms() {
         // (1-1) 렌더링
         $.ajax({
             type: "GET",
-            url: domain+":"+port_BTCH+"/stat/manage/weekly-re-send-failed-sms",
+            url: domain_batch+":"+port_API+"/stat/manage/weekly-re-send-failed-sms",
             dataType:'jsonp',
             xhrFields: {
                 withCredentials: true
@@ -444,7 +437,7 @@ function reSendFailedSms() {
         // (1-1) 렌더링
         $.ajax({
             type: "GET",
-            url: domain+":"+port_BTCH+"/stat/manage/monthly-re-send-failed-sms",
+            url: domain_batch+":"+port_API+"/stat/manage/monthly-re-send-failed-sms",
             dataType:'jsonp',
             data: {
                 yyyyMm : curYyyyMm

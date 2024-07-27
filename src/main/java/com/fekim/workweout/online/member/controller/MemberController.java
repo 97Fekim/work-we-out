@@ -6,6 +6,7 @@ import com.fekim.workweout.online.member.service.dto.MemberDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 public class MemberController {
 
+    @Value("${albDnsName}")
+    private String albDnsName;
+
+    @Value("${batchDnsName}")
+    private String batchDnsName;
+
     private final MemberService memberService;
 
     /* 회원가입 페이지으로 이동 */
@@ -30,8 +37,9 @@ public class MemberController {
 
     /* 로그인 페이지으로 이동 */
     @GetMapping("/sign-in")
-    public void singIn() {
-
+    public void singIn(Model model) {
+        model.addAttribute("albDnsName", albDnsName);
+        model.addAttribute("batchDnsName", batchDnsName);
     }
 
     /* 내 정보 페이지으로 이동 */
