@@ -1,6 +1,6 @@
 # work-we-out  
-> - [API 서버 프로젝트](https://github.com/97Fekim/work-we-out)
-> - [배치 서버 프로젝트](https://github.com/97Fekim/work-we-out_batch)
+> - [API 서버 프로젝트로 이동](https://github.com/97Fekim/work-we-out)
+> - [배치 서버 프로젝트로 이동](https://github.com/97Fekim/work-we-out_batch)
 
 ## 🔘 목차
 > ### 1. 소개
