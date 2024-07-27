@@ -139,17 +139,18 @@
 ## 🔘 인프라 아키텍처
 
 ### 1️⃣ 온프레미스 아키텍처
-![제목 없는 다이어그램 drawio (1)](https://github.com/97Fekim/work-we-out/assets/81150979/aba71622-1f20-4cc8-8269-ebb58aba83d9)
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/aba71622-1f20-4cc8-8269-ebb58aba83d9" width="700px;" height="500px;" />
 <br><br><br>
 
 ### 2️⃣ 컨테이너 기반 아키텍처
-![인프라 Release1 0 1 (1)](https://github.com/97Fekim/work-we-out/assets/81150979/ebd15672-9ca9-4f3f-a8cd-5dd868923527)
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/ebd15672-9ca9-4f3f-a8cd-5dd868923527" width="700px;" height="500px;" />
+
 #### ※ CI / CI
-![인프라 Release 1 0 2](https://github.com/97Fekim/work-we-out/assets/81150979/9dad5fdf-ce92-4d03-bcf1-7a6c7e92e139)
+<img src="https://github.com/97Fekim/work-we-out/assets/81150979/9dad5fdf-ce92-4d03-bcf1-7a6c7e92e139" width="700px;" height="500px;" />
 <br><br><br>
 
 ### 3️⃣ 클라우드 네이티브 기반 아키텍처
-![제목 없는 다이어그램](https://github.com/user-attachments/assets/3a4e5189-2d04-451a-9be7-f5e0be93a802)
+<img src="https://github.com/user-attachments/assets/3a4e5189-2d04-451a-9be7-f5e0be93a802" width="700px;" height="500px;" />
 <br><br><br>
 
 ### 4️⃣ 컨테이너 오케스트레이션 기반 아키텍처
