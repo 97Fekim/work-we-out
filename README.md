@@ -70,7 +70,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳초기 운영서버 구축&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2024.02.04 ~ 2024.02.17 → 14일간]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳운영 서버 컨테이너 전환&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;[2024.02.18 ~ 2024.02.24 → 7일간]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳CI/CD 환경 구축&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;[2024.02.25 ~ 2024.03.02 → 7일간]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳클라우드 마이그레이션&nbsp&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;[2024.07.21 ~ yyyy.07.27 → 6일간]<br>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⏳클라우드 마이그레이션&nbsp&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;[2024.07.21 ~ 2024.07.27 → 6일간]<br>    
   </details>
 </details>
 
@@ -261,17 +261,17 @@
 <details>
   <summary>📒 Request 경로의 하드코딩으로 인하여, 동적인 DNS 관리가 어려운 문제 </summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> :  <br><br>
+   o <strong>현상</strong> : 애플리케이션의 정적 파일간 이동 방법으로, href.location 방식의 리다이렉트를 사용중이다. 이 방식은 온프레미스 애플리케이션으로 배포하는 경우 문제가 발생하지 않지만, 컨테이너 환경에서 배포하는 경우라던지 private IP를 갖는 서버에서 애플리케이션이 실행되는 경우 엉뚱한 경로로 이동할 수 있는 문제가 존재한다.<br><br>
+   o <strong>원인</strong> : Request 경로를 location.href = ... 의 방식으로 하드코딩한 레거시 코드에 의해 발생하였다.<br><br>
+   o <strong>해결안</strong> : 애플리케이션에 로드밸런서의 고정 DNS의 주소를 환경변수로 주입하고, 로드밸런서의 고정 DNS 주소로 리다이렉트 처리하도록 리팩토링하였다.<br><br>
 </details>
 
 <details>
   <summary>📒 로컬의 localhost와 로컬 컨테이너의 localhost가 다른 점 </summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> :  <br><br>
+   o <strong>현상</strong> : 컨테이너로 실행한 애플리케이션이 로컬PC의 Redis와 연결하지 못하는 결함이 발생.<br><br>
+   o <strong>원인</strong> : 로컬PC의 localhost주소와 컨테이너의 localhost가 다르다는 당연한 사실을 망각하고 테스트를 진행한 것이 원인이다.<br><br>
+   o <strong>해결안</strong> : 해결안이라고 할것도 없이, Redis Connection String을 교체하기만 하면 해결되는 문제이다. 당연하지만 간과하고 있었던 컨테이너의 네트워크 구조를 다시 한번 상기하였다. <br><br>
 </details>
 
 <details>
