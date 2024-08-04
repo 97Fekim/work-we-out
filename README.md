@@ -280,9 +280,9 @@
 </details>
 
 <details>
-  <summary>📒 Target Group - ECS Fargate 간 지속적으로 UnHealth 처리되는 Health Check </summary>
+  <summary>📒 Target Group - ECS Fargate Service 간 지속적으로 UnHealthy 처리되는 Health Check </summary>
   <br> 
-   o <strong>현상</strong> : ECS Fargate를 대상으로 갖는 Target Group이 Health Check를 수행할때 지속적으로 UnHealth 처리됨. <br><br>
+   o <strong>현상</strong> : ECS Fargate를 대상으로 갖는 Target Group이 Health Check를 수행할때 지속적으로 UnHealthy 처리됨. <br><br>
    o <strong>원인</strong> : (1) ElastiCache의 "전송중 암호화" 옵션이 활성화되어 있었기 때문에, 애플리케이션 - ElastiCache 간의 HTTP 통신의 불능. <br><br>
    o <strong>해결안</strong> : ElastiCache의 "전송중 암호화" 옵션을 해제. (HTTPS 사용하지 않을거기 때문에) <br><br>
 </details>
