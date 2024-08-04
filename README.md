@@ -256,11 +256,11 @@
 </details>
 
 <details>
-  <summary>📒 애플리케이션내에서 ALB의 고정IP를 조회할 수 없는 문제</summary>
+  <summary>📒 애플리케이션내에서 ALB의 고정DNS를 조회할 수 없는 문제</summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> :  <br><br>
+   o <strong>현상</strong> : 화면간 이동처리에 href=[URL:PORT/path] 의 형태로 하드코딩된 레거시 애플리케이션을 클라우드로 마이그레이션하려 한다. 이때 하드코딩된 URL을 ALB의 DNS로 변경해야 하는데, ECS에 배포된 애플리케이션에서 host를 조회하면, 로컬호스트의 host가 조회된다.<br><br>
+   o <strong>원인</strong> : (현상과 동일)<br><br>
+   o <strong>해결안</strong> : (1) X-forward-for 헤더를 체크하는 방법  (2) ALB의 DNS를 환경변수로 전달받아서 활용. <br><br>
 </details>
 
 <details>
@@ -280,17 +280,9 @@
 </details>
 
 <details>
-  <summary>📒 ECS Service의 동적IP 할당에 의해, API Gateway - ECS 통합이 불가능한 점 </summary>
+  <summary>📒 Target Group - ECS Fargate 간 지속적으로 UnHealth 처리되는 Health Check </summary>
   <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : <br><br>
-   o <strong>해결안</strong> :  <br><br>
-</details>
-
-<details>
-  <summary>📒 ECS Service 배포 후, 지속적으로 실패하는 Health Check </summary>
-  <br> 
-   o <strong>현상</strong> : <br><br>
-   o <strong>원인</strong> : ElastiCache의 "전송중 암호화" 옵션이 활성화되어 있었기 때문에, HTTP 통신의 불능<br><br>
-   o <strong>해결안</strong> :  <br><br>
+   o <strong>현상</strong> : ECS Fargate를 대상으로 갖는 Target Group이 Health Check를 수행할때 지속적으로 UnHealth 처리됨. <br><br>
+   o <strong>원인</strong> : (1) ElastiCache의 "전송중 암호화" 옵션이 활성화되어 있었기 때문에, 애플리케이션 - ElastiCache 간의 HTTP 통신의 불능. <br><br>
+   o <strong>해결안</strong> : ElastiCache의 "전송중 암호화" 옵션을 해제. (HTTPS 사용하지 않을거기 때문에) <br><br>
 </details>
