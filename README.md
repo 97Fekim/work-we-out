@@ -144,7 +144,7 @@
 ## 🔘 인프라 아키텍처
 
 ### 1️⃣ 온프레미스 아키텍처
-<img src="https://github.com/user-attachments/assets/fcb887ef-2ec9-4a6d-918c-b69c2ed5125b" width="700px;" height="500px;" />
+<img src="https://github.com/user-attachments/assets/ecb2362f-ac29-4599-9830-4864a6c6a0ab" width="700px;" height="500px;" />
 <br><br><br>
 
 ### 2️⃣ 컨테이너 기반 아키텍처
