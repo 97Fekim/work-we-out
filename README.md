@@ -148,15 +148,16 @@
 <br><br><br>
 
 ### 2️⃣ 컨테이너 기반 아키텍처
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/ebd15672-9ca9-4f3f-a8cd-5dd868923527" width="700px;" height="550px;" />
+<img src="https://github.com/user-attachments/assets/27bca8ce-7891-4bab-8d67-1ace0672f98e" width="700px;" height="550px;" />
 
 #### ※ CI / CI
-<img src="https://github.com/97Fekim/work-we-out/assets/81150979/9dad5fdf-ce92-4d03-bcf1-7a6c7e92e139" width="700px;" height="500px;" />
+<img src="https://github.com/user-attachments/assets/1aa66899-c3f7-4068-975b-f978bd4e14a8" width="700px;" height="500px;" />
 <br><br><br>
 
 ### 3️⃣ 클라우드 네이티브 기반 아키텍처
-<img src="https://github.com/user-attachments/assets/c98b9b21-5ea1-4443-8caf-0f0375ff59c7" width="700px;" height="500px;" />
+<img src="https://github.com/user-attachments/assets/6d7368a8-0a1f-4814-9620-517274a71694" width="700px;" height="500px;" />
 <br><br><br>
+
 
 ### 4️⃣ 컨테이너 오케스트레이션 기반 아키텍처
 > 2024.12 개발 예정
