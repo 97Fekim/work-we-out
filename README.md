@@ -151,7 +151,7 @@
 <img src="https://github.com/user-attachments/assets/c9bd75d8-5c86-4f0f-9710-23cf7c5c613f" width="700px;" height="450px;" />
 
 #### ※ CI / CI
-<img src="https://github.com/user-attachments/assets/b12499a8-16d4-445c-b3ed-3d527a450bd0" width="700px;" height="500px;" />
+<img src="https://github.com/user-attachments/assets/b12499a8-16d4-445c-b3ed-3d527a450bd0" width="700px;" height="450px;" />
 <br><br><br>
 
 ### 3️⃣ 클라우드 네이티브 기반 아키텍처
