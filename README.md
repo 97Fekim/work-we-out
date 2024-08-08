@@ -144,11 +144,11 @@
 ## 🔘 인프라 아키텍처
 
 ### 1️⃣ 온프레미스 아키텍처
-<img src="https://github.com/user-attachments/assets/ecb2362f-ac29-4599-9830-4864a6c6a0ab" width="700px;" height="500px;" />
+<img src="https://github.com/user-attachments/assets/ecb2362f-ac29-4599-9830-4864a6c6a0ab" width="700px;" height="450px;" />
 <br><br><br>
 
 ### 2️⃣ 컨테이너 기반 아키텍처
-<img src="https://github.com/user-attachments/assets/c9bd75d8-5c86-4f0f-9710-23cf7c5c613f" width="700px;" height="550px;" />
+<img src="https://github.com/user-attachments/assets/c9bd75d8-5c86-4f0f-9710-23cf7c5c613f" width="700px;" height="450px;" />
 
 #### ※ CI / CI
 <img src="https://github.com/user-attachments/assets/1aa66899-c3f7-4068-975b-f978bd4e14a8" width="700px;" height="500px;" />
