@@ -41,6 +41,9 @@
 > - 프로그램 <strong>관리자에 한하여 이용 가능합니다.</strong><br>
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/6b029938-dd39-47d0-93a9-c952fab92184" width="320px;" height="550px;" />
 <img src="https://github.com/97Fekim/work-we-out/assets/81150979/7c57ed77-5969-436b-9754-4179cb75ef91" width="320px;" height="550px;" />
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F97Fekim%2Fwork-we-out&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 </details>  
 
 ### 👍 클라우드 완전관리형 서버리스 애플리케이션입니다.
